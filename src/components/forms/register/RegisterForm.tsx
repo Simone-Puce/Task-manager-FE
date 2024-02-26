@@ -51,7 +51,7 @@ const RegisterForm = (): ReactElement => {
                         </Button>
                     </Form.Item>
                     <Form.Item>
-                        <Link to="/">Login account</Link>
+                        <Link to="/">Login</Link>
                     </Form.Item>
                 </div>
             </Form>

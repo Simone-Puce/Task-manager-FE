@@ -15,6 +15,7 @@ const LoginForm = (): ReactElement => {
     return (
         <div className="login-form-container">
             <Form
+                className="login-form"
                 layout="vertical"
                 name="login"
                 initialValues={{ remember: true }}
