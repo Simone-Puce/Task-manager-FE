@@ -1,0 +1,16 @@
+.login-form-container {
+    min-width: 25%;
+    min-height: 50%;
+    border: 1px solid black;
+    border-radius: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-registration{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+}

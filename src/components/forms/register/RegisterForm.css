@@ -1,0 +1,9 @@
+.register-form-container {
+    width: 25%;
+    height: 50%;
+    border: 1px solid black;
+    border-radius: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
