@@ -27,9 +27,10 @@ const RegisterForm = (): ReactElement => {
     return (
         <div className="register-form-container">
             <Form
+            className="register-form"
                 form={form}
                 layout="vertical"
-                name="login"
+                name="register"
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
                 //onFinishFailed={}
