@@ -1,11 +1,13 @@
+import { Card } from "antd";
 import LoginForm from "../../components/forms/login/LoginForm";
 import "./LoginPage.css"
 
 const LoginPage = () => {
   return (
-    <div className="login-form-wrapper">
-      <LoginForm />
-    </div>
+      <div className="login-form-wrapper">
+        <LoginForm />
+      </div>
+    
   )
 }
 
