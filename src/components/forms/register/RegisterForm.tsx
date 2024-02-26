@@ -2,6 +2,7 @@ import { Button, Input } from "antd";
 import Form, { Rule } from "antd/es/form";
 import { ReactElement } from "react";
 import "./RegisterForm.css"
+import { Link } from "react-router-dom";
 //import { useNavigate } from "react-router-dom";
 
 const RegisterForm = (): ReactElement => {
@@ -20,7 +21,7 @@ const RegisterForm = (): ReactElement => {
         { required: true, message: "Please input your email!", type: "email" }
     ]
     const passwordRules: Rule[] = [
-        { required: true, message: "Please input your password!"},
+        { required: true, message: "Please input your password!" },
         { pattern: passwordRegex, message: "Password should have at least a number and a special character" }
     ]
 
@@ -44,11 +45,16 @@ const RegisterForm = (): ReactElement => {
                 <Form.Item label="Confirm password" name="confirmPassword" rules={passwordRules}>
                     <Input.Password />
                 </Form.Item>
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Register
-                    </Button>
-                </Form.Item>
+                <div className="submit-login">
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            Register
+                        </Button>
+                    </Form.Item>
+                    <Form.Item>
+                        <Link to="/">Login account</Link>
+                    </Form.Item>
+                </div>
             </Form>
         </div>
     )
