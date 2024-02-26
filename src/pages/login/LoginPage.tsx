@@ -2,9 +2,6 @@ import LoginForm from "../../components/forms/login/LoginForm";
 import LoginRegisterHeader from "../../components/headers/LoginRegistration/LoginRegistrer";
 import "./LoginPage.css"
 
-
-const { Header, Footer, Sider, Content } = Layout;
-
 const LoginPage = () => {
   return (
     <>

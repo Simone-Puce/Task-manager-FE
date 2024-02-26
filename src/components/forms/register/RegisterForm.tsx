@@ -28,10 +28,9 @@ const RegisterForm = (): ReactElement => {
     return (
         <div className="register-form-container">
             <Form
-            className="register-form"
                 form={form}
                 layout="vertical"
-                name="register"
+                name="login"
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
                 //onFinishFailed={}
@@ -52,7 +51,7 @@ const RegisterForm = (): ReactElement => {
                         </Button>
                     </Form.Item>
                     <Form.Item>
-                        <Link to="/">Login account</Link>
+                        <Link to="/">Login</Link>
                     </Form.Item>
                 </div>
             </Form>
