@@ -7,7 +7,7 @@ import { registerNewUser } from "../../../services/UserService";
 
 const RegisterForm = (): ReactElement => {
     const passwordRegex: RegExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
-    const [form] = Form.useForm() //hook antd
+    const [form] = Form.useForm()
     const [messageApi, contextHolder] = message.useMessage();
     const passwordValidation = (): boolean => {
         return form.getFieldValue("password") === form.getFieldValue("confirmPassword") ? true : false;
@@ -16,10 +16,10 @@ const RegisterForm = (): ReactElement => {
     const showPasswordInfo = () => {
         messageApi.info('Password should have a capital letter, a number and a special character');
     }
+
     const sendData = async () => {
         const { email, firstName, lastName, password } = form.getFieldsValue(["email", "firstName", "lastName", "password"])
-        const response = await registerNewUser({ email, firstName, lastName, password })
-        console.log(response)
+        await registerNewUser({ email, firstName, lastName, password })
     }
 
     const onSubmit = (): void => {
