@@ -2,11 +2,14 @@ import { Button, Form, Input, notification } from "antd"
 import { Rule } from "antd/es/form"
 import { ReactElement } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import "./LoginForm.css"
 import { loginUser } from "../../../services/UserService"
 import { NotificationPlacement } from "antd/es/notification/interface"
 
 const LoginForm = (): ReactElement => {
+    const navigate = useNavigate()
+    const [form] = Form.useForm()
     const navigate = useNavigate()
     const [form] = Form.useForm()
     const emailRules: Rule[] = [
@@ -41,12 +44,13 @@ const LoginForm = (): ReactElement => {
             {contextHolder}
             <Form
                 className="login-form"
+                className="login-form"
                 layout="vertical"
                 name="login"
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
                 form={form}
-                onFinishFailed={() => console.log("Annodam Acrop")} //here goes the funbction that calls the modal component
+                onFinishFailed={() => console.log("error")}
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />
