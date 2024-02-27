@@ -1,10 +1,10 @@
-import { Button, Form, Input } from "antd"
+import { Button, Form, Input, notification } from "antd"
 import { Rule } from "antd/es/form"
 import { ReactElement } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "./LoginForm.css"
-import WrongCredentialModal from "../../modals/WrongCredentialModal"
 import { loginUser } from "../../../services/UserService"
+import { NotificationPlacement } from "antd/es/notification/interface"
 
 const LoginForm = (): ReactElement => {
     const navigate = useNavigate()
@@ -15,17 +15,30 @@ const LoginForm = (): ReactElement => {
     const passwordRules: Rule[] = [
         { required: true, message: "Please input your password!" }
     ]
+    const [notificationApi, contextHolder] = notification.useNotification();
 
-    const errorModal = (): any => { <WrongCredentialModal /> }  //here goes the component that contains the modal
+    const openNotification = (placement: NotificationPlacement) => {
+        notificationApi.error({
+          message: `WRONG CREDENTIAL`,
+          description:
+            'You have entered an invalid email or password',
+          placement,
+        });
+      };
+
 
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
         const response = await loginUser({ email, password })
-        response.success === true ? navigate("homepage") : console.log("failed")
+        response.success === true ? navigate("homepage") : openNotification("top")
     }
+
+    
+    
 
     return (
         <div className="login-form-container">
+            {contextHolder}
             <Form
                 className="login-form"
                 layout="vertical"
@@ -33,7 +46,7 @@ const LoginForm = (): ReactElement => {
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
                 form={form}
-                onFinishFailed={errorModal} //here goes the funbction that calls the modal component
+                onFinishFailed={() => console.log("error")}
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />
