@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { registerNewUser } from "../../../services/UserService";
 
 const RegisterForm = (): ReactElement => {
-    const passwordRegex: RegExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
+    const passwordRegex: RegExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
     const [form] = Form.useForm()
     const [messageApi, contextHolder] = message.useMessage();
     const passwordValidation = (): boolean => {

@@ -1,0 +1,26 @@
+.homepage-content-style {
+    background-color: black;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.welcome-div {
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.homepage-card-wrapper {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.card-holder {
+    width: 50%;
+}
+
+.single-card-holder {
+    margin: 10px;
+}

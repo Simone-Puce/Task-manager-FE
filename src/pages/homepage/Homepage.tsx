@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Space } from 'antd';
 
-class Homepage extends Component {
-    render() {
-        return (
-            <div className="homepage-form_container">
-                <Space direction="horizontal" align="center" style={{ width: '100%', justifyContent: 'center' }}>
-                    <span>CARHLO</span>
-                    <div className="logoutButton">
-                        <Button type='primary'>
-                            <Link to="/">LOG OUT</Link>
-                        </Button>
-                    </div>
-                </Space>
-            </div>
-        );
-    }
+import React from 'react';
+import { Layout } from 'antd';
+import HomepageHeader from '../../components/headers/homepage/HomepageHeader';
+import HomepageSider from '../../components/siders/homepageSider/HomepageSider';
+import "./Homepage.css"
+import HomepageContent from '../../components/content/homepage/HomepageContent';
+
+const { Footer } = Layout
+
+const Homepage = () => {
+    return (
+        <div className='homepage-layout-container'>
+        <Layout>
+            <HomepageHeader />
+            <Layout>
+                <HomepageSider />
+                <HomepageContent />
+            </Layout>
+            <Footer style={{ textAlign: 'center'}}>
+                Ant Design ©{new Date().getFullYear()} Created by Ant UED
+            </Footer>
+        </Layout>
+        </div>
+    )
 }
 
 export default Homepage;
