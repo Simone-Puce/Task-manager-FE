@@ -17,8 +17,8 @@ const RegisterForm = (): ReactElement => {
         messageApi.info('Password should have a capital letter, a number and a special character');
     }
     const sendData = async () => {
-        const {email, firstName, lastName, password} = form.getFieldsValue(["email","firstName","lastName","password"])
-        const response = await registerNewUser({email,firstName,lastName,password})
+        const { email, firstName, lastName, password } = form.getFieldsValue(["email", "firstName", "lastName", "password"])
+        const response = await registerNewUser({ email, firstName, lastName, password })
         console.log(response)
     }
 
@@ -58,7 +58,7 @@ const RegisterForm = (): ReactElement => {
                 </Form.Item>
                 <Form.Item label="Last name" name="lastName" rules={anagraphicRules}>
                     <Input />
-                </Form.Item>        
+                </Form.Item>
                 <Form.Item label="Password" name="password" rules={passwordRules}>
                     <Input.Password onFocus={showPasswordInfo} />
                 </Form.Item>
