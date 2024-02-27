@@ -1,30 +1,53 @@
-import { Button, Input, message } from "antd";
+import { Button, Input, message, notification } from "antd";
 import Form, { Rule } from "antd/es/form";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import "./RegisterForm.css"
 import { Link } from "react-router-dom";
 import { registerNewUser } from "../../../services/UserService";
+import SuccessfulRegisterUserModal from "../../modals/SuccessfulRegisterUserModal";
 
 const RegisterForm = (): ReactElement => {
     const passwordRegex: RegExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
     const [form] = Form.useForm()
     const [messageApi, contextHolder] = message.useMessage();
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const passwordValidation = (): boolean => {
         return form.getFieldValue("password") === form.getFieldValue("confirmPassword") ? true : false;
     }
+ const showModal = (): void => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
 
     const showPasswordInfo = () => {
         messageApi.info('Password should have a capital letter, a number and a special character');
     }
 
-    const sendData = async () => {
-        const { email, firstName, lastName, password } = form.getFieldsValue(["email", "firstName", "lastName", "password"])
-        await registerNewUser({ email, firstName, lastName, password })
+    const onFailedSubmit = () => {
+        messageApi.warning('Fill the form properly');
     }
 
-    const onSubmit = (): void => {
-        passwordValidation() ? sendData() : console.log("password do not match")
+
+    const sendData = async () => {
+        const { email, firstName, lastName, password } = form.getFieldsValue(["email", "firstName", "lastName", "password"])
+        const response = await registerNewUser({ email, firstName, lastName, password })
+        response.success === true ? showModal() : message.error("CARLO")
     }
+
+
+    const onSubmit = (): void => {
+        passwordValidation() ? sendData() : message.error("The password doesn't match")
+        
+    }
+
     const emailRules: Rule[] = [
         { required: true, message: "Please input a valid email!", type: "email" }
     ]
@@ -38,8 +61,16 @@ const RegisterForm = (): ReactElement => {
         { required: true, message: "Please repeat your password!", pattern: passwordRegex }
     ]
 
+   
+
     return (
         <div className="register-form-container">
+            <SuccessfulRegisterUserModal
+            showModal = {showModal}
+            isModalOpen = {isModalOpen}
+            handleOk = {handleOk}
+            handleCancel = {handleCancel}
+            />
             {contextHolder}
             <Form
                 className="register-form-style"
@@ -48,7 +79,7 @@ const RegisterForm = (): ReactElement => {
                 name="login"
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
-                onFinishFailed={() => console.log("sium")}
+                onFinishFailed={onFailedSubmit}
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />
