@@ -1,25 +1,3 @@
-
 .homepage-layout-container {
     height: 100%;
 }
-
-.homepage-form-container {
-    width: 25%;
-    height: 50%;
-    border: 1px solid black;
-    border-radius: 15%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(255, 255, 255,0.33);
-    box-shadow: 0px 8px 32px 0 rgb(0,0,255,0.33);
-    backdrop-filter: blur(3px);
-}
-
-.logoutButton{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    text-align: center;
-}
-

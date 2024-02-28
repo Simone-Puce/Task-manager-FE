@@ -4,8 +4,7 @@ import HomepageHeader from '../../components/headers/homepage/HomepageHeader';
 import HomepageSider from '../../components/siders/homepageSider/HomepageSider';
 import "./Homepage.css"
 import HomepageContent from '../../components/content/homepage/HomepageContent';
-
-const { Footer } = Layout
+import { Footer } from 'antd/es/layout/layout';
 
 const Homepage = () => {
     return (

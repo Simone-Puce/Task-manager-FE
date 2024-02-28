@@ -73,13 +73,13 @@ const cardArray = [
 
 const HomepageContent = () => {
     return (
-        <div className="homepage-content-style">
+      <div className="homepage-content-style">
             <Content className="content-width">
-            {cardArray.map((element) => (
-                <div className="homepage-card-container">
-                    {element}
-                </div>
-            ))}
+                {cardArray.map((element) => (
+                    <div className="homepage-card-container">
+                        {element}
+                    </div>
+                ))}
             </Content>
         </div>
     )

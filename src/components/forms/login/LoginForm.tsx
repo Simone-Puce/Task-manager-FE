@@ -9,14 +9,13 @@ import { NotificationPlacement } from "antd/es/notification/interface"
 const LoginForm = (): ReactElement => {
     const navigate = useNavigate()
     const [form] = Form.useForm()
+    const [notificationApi, contextHolder] = notification.useNotification();
     const emailRules: Rule[] = [
         { required: true, message: "Please input your email!", type: "email" }
     ]
     const passwordRules: Rule[] = [
         { required: true, message: "Please input your password!" }
     ]
-    const [notificationApi, contextHolder] = notification.useNotification();
-
     const openNotification = (placement: NotificationPlacement) => {
         notificationApi.error({
           message: `WRONG CREDENTIAL`,
@@ -26,24 +25,11 @@ const LoginForm = (): ReactElement => {
         });
       };
 
-
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
         const response = await loginUser({ email, password })
         response.success === true ? navigate("homepage") : openNotification("top")
     }
-
-    
-    
-
-    const errorModal = (): any => { <WrongCredentialModal /> }  //here goes the component that contains the modal
-
-    const onSubmit = async () => {
-        const { email, password } = form.getFieldsValue(["email", "password"])
-        const response = await loginUser({ email, password })
-        response.success === true ? navigate("homepage") : console.log("failed")
-    }
-
     return (
         <div className="login-form-container">
             {contextHolder}
@@ -54,7 +40,7 @@ const LoginForm = (): ReactElement => {
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
                 form={form}
-                onFinishFailed={() => console.log("error")}
+                onFinishFailed={()=> console.log("aiuto")} //here goes the funbction that calls the modal component
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />

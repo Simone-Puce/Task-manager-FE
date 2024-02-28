@@ -1,5 +1,5 @@
 .welcome-div {
-background-color: red;
+    background-color: red;
 }
 
 .card-style{
@@ -26,7 +26,7 @@ background-color: red;
     height: auto;
     margin: 10px;
     width: 75%;
-    padding: 3% 0 0 0 ;
+    padding: 3% 0 0 0;
     margin: 0 auto 0 auto;
     padding-bottom: 5%;
 }
