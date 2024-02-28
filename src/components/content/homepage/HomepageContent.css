@@ -1,3 +1,10 @@
+.homepage-content-style {
+    background-color: black;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
 .welcome-div {
     background-color: red;
 }
@@ -7,23 +14,11 @@
     padding: 10px;
 }
 
-.homepage-content-style {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    position: relative;
-    overflow-y: scroll;
-    background-color: black;
+.card-holder {
+    width: 50%;
 }
 
-.homepage-card-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    justify-content: space-evenly;
-    height: auto;
+.single-card-holder {
     margin: 10px;
     width: 75%;
     padding: 3% 0 0 0;
