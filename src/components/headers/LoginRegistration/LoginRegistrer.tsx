@@ -7,7 +7,6 @@ const LoginRegisterHeader = (): ReactElement => {
         <Header className="header-style">
             <span> 404 Team - Task manager</span>
         </Header>
-        
     )
 }
 
