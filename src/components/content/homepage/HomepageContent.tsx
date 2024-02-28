@@ -3,48 +3,46 @@ import "./HomepageContent.css"
 import { Card } from "antd";
 
 const cardArray = [
-
     <>
-    <div className="single-card-holder">
-        <Card title="Task name" bordered={false}>
-            Card content
-        </Card>
+        <div className="single-card-holder">
+            <Card title="Task name" bordered={false}>
+                Card content
+            </Card>
         </div>
         <div className="single-card-holder">
-        <Card title="Task name" bordered={false}>
-            Card content
-        </Card>
+            <Card title="Task name" bordered={false}>
+                Card content
+            </Card>
         </div>   <div className="single-card-holder">
-        <Card title="Task name" bordered={false}>
-            Card content
-        </Card>
+            <Card title="Task name" bordered={false}>
+                Card content
+            </Card>
         </div>   <div className="single-card-holder">
-        <Card title="Task name" bordered={false}>
-            Card content
-        </Card>
+            <Card title="Task name" bordered={false}>
+                Card content
+            </Card>
         </div>   <div className="single-card-holder">
-        <Card title="Task name" bordered={false}>
-            Card content
-        </Card>
+            <Card title="Task name" bordered={false}>
+                Card content
+            </Card>
         </div>   <div className="single-card-holder">
-        <Card title="Task name" bordered={false}>
-            Card content
-        </Card>
+            <Card title="Task name" bordered={false}>
+                Card content
+            </Card>
         </div>   <div className="single-card-holder">
-        <Card title="Task name" bordered={false}>
-            Card content
-        </Card>
+            <Card title="Task name" bordered={false}>
+                Card content
+            </Card>
         </div>   <div className="single-card-holder">
-        <Card title="Task name" bordered={false}>
-            Card content
-        </Card>
+            <Card title="Task name" bordered={false}>
+                Card content
+            </Card>
         </div>   <div className="single-card-holder">
-        <Card title="Task name" bordered={false}>
-            Card content
-        </Card>
+            <Card title="Task name" bordered={false}>
+                Card content
+            </Card>
         </div>
     </>
-
 ]
 
 
@@ -58,7 +56,7 @@ const HomepageContent = () => {
             <div className="homepage-card-wrapper">
                 {cardArray.map((element) => (
                     <div className="card-holder">
-                    {element}
+                        {element}
                     </div>
                 ))}
             </div>
