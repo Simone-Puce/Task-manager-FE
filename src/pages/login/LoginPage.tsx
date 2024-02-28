@@ -5,7 +5,7 @@ import "./LoginPage.css"
 const LoginPage = () => {
   return (
     <>
-      <LoginRegisterHeader />
+      <LoginRegisterHeader/>
       <div className="login-form-wrapper">
         <LoginForm />
       </div>

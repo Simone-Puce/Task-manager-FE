@@ -1,5 +1,5 @@
-import { Button, Modal, Space } from 'antd';
 
+import { Button, Modal, Space } from 'antd';
 
 const config = {
   title: 'Wrong credential, please check again',
