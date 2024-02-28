@@ -1,5 +1,5 @@
 import LoginForm from "../../components/forms/login/LoginForm";
-import LoginRegisterHeader from "../../components/headers/loginRegistration/LoginRegistrer";
+import LoginRegisterHeader from "../../components/headers/loginRegister/LoginRegistrer";
 import "./LoginPage.css"
 
 const LoginPage = () => {
