@@ -1,66 +1,48 @@
-import { Menu, MenuProps } from "antd"
+import { Menu, MenuProps, } from "antd"
 import React from "react";
 import {
-    AppstoreOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    ShopOutlined,
-    TeamOutlined,
-    UploadOutlined,
     UserOutlined,
-    VideoCameraOutlined,
+    MailOutlined,
+    HomeOutlined,
+    CloseOutlined
 } from '@ant-design/icons';
+import { useNavigate } from "react-router-dom";
+
+const items: MenuProps['items'] = [
+    {
+        key: 1,
+        icon: React.createElement(UserOutlined),
+        label: "Profile"
+    },
+    {
+        key: 2,
+        icon: React.createElement(MailOutlined),
+        label: "Notifications",
+    },
+    {
+        key: 3,
+        icon: React.createElement(HomeOutlined),
+        label: "Homepage",
+    },
+    {
+        key: 4,
+        icon: React.createElement(CloseOutlined),
+        label: "Logout",
+    } 
+]
 
 const HomepageMenu = () => {
-    const items: MenuProps['items'] = [
-        UserOutlined,
-        VideoCameraOutlined,
-        UploadOutlined,
-        BarChartOutlined,
-        CloudOutlined,
-        AppstoreOutlined,
-        TeamOutlined,
-        ShopOutlined,
-        UserOutlined,
-        VideoCameraOutlined,
-        UploadOutlined,
-        BarChartOutlined,
-        CloudOutlined,
-        AppstoreOutlined,
-        TeamOutlined,
-        ShopOutlined,
-        UserOutlined,
-        VideoCameraOutlined,
-        UploadOutlined,
-        BarChartOutlined,
-        CloudOutlined,
-        AppstoreOutlined,
-        TeamOutlined,
-        ShopOutlined,
-        UserOutlined,
-        VideoCameraOutlined,
-        UploadOutlined,
-        BarChartOutlined,
-        CloudOutlined,
-        AppstoreOutlined,
-        TeamOutlined,
-        ShopOutlined,
-        UserOutlined,
-        VideoCameraOutlined,
-        UploadOutlined,
-        BarChartOutlined,
-        CloudOutlined,
-        AppstoreOutlined,
-        TeamOutlined,
-        ShopOutlined,
-    ].map((icon, index) => ({
-        key: String(index + 1),
-        icon: React.createElement(icon),
-        label: `nav ${index + 1}`,
-    }));
+    const navigate = useNavigate()
+
+    const menuNavigation = (key: number): void => {
+        const newObj: any = items[key - 1]
+        navigate("/"+newObj.label.toLowerCase())
+    }
 
     return (
-        <Menu theme="dark" mode="inline" items={items}/>
+        <Menu theme="dark" mode="inline" items={items} onClick={({ key }) => {
+            menuNavigation(Number(key))
+        }} />
     )
 }
 

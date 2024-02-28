@@ -1,26 +1,36 @@
-.homepage-content-style {
-    background-color: black;
-    background-size: cover;
-    background-position: top;
-    background-repeat: no-repeat;
-}
-
 .welcome-div {
-    align-items: center;
-    text-align: center;
-    color: white;
+background-color: red;
 }
 
-.homepage-card-wrapper {
-    display: flex;
-    justify-content: space-around;
+.card-style{
+    margin: 10px;
     padding: 10px;
 }
 
-.card-holder {
-    width: 50%;
+.homepage-content-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    overflow-y: scroll;
+    background-color: black;
 }
 
-.single-card-holder {
+.homepage-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-content: space-evenly;
+    height: auto;
     margin: 10px;
+    width: 75%;
+    padding: 3% 0 0 0 ;
+    margin: 0 auto 0 auto;
+    padding-bottom: 5%;
+}
+
+.content-width {
+    width: 100%;
 }
