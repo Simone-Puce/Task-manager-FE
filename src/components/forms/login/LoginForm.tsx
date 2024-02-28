@@ -3,7 +3,6 @@ import { Rule } from "antd/es/form"
 import { ReactElement } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "./LoginForm.css"
-import WrongCredentialModal from "../../modals/WrongCredentialModal"
 import { loginUser } from "../../../services/UserService"
 
 const LoginForm = (): ReactElement => {
@@ -15,8 +14,6 @@ const LoginForm = (): ReactElement => {
     const passwordRules: Rule[] = [
         { required: true, message: "Please input your password!" }
     ]
-
-    const errorModal = (): any => { <WrongCredentialModal /> }  //here goes the component that contains the modal
 
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
@@ -33,7 +30,7 @@ const LoginForm = (): ReactElement => {
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
                 form={form}
-                onFinishFailed={errorModal} //here goes the funbction that calls the modal component
+                onFinishFailed={()=> console.log("aiuto")} //here goes the funbction that calls the modal component
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />
