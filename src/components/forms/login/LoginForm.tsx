@@ -36,6 +36,14 @@ const LoginForm = (): ReactElement => {
     
     
 
+    const errorModal = (): any => { <WrongCredentialModal /> }  //here goes the component that contains the modal
+
+    const onSubmit = async () => {
+        const { email, password } = form.getFieldsValue(["email", "password"])
+        const response = await loginUser({ email, password })
+        response.success === true ? navigate("homepage") : console.log("failed")
+    }
+
     return (
         <div className="login-form-container">
             {contextHolder}

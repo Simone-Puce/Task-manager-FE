@@ -1,8 +1,5 @@
-import React, { createContext } from 'react';
-import { Button, Modal, Space } from 'antd';
 
-const ReachableContext = createContext<string | null>(null);
-const UnreachableContext = createContext<string | null>(null);
+import { Button, Modal, Space } from 'antd';
 
 const config = {
   title: 'Wrong credential, please check again',
