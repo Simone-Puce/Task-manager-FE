@@ -1,28 +1,38 @@
-import { Button, Form, Input } from "antd"
+import { Button, Form, Input, notification } from "antd"
 import { Rule } from "antd/es/form"
 import { ReactElement } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "./LoginForm.css"
 import { loginUser } from "../../../services/UserService"
+import { NotificationPlacement } from "antd/es/notification/interface"
 
 const LoginForm = (): ReactElement => {
     const navigate = useNavigate()
     const [form] = Form.useForm()
+    const [notificationApi, contextHolder] = notification.useNotification();
     const emailRules: Rule[] = [
         { required: true, message: "Please input your email!", type: "email" }
     ]
     const passwordRules: Rule[] = [
         { required: true, message: "Please input your password!" }
     ]
+    const openNotification = (placement: NotificationPlacement) => {
+        notificationApi.error({
+          message: `WRONG CREDENTIAL`,
+          description:
+            'You have entered an invalid email or password',
+          placement,
+        });
+      };
 
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
         const response = await loginUser({ email, password })
-        response.success === true ? navigate("homepage") : console.log("failed")
+        response.success === true ? navigate("homepage") : openNotification("top")
     }
-
     return (
         <div className="login-form-container">
+            {contextHolder}
             <Form
                 className="login-form"
                 layout="vertical"
