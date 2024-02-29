@@ -1,0 +1,16 @@
+.succesRegistrationModalStyle{
+    text-align: center;
+}
+
+.footer-div {
+    display: flex;
+    justify-content: center;
+}
+
+.login-button {
+    margin: 5px;
+}
+
+.newUser-button {
+    margin: 5px;
+}
