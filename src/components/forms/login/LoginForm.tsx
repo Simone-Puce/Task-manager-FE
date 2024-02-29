@@ -10,6 +10,7 @@ const LoginForm = (): ReactElement => {
     const navigate = useNavigate()
     const [form] = Form.useForm()
     const [notificationApi, contextHolder] = notification.useNotification();
+
     const emailRules: Rule[] = [
         { required: true, message: "Please input your email!", type: "email" }
     ]
@@ -30,6 +31,7 @@ const LoginForm = (): ReactElement => {
         const response = await loginUser({ email, password })
         response.success === true ? navigate("homepage") : openNotification("top")
     }
+
     return (
         <div className="login-form-container">
             {contextHolder}
@@ -41,6 +43,7 @@ const LoginForm = (): ReactElement => {
                 onFinish={onSubmit}
                 form={form}
                 onFinishFailed={()=> console.log("aiuto")} //here goes the funbction that calls the modal component
+
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />
