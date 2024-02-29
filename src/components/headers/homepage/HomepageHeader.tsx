@@ -1,12 +1,11 @@
 import { ReactElement } from "react";
-import "./HomepageHeader.css"
-import { Header } from "antd/es/layout/layout";
+import DefaultHeader from "../DefaultHeader";
 
 const HomepageHeader = (): ReactElement => {
     return (
-        <Header className="header-container">
-            <span> Task manager </span>
-        </Header>
+        <DefaultHeader 
+            givenString={"Task manager - welcome to the homepage"}
+        />
     )
 }
 

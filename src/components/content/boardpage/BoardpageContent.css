@@ -1,0 +1,26 @@
+.task-card-style{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.task-card-style:hover {
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 5px 10px;
+}
+
+.task-content-style {    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.general-task-div{
+    width: 20%;
+}
+
+.general-task-div>h1{
+    text-align: center;
+}
