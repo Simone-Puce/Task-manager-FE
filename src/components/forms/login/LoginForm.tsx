@@ -16,6 +16,9 @@ const LoginForm = (): ReactElement => {
     const passwordRules: Rule[] = [
         { required: true, message: "Please input your password!" }
     ]
+  
+    const [notificationApi, contextHolder] = notification.useNotification();
+
     const openNotification = (placement: NotificationPlacement) => {
         notificationApi.error({
           message: `WRONG CREDENTIAL`,
@@ -25,11 +28,13 @@ const LoginForm = (): ReactElement => {
         });
       };
 
+
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
         const response = await loginUser({ email, password })
         response.success === true ? navigate("homepage") : openNotification("top")
     }
+
     return (
         <div className="login-form-container">
             {contextHolder}
@@ -41,6 +46,7 @@ const LoginForm = (): ReactElement => {
                 onFinish={onSubmit}
                 form={form}
                 onFinishFailed={()=> console.log("aiuto")} //here goes the funbction that calls the modal component
+
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />
