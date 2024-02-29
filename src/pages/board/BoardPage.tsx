@@ -1,7 +1,7 @@
 import { Layout } from "antd"
-import HomepageContent from "../../components/content/homepage/HomepageContent"
 import HomepageSider from "../../components/siders/homepageSider/HomepageSider"
 import BoardpageHeader from "../../components/headers/boardpage/BoardpageHeader"
+import BoardpageContent from "../../components/content/boardpage/BoardpageContent"
 import "./BoardPage.css"
 
 const BoardPage = () => {
@@ -10,7 +10,7 @@ const BoardPage = () => {
             <BoardpageHeader />
             <Layout>
                 <HomepageSider />
-                <HomepageContent />
+                <BoardpageContent />
             </Layout>
         </Layout>
     )
