@@ -18,6 +18,10 @@ const RegisterForm = (): ReactElement => {
         return form.getFieldValue("password") === form.getFieldValue("confirmPassword") ? true : false;
     }
 
+    const showPasswordInfo = () => {
+        messageApi.info('Password should have a capital letter, a number and a special character');
+    }
+
     const clickedManagment = () => {
         setClicked(true)
         setTimeout(()=>{
@@ -51,7 +55,6 @@ const RegisterForm = (): ReactElement => {
         messageApi.warning('Fill the form properly');
     }
 
-
     const sendData = async () => {
         const { email, firstName, lastName, password } = form.getFieldsValue(["email", "firstName", "lastName", "password"])
         const response = await registerNewUser({ email, firstName, lastName, password })
@@ -72,7 +75,6 @@ const RegisterForm = (): ReactElement => {
         }
     }
 
-
     const emailRules: Rule[] = [
         { required: true, message: "Please input a valid email!", type: "email" }
     ]
@@ -84,6 +86,7 @@ const RegisterForm = (): ReactElement => {
     ]
     const confirmPasswordRules: Rule[] = [
         { required: true, message: "Please repeat your password!", pattern: passwordRegex }
+
     ]
 
 
