@@ -38,6 +38,35 @@ const cardArray = [
             className="card-style">
             Board
         </Card>
+        
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("carlovitto")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("carlovitto")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("carlovitto")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("carlovitto")}
+            className="card-style">
+            Board
+        </Card>
 
     </>
 ]
