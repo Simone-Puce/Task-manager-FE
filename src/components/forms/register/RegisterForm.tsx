@@ -7,7 +7,7 @@ import { registerNewUser } from "../../../services/UserService"
 import SuccessfulRegisterUserModal from "../../modals/SuccessfulRegisterUserModal"
 
 const RegisterForm = (): ReactElement => {
-    const passwordRegex: RegExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
+    const passwordRegex: RegExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/
     const [form] = Form.useForm()
     const [messageApi, contextHolder] = message.useMessage();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,10 +16,6 @@ const RegisterForm = (): ReactElement => {
     const navigate = useNavigate();
     const passwordValidation = (): boolean => {
         return form.getFieldValue("password") === form.getFieldValue("confirmPassword") ? true : false;
-    }
-
-    const showPasswordInfo = () => {
-        messageApi.info('Password should have a capital letter, a number and a special character');
     }
 
     const clickedManagment = () => {
@@ -33,7 +29,6 @@ const RegisterForm = (): ReactElement => {
         passwordValidation() ? setClicked(false) : clickedManagment()
     }
 
-
     const showModal = (): void => {
         setIsModalOpen(true);
     }
@@ -45,11 +40,6 @@ const RegisterForm = (): ReactElement => {
     const handleCancel = () => {
         setIsModalOpen(false);
     }
-
-
-    /*const showPasswordInfo = () => {
-        messageApi.info('Password should have a capital letter, a number and a special character');
-    }*/
 
     const onFailedSubmit = () => {
         messageApi.warning('Fill the form properly');
@@ -74,7 +64,6 @@ const RegisterForm = (): ReactElement => {
 
         }
     }
-
     const emailRules: Rule[] = [
         { required: true, message: "Please input a valid email!", type: "email" }
     ]
@@ -88,7 +77,6 @@ const RegisterForm = (): ReactElement => {
         { required: true, message: "Please repeat your password!", pattern: passwordRegex }
 
     ]
-
 
     return (
         <div className="register-form-container">

@@ -38,7 +38,6 @@ const cardArray = [
             className="card-style">
             Board
         </Card>
-
     </>
 ]
 

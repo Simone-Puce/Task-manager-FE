@@ -15,10 +15,14 @@
     justify-content: space-around;
     align-items: center;
     width: 100%;
+    position: relative;
+    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 .general-task-div{
     width: 20%;
+    height: 100%;
 }
 
 .general-task-div>h1{
