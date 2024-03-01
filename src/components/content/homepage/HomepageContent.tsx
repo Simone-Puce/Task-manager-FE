@@ -1,86 +1,90 @@
 import { Content } from "antd/es/layout/layout";
-import "./HomepageContent.css"
 import { Card } from "antd";
 
-const emptyCardArray: any[] = [<></>]
+import "./HomepageContent.css"
+import { Navigate, useNavigate } from "react-router-dom";
 
+const emptyCardArray: any[] = [<></>]
+    
 const cardArray = [
     <>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => window.open("localhost:3000/board")}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
-        </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
-        </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
-        </Card>
+        <Card title="Board name"
+            bordered={true}
+            className="card-style"
+            onClick={() => console.log("Open details modal")}>
 
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
+        <Card title="Board name"
+            bordered={true}
+            className="card-style">
+            Board
         </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
-        </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
-        </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
-        </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
-        </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
-        </Card>
-        <Card title="Task name" bordered={false} className="card-style">
-            Card content
-        </Card>
-
     </>
 ]
 
 const HomepageContent = () => {
     return (
-      <div className="homepage-content-style">
-            <Content className="content-width">
-                {cardArray.map((element) => (
-                    <div className="homepage-card-container">
-                        {element}
-                    </div>
-                ))}
-            </Content>
+        <div className="homepage-style">
+            <div className="header-content-container">
+                <h1>Nome cognome this is Your board</h1>
+            </div>
+            <div className="homepage-content-style">
+                <Content className="content-width">
+                    {cardArray.map((element) => (
+                        <div className="homepage-card-container">
+                            {element}
+                        </div>
+                    ))}
+                </Content>
+            </div>
         </div>
     )
 }

@@ -1,10 +1,13 @@
-.welcome-div {
-    background-color: red;
-}
-
 .card-style{
     margin: 10px;
     padding: 10px;
+    border-radius: 25px;
+}
+
+.card-style:hover {
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 5px 10px;
 }
 
 .homepage-content-style {
@@ -13,9 +16,19 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
+}
+
+.header-content-container {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    color: black
+}
+
+.homepage-style {
+    width: 100%;
     position: relative;
     overflow-y: scroll;
-    background-color: black;
 }
 
 .homepage-card-container {

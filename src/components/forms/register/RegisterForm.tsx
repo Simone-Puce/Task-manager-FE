@@ -18,10 +18,6 @@ const RegisterForm = (): ReactElement => {
         return form.getFieldValue("password") === form.getFieldValue("confirmPassword") ? true : false;
     }
 
-    const showPasswordInfo = () => {
-        messageApi.info('Password should have a capital letter, a number and a special character');
-    }
-
     const clickedManagment = () => {
         setClicked(true)
         setTimeout(()=>{
@@ -32,7 +28,6 @@ const RegisterForm = (): ReactElement => {
     const handleClickChange = () => {
         passwordValidation() ? setClicked(false) : clickedManagment()
     }
-
 
     const showModal = (): void => {
         setIsModalOpen(true);
@@ -45,11 +40,6 @@ const RegisterForm = (): ReactElement => {
     const handleCancel = () => {
         setIsModalOpen(false);
     }
-
-
-    /*const showPasswordInfo = () => {
-        messageApi.info('Password should have a capital letter, a number and a special character');
-    }*/
 
     const onFailedSubmit = () => {
         messageApi.warning('Fill the form properly');
@@ -74,7 +64,6 @@ const RegisterForm = (): ReactElement => {
 
         }
     }
-
     const emailRules: Rule[] = [
         { required: true, message: "Please input a valid email!", type: "email" }
     ]

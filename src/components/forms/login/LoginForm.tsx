@@ -10,15 +10,13 @@ const LoginForm = (): ReactElement => {
     const navigate = useNavigate()
     const [form] = Form.useForm()
     const [notificationApi, contextHolder] = notification.useNotification();
+
     const emailRules: Rule[] = [
         { required: true, message: "Please input your email!", type: "email" }
     ]
     const passwordRules: Rule[] = [
         { required: true, message: "Please input your password!" }
     ]
-  
-    const [notificationApi, contextHolder] = notification.useNotification();
-
     const openNotification = (placement: NotificationPlacement) => {
         notificationApi.error({
           message: `WRONG CREDENTIAL`,
@@ -27,7 +25,6 @@ const LoginForm = (): ReactElement => {
           placement,
         });
       };
-
 
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
