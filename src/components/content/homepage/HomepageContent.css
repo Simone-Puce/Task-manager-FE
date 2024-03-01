@@ -29,6 +29,7 @@
     width: 100%;
     position: relative;
     overflow-y: scroll;
+    background: #F1F1E6;
 }
 
 .homepage-card-container {

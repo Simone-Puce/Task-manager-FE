@@ -30,7 +30,7 @@ const LoginForm = (): ReactElement => {
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
         const response = await loginUser({ email, password })
-        response.success === true ? navigate("homepage") : openNotification("top")
+        response.success === true ? navigate("/homepage") : openNotification("top")
     }
 
     

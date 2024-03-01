@@ -6,35 +6,35 @@ const cardArray = [
         <Card title="Board name"
             bordered={true}
             hoverable
-            onClick={() => console.log("carlovitto")}
+            onClick={() => console.log("Card Clicked")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
             hoverable
-            onClick={() => console.log("carlovitto")}
+            onClick={() => console.log("Card Clicked")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
             hoverable
-            onClick={() => console.log("carlovitto")}
+            onClick={() => console.log("Card Clicked")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
             hoverable
-            onClick={() => console.log("carlovitto")}
+            onClick={() => console.log("Card Clicked")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
             hoverable
-            onClick={() => console.log("carlovitto")}
+            onClick={() => console.log("Card Clicked")}
             className="card-style">
             Board
         </Card>
