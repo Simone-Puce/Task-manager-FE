@@ -1,8 +1,8 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement } from 'react';
 import { Button, Modal } from 'antd';
 import { ISuccessRegistrationModal } from '../../interfaces/components/modal/ISuccessRegistrationModal';
 import "./SuccessfulRegisterUserModal.css"
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SuccessfulRegisterUserModal = ({ showModal, isModalOpen, handleOk, handleCancel }: ISuccessRegistrationModal): ReactElement => {
 

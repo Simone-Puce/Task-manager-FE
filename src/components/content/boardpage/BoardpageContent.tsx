@@ -34,7 +34,35 @@ const cardArray = [
         <Card title="Board name"
             bordered={true}
             hoverable
-            onClick={() => console.log("Card Clicked")}
+            onClick={() => console.log("carlovitto")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("carlovitto")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("carlovitto")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("carlovitto")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("carlovitto")}
             className="card-style">
             Board
         </Card>
@@ -68,7 +96,6 @@ const BoardpageContent = () => {
                     element
                 ))}
             </div>
-
         </div>
     )
 }
