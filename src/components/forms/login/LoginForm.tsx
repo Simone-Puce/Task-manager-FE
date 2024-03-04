@@ -11,13 +11,14 @@ const LoginForm = (): ReactElement => {
     const navigate = useNavigate()
     const [form] = Form.useForm()
     const [notificationApi, contextHolder] = notification.useNotification();
-
+    
     const emailRules: Rule[] = [
         { required: true, message: "Please input your email!", type: "email" }
     ]
     const passwordRules: Rule[] = [
         { required: true, message: "Please input your password!" }
     ]
+
 
     const openNotification = (placement: NotificationPlacement) => {
         notificationApi.error({

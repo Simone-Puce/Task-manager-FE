@@ -78,7 +78,6 @@ const RegisterForm = (): ReactElement => {
 
     ]
 
-
     return (
         <div className="register-form-container">
             <SuccessfulRegisterUserModal
