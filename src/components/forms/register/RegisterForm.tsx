@@ -12,7 +12,7 @@ const RegisterForm = (): ReactElement => {
     const [messageApi, contextHolder] = message.useMessage();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [clicked, setClicked] = useState(false);
-    const popOverMessage: string = "password do not match";
+    const popOverMessage: string = "Password don't match";
     const navigate = useNavigate();
     const passwordValidation = (): boolean => {
         return form.getFieldValue("password") === form.getFieldValue("confirmPassword") ? true : false;

@@ -114,9 +114,12 @@ const HomepageContent = () => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
 
     useEffect(()=>{
-        getUserDetails().then((res)=>{
-            setUserDetails(res.data)
-        })
+        const fetchUserDetails = async () =>{
+            const response = await getUserDetails();
+            setUserDetails(response.data)
+        }
+
+        fetchUserDetails()
     },[])
 
     return (
