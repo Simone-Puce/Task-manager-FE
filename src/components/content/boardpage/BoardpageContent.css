@@ -16,8 +16,8 @@
     align-items: center;
     width: 100%;
     position: relative;
-    overflow-y: hidden;
     overflow-y: scroll;
+    background-color:#F1F1E6 ;
 }
 
 .general-task-div{

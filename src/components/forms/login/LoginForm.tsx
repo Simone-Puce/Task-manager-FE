@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import "./LoginForm.css"
 import { loginUser } from "../../../services/UserService"
 import { NotificationPlacement } from "antd/es/notification/interface"
+import Cookies from "js-cookie"
 
 const LoginForm = (): ReactElement => {
     const navigate = useNavigate()
@@ -18,19 +19,26 @@ const LoginForm = (): ReactElement => {
         { required: true, message: "Please input your password!" }
     ]
 
+
     const openNotification = (placement: NotificationPlacement) => {
         notificationApi.error({
-          message: `WRONG CREDENTIAL`,
-          description:
-            'You have entered an invalid email or password',
-          placement,
+            message: `WRONG CREDENTIAL`,
+            description:
+                'You have entered an invalid email or password',
+            placement,
         });
-      };
+    };
+
+    const successLoginHandler = (response: any) => {
+        Cookies.set("jwt-token", response.data.accessToken)
+        navigate("/homepage")
+    }
 
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
         const response = await loginUser({ email, password })
-        response.success === true ? navigate("/homepage") : openNotification("top")
+        //Cookies.set("jwt-token",response.data.accessToken)
+        response.success === true ? successLoginHandler(response) : openNotification("top")
     }
 
     return (
@@ -43,7 +51,7 @@ const LoginForm = (): ReactElement => {
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
                 form={form}
-                onFinishFailed={() => console.log("error")}
+                onFinishFailed={() => console.log("aiuto")} //here goes the funbction that calls the modal component
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />
