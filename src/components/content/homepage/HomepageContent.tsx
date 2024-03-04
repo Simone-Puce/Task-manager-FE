@@ -1,8 +1,9 @@
-import { Content } from "antd/es/layout/layout";
-import { Card } from "antd";
-
+import { Content } from "antd/es/layout/layout"
+import { Card } from "antd"
+import { getUserDetails } from "../../../services/UserService"
+import { useEffect, useState } from "react"
+import { UserDetails } from "../../../interfaces/model/UseDetails"
 import "./HomepageContent.css"
-import { Navigate, useNavigate } from "react-router-dom";
 
 const emptyCardArray: any[] = [<></>]
     
@@ -11,70 +12,117 @@ const cardArray = [
         <Card title="Board name"
             bordered={true}
             hoverable
-            onClick={() => window.open("localhost:3000/board")}
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
-            className="card-style"
-            onClick={() => console.log("Open details modal")}>
-
-            Board
-        </Card>
-        <Card title="Board name"
-            bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
         <Card title="Board name"
             bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
+            className="card-style">
+            Board
+        </Card>
+        <Card title="Board name"
+            bordered={true}
+            hoverable
+            onClick={() => console.log("navigate to the board")}
             className="card-style">
             Board
         </Card>
     </>
 ]
 
-const HomepageContent = () => {
+const HomepageContent = () => {    
+    const [userDetails, setUserDetails] = useState<UserDetails>()
+
+    useEffect(()=>{
+        getUserDetails().then((res)=>{
+            setUserDetails(res.data)
+        })
+    },[])
+
     return (
         <div className="homepage-style">
             <div className="header-content-container">
-                <h1>Nome cognome this is Your board</h1>
+                <h1>{userDetails?.firstName} {userDetails?.lastName} these are your boards</h1>
             </div>
             <div className="homepage-content-style">
                 <Content className="content-width">
@@ -89,4 +137,4 @@ const HomepageContent = () => {
     )
 }
 
-export default HomepageContent;
+export default HomepageContent

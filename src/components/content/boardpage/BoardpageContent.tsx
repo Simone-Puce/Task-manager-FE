@@ -38,7 +38,6 @@ const cardArray = [
             className="card-style">
             Board
         </Card>
-        
         <Card title="Board name"
             bordered={true}
             hoverable
@@ -98,7 +97,6 @@ const BoardpageContent = () => {
                     element
                 ))}
             </div>
-
         </div>
     )
 }
