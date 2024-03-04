@@ -51,7 +51,7 @@ const LoginForm = (): ReactElement => {
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
                 form={form}
-                onFinishFailed={() => console.log("aiuto")} //here goes the funbction that calls the modal component
+                onFinishFailed={() => console.log("error")}
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />
