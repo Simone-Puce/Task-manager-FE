@@ -1,12 +1,14 @@
 import { Content } from "antd/es/layout/layout"
 import { Card } from "antd"
 import { getUserDetails } from "../../../services/UserService"
-import { useEffect, useState } from "react"
-import { UserDetails } from "../../../interfaces/model/UseDetails"
+import { useCallback, useEffect, useState } from "react"
+import { UserDetails } from "../../../interfaces/model/UserDetails"
 import "./HomepageContent.css"
+import { rejects } from "assert"
+import { get } from "http"
 
 const emptyCardArray: any[] = [<></>]
-    
+
 const cardArray = [
     <>
         <Card title="Board name"
@@ -110,17 +112,27 @@ const cardArray = [
     </>
 ]
 
-const HomepageContent = () => {    
+const HomepageContent = () => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
 
-    useEffect(()=>{
-        const fetchUserDetails = async () =>{
-            const response = await getUserDetails();
+    const fetchData = async () => {
+        const response = await getUserDetails()
+        if(response.data !== userDetails){
             setUserDetails(response.data)
         }
+    }
 
-        fetchUserDetails()
-    },[])
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getUserDetails()
+            console.log(response)
+            setUserDetails(response.data)
+        }
+        
+        fetchData()
+    }, [])
+
+  
 
     return (
         <div className="homepage-style">

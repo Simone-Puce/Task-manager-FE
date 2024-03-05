@@ -40,7 +40,6 @@ export const getUserDetails = async () => {
         const response = await axios.get(GET_USER_DETAILS_URI, {
             headers: config
         })
-        console.log("response", response)
         return response.data
     } catch (error) {
         console.log("error")
