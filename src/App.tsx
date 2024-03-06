@@ -4,7 +4,7 @@ import LoginPage from "./pages/login/LoginPage";
 import RegisterPage from "./pages/register/RegisterPage";
 import Homepage from "./pages/homepage/Homepage";
 import BoardPage from "./pages/board/BoardPage";
-import { ProtectedRoutes } from "./services/ProtectedRoutes";
+import { ProtectedRoutes } from "./services/ProtectedRoutes"
 
 function App() {
   return (
