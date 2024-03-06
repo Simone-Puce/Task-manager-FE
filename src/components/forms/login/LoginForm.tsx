@@ -37,7 +37,6 @@ const LoginForm = (): ReactElement => {
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
         const response = await loginUser({ email, password })
-        //Cookies.set("jwt-token",response.data.accessToken)
         response.success === true ? successLoginHandler(response) : openNotification("top")
     }
 

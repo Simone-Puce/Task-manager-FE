@@ -1,11 +1,11 @@
 import { Content } from "antd/es/layout/layout"
 import { Card } from "antd"
 import { getUserDetails } from "../../../services/UserService"
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { UserDetails } from "../../../interfaces/model/UserDetails"
 import "./HomepageContent.css"
-import { rejects } from "assert"
-import { get } from "http"
+import Cookies from "js-cookie"
+
 
 const emptyCardArray: any[] = [<></>]
 
@@ -115,24 +115,16 @@ const cardArray = [
 const HomepageContent = () => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
 
-    const fetchData = async () => {
-        const response = await getUserDetails()
-        if(response.data !== userDetails){
-            setUserDetails(response.data)
-        }
-    }
-
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await getUserDetails()
+        const fetchUserDetails = async () => {
+            const token = Cookies.get("jwt-token")
+            const response = await getUserDetails(token!)
             console.log(response)
             setUserDetails(response.data)
         }
-        
-        fetchData()
-    }, [])
 
-  
+        fetchUserDetails()
+    }, [])
 
     return (
         <div className="homepage-style">

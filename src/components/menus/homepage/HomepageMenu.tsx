@@ -1,6 +1,6 @@
-import { Button, Menu, MenuProps, } from "antd"
-import React, { ReactElement } from "react";
-import Icon, {
+import { Menu } from "antd"
+import { ReactElement } from "react";
+import {
     UserOutlined,
     MailOutlined,
     HomeOutlined,
