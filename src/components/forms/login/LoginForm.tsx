@@ -37,7 +37,6 @@ const LoginForm = (): ReactElement => {
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
         const response = await loginUser({ email, password })
-        //Cookies.set("jwt-token",response.data.accessToken)
         response.success === true ? successLoginHandler(response) : openNotification("top")
     }
 
@@ -51,7 +50,7 @@ const LoginForm = (): ReactElement => {
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
                 form={form}
-                onFinishFailed={() => console.log("error")}
+                onFinishFailed={() => console.log("aiuto")} //here goes the funbction that calls the modal component
                 autoComplete="off">
                 <Form.Item label="Email" name="email" rules={emailRules}>
                     <Input />
