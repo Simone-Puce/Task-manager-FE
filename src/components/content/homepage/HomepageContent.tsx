@@ -78,7 +78,6 @@ const HomepageContent = (): ReactElement => {
         <div className="homepage-style">
             <div className="header-content-container">
                 <h1>{userDetails?.firstName} {userDetails?.lastName} these are your boards</h1>
-                <h1>{userDetails?.firstName} {userDetails?.lastName} these are your boards</h1>
             </div>
             <div className="homepage-content-style">
                 {cardDisplay()}
