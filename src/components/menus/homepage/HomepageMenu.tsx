@@ -24,7 +24,6 @@ const HomepageMenu = (): ReactElement => {
         <div>
             <Menu theme="dark"
                 mode="inline">
-
                 <Menu.Item key="1" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
                     Profile
                 </Menu.Item>
