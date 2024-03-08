@@ -1,5 +1,5 @@
 .profile-card {
-    width: 80em;
+    width: 60em;
     top: 19em;
     height: fit-content;
     position: absolute;
@@ -11,10 +11,17 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    font-style: italic;
+    font-weight: bolder;
+}
+
+.profile-card:hover {
+    border: 2px solid #001529;
+    backdrop-filter: blur(25px);
 }
 
 .container-card {
-    background-color: aqua;
+    background-color: #F1F1E6;
     width: 100vw;
     display: flex;
     justify-content: center;
