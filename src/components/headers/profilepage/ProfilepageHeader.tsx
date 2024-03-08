@@ -27,7 +27,6 @@ const ProfilepageHeader = (): ReactElement => {
 
     return (
         <Header className="profile-header-style">
-            <Button icon={<HomeOutlined />} onClick={() => navigate("/homepage")}></Button>
             <div className="header-title">
             Task Manager 404
             </div>
