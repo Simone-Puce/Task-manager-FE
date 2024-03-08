@@ -8,7 +8,7 @@
     margin: 10px;
     padding: 10px;
     box-shadow: 5px 10px;
-}
+    }
 
 .task-content-style {    
     display: flex;
@@ -18,7 +18,11 @@
     position: relative;
     overflow-y: scroll;
     background-color:#F1F1E6 ;
+    --sb-track-color: #001529;
+    --sb-thumb-color: #1677ff;
+    --sb-size: 15px;
 }
+
 
 .general-task-div{
     width: 20%;
@@ -27,4 +31,23 @@
 
 .general-task-div>h1{
     text-align: center;
+}
+
+.task-content-style::-webkit-scrollbar {
+    width: var(--sb-size)
+}
+
+.task-content-style::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+}
+
+.task-content-style::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+   
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    .task-content-style {
+        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
 }

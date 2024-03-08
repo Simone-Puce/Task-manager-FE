@@ -1,0 +1,22 @@
+.profile-card{
+    width: 80em;
+    top: 19em;
+    height: fit-content;
+    position: absolute;
+    background-color: rgb(255, 255, 255, 0.33);
+    box-shadow: 0px 8px 32px 0 rgb(0, 21, 41);
+    backdrop-filter: blur(3px);
+    text-align: center;
+}
+
+.container-card{
+    background-color: aqua;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.homebutton{
+    text-align: right;
+}
