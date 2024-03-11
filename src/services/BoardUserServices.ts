@@ -20,7 +20,7 @@ export const getUserBoards = async (token: string) => {
                 headers: { Authorization: `Bearer ${token}` }
             })
         console.log(response)
-        //add return statment 
+        return response.data
     } catch (error) {
         console.log(error)
     }
@@ -28,14 +28,30 @@ export const getUserBoards = async (token: string) => {
 
 export const associateUserBoard = async (newUserBoardAssociation: UserBoardAssociation, token: string) => {
     try {
-        const response = await axios.post(CREATE_USER_BOARD_ASSOCIATION,
+        const response = await axios.post(UPDATE_USER_BOARD_ASSOCIATION,
             {
                 newUserBoardAssociation
             }, {
             headers: { Authorization: `Bearer ${token}` }
         })
         console.log(response)
-        //add return statment
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const updateUserBoardAssociation = async (newUserBoardAssociation: UserBoardAssociation, token: string) => {
+    try {
+        const response = await axios.put(CREATE_USER_BOARD_ASSOCIATION,
+            {
+                newUserBoardAssociation
+            },
+            {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+        )
+        console.log(response.data)
     } catch (error) {
         console.log(error)
     }

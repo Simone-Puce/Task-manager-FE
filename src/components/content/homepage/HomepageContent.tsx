@@ -60,7 +60,7 @@ const HomepageContent = (): ReactElement => {
                                 hoverable
                                 onClick={() => console.log("navigate to the board")}
                                 className="card-style">
-                                <p>{element.boardCode}</p>
+                                <p>{element.id}</p>
                                 <p> {latestUpdateHandler(element)}</p>
                             </Card>
                         ))}
