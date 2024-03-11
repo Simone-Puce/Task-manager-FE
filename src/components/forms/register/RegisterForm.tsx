@@ -4,7 +4,7 @@ import { ReactElement, useState } from "react"
 import "./RegisterForm.css"
 import { Link, useNavigate } from "react-router-dom"
 import { registerNewUser } from "../../../services/UserService"
-import SuccessfulRegisterUserModal from "../../modals/SuccessfulRegisterUserModal"
+import SuccessfulRegisterUserModal from "../../modals/succesfulRegisterUser/SuccessfulRegisterUserModal"
 
 const RegisterForm = (): ReactElement => {
     const passwordRegex: RegExp = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/

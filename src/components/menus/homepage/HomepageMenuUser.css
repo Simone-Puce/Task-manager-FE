@@ -1,0 +1,18 @@
+.img-container{
+    display: flex;
+    color: white;
+    background: url("https://toppng.com/uploads/preview/404-error-error-404-transparent-11563210406bsmsusbbzi.png") ;
+    width: 500px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.submenu {
+    max-height: 350px ;
+    overflow-y: scroll;
+  }
+
+.submenu::-webkit-scrollbar {
+    display: none;
+}

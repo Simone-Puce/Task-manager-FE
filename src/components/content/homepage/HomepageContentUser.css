@@ -1,0 +1,72 @@
+.card-style {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.card-style:hover {
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 5px 10px;
+}
+
+.homepage-content-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.header-content-container {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    color: black
+}
+
+.homepage-style {
+    width: 100%;
+    position: relative;
+    overflow-y: scroll;
+    background-color: #F1F1E6;
+    --sb-track-color: #001529;
+    --sb-thumb-color: #1677ff;
+    --sb-size: 15px;
+}
+
+.homepage-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-content: space-evenly;
+    height: auto;
+    margin: 10px;
+    width: 75%;
+    padding: 3% 0 0 0;
+    margin: 0 auto 0 auto;
+    padding-bottom: 5%;
+}
+
+.content-width {
+    width: 100%;
+}
+
+.homepage-style::-webkit-scrollbar {
+    width: var(--sb-size)
+}
+
+.homepage-style::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+}
+
+.homepage-style::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+   
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    .homepage-style {
+        scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+}

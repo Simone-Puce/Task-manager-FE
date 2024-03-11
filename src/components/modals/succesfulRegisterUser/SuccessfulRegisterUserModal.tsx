@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { Button, Modal } from 'antd';
-import { ISuccessRegistrationModal } from '../../interfaces/components/modal/ISuccessRegistrationModal';
+import { ISuccessRegistrationModal } from '../../../interfaces/components/modal/ISuccessRegistrationModal';
 import "./SuccessfulRegisterUserModal.css"
 import { useNavigate } from 'react-router-dom';
 
-const SuccessfulRegisterUserModal = ({ showModal, isModalOpen, handleOk, handleCancel }: ISuccessRegistrationModal): ReactElement => {
+const SuccessfulRegisterUserModal = ({ isModalOpen, handleCancel }: ISuccessRegistrationModal): ReactElement => {
 
     const navigate = useNavigate()
 

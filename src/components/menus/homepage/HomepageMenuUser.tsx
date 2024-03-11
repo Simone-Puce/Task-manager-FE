@@ -1,5 +1,5 @@
-import { Layout, Menu, MenuProps, theme } from "antd"
-import { ReactElement, useState } from "react";
+import { Menu } from "antd"
+import { ReactElement } from "react";
 import {
     UserOutlined,
     MailOutlined,
@@ -10,10 +10,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../../services/UserService";
 import SubMenu from "antd/es/menu/SubMenu";
-import "./HomepageMenu.css"
+import "./HomepageMenuAdmin.css"
 
 
-const HomepageMenu = (): ReactElement => {
+const HomepageMenuAdmin = (): ReactElement => {
     const navigate = useNavigate()
     const handleLogout = (): void => {
         logoutUser()
@@ -24,15 +24,17 @@ const HomepageMenu = (): ReactElement => {
         <div>
             <Menu theme="dark"
                 mode="inline">
-                <Menu.Item key="1" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
-                    Profile
-                </Menu.Item>
-                <Menu.Item key="2" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
-                    Notifications
-                </Menu.Item>
-                <Menu.Item key="3" icon={<HomeOutlined />} onClick={() => navigate("/homepage")}>
+                <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => navigate("/homepage")}>
                     Homepage
                 </Menu.Item>
+                <Menu.Item key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
+                    Profile
+                </Menu.Item>
+                <Menu.Item key="3" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
+                    Notifications
+                </Menu.Item>
+          
+
                 <SubMenu
                     key="sub4"
                     title={"Boards"}
@@ -57,11 +59,10 @@ const HomepageMenu = (): ReactElement => {
                 <Menu.Item key="5" icon={<CloseOutlined />} onClick={handleLogout}>
                     Logout
                 </Menu.Item>
-
             </Menu>
         </div>
     )
 
 }
 
-export default HomepageMenu
+export default HomepageMenuAdmin
