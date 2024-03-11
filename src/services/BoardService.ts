@@ -1,6 +1,5 @@
 import axios from "axios"
 import Cookies from "js-cookie"
-import { Board } from "../interfaces/model/Board"
 
 const APP_CONTEXT_URI = "http://localhost:8080/task-manager"
 const VERSION_URI = APP_CONTEXT_URI + "/v1"
@@ -23,71 +22,71 @@ export const getAllBoards = async (token: string) => {
     }
 }
 
-export const getBoardByCode = async (boardCode: string) => {
+export const getBoardByCode = async (id: string) => {
     const token = Cookies.get("jwt-token")
     try {
         const response = await axios.get(FIND_BY_CODE, {
-            params: { code: boardCode },
+            params: { id: id },
             headers: { Authorization: `Bearer ${token}` }
         })
-        console.log(response) //need to implement return statement here
+        return response.data
     } catch (error) {
         console.log(error)
     }
 }
 
-export const createNewBoard = async (newBoardBody: Board) => {
+export const createNewBoard = async (newBoard: string) => {
     const token = Cookies.get("jwt-token")
     try {
         const response = await axios.post(CREATE,
             {
-                //newBoardBody here
+                boardName: newBoard
             },
             {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-        console.log(response) //need to implement return statement here
+        return response.data
     } catch (error) {
         console.log(error)
     }
 }
 
-export const updateBoard = async (newBoardBody: Board, boardCode: string) => {
+export const updateBoard = async (newBoardName: string, id: number) => {
     const token = Cookies.get("jwt-token")
     try {
         const response = await axios.put(PUT_BY_CODE,
             {
-                //newBoardBody here
+                boardName: newBoardName
             },
             {
                 params: {
-                    boardCode: boardCode
+                    boardId: id
                 },
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-        console.log(response) //need to implement return statement here
+        return response.data
     } catch (error) {
         console.log(error)
     }
 }
 
-export const deleteBoard = async (boardCode: string) => {
+export const deleteBoard = async (id: number) => {
     const token = Cookies.get("jwt-token")
     try {
         const response = await axios.put(DELETE_BY_CODE,
             {
                 params: {
-                    boardCode: boardCode
+                    boardId: id
                 },
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
-        console.log(response) //need to implement return statement here
+        return response.data
     } catch (error) {
         console.log(error)
     }
