@@ -8,7 +8,7 @@ const ProfilepageHeader = (): ReactElement => {
     return (
         <Header className="profile-header-style">
             <div className="header-title">
-            Task Manager 404
+                Task Manager 404
             </div>
         </Header>
     )
