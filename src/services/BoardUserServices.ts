@@ -7,11 +7,8 @@ const VERSION_URI = APP_CONTEXT_URI + "/v1"
 const BOARD_USER_BASE_URI = VERSION_URI + "/user-board"
 const FIND_BOARD_BY_USER = BOARD_USER_BASE_URI + "/find-boards-by-user"
 const CREATE_USER_BOARD_ASSOCIATION = BOARD_USER_BASE_URI + "/create"
-<<<<<<<<< Temporary merge branch 1
-=========
 const UPDATE_USER_BOARD_ASSOCIATION = BOARD_USER_BASE_URI + "/modify"
 
->>>>>>>>> Temporary merge branch 2
 
 export const getUserBoards = async (token: string) => {
     const decodedToken = jwtDecode(token)

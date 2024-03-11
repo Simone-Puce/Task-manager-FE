@@ -1,5 +1,5 @@
 import { Menu } from "antd"
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import {
     UserOutlined,
     MailOutlined,
@@ -10,6 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../../services/UserService";
 import "./HomepageMenuAdmin.css"
+import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
 
 
 const HomepageMenuAdmin = (): ReactElement => {
@@ -18,6 +19,18 @@ const HomepageMenuAdmin = (): ReactElement => {
         logoutUser()
         navigate("/")
     }
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <div>
@@ -32,9 +45,15 @@ const HomepageMenuAdmin = (): ReactElement => {
                 <Menu.Item key="3" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
                     Notifications
                 </Menu.Item>
-                <Menu.Item icon={<FileAddOutlined />}>
-                    CREATE BOARD
+                <Menu.Item icon={<FileAddOutlined />} onClick={showModal}>
+                    Create Board
                 </Menu.Item>
+                <CreateBoardModal
+                showModal={showModal}
+                isModalOpen={isModalOpen}
+                handleOk={handleOk}
+                handleCancel={handleCancel}
+                />
                 <Menu.Item key="5" icon={<CloseOutlined />} onClick={handleLogout}>
                     Logout
                 </Menu.Item>
