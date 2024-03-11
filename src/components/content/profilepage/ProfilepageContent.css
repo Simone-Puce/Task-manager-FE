@@ -1,0 +1,47 @@
+.profile-card {
+    width: 60em;
+    top: 19em;
+    height: fit-content;
+    position: absolute;
+    background-color: rgb(255, 255, 255, 0.33);
+    box-shadow: 0px 8px 32px 0 rgb(0, 21, 41);
+    backdrop-filter: blur(3px);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-style: italic;
+    font-weight: bolder;
+}
+
+.profile-card:hover {
+    border: 2px solid #001529;
+    backdrop-filter: blur(25px);
+}
+
+.container-card {
+    background-color: #F1F1E6;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.homebutton {
+    text-align: right;
+}
+
+.img-card-container {
+    border-radius: 50%;
+    background-color: red;
+    width: 100% !important;
+    height: 130px;
+}
+
+.img-values {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
