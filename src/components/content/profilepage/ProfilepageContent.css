@@ -1,5 +1,6 @@
 .profile-card {
-    width: 60em;
+    width: 45em;
+    height: 35em;
     top: 19em;
     height: fit-content;
     position: absolute;
@@ -34,7 +35,6 @@
 
 .img-card-container {
     border-radius: 50%;
-    background-color: red;
     width: 100% !important;
     height: 130px;
 }

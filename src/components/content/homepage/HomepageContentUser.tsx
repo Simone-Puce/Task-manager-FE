@@ -1,15 +1,15 @@
 import { Content } from "antd/es/layout/layout"
-import { Card } from "antd"
+import { Button, Card } from "antd"
 import { getUserDetails } from "../../../services/UserService"
 import { ReactElement, useEffect, useState } from "react"
 import { UserDetails } from "../../../interfaces/model/UserDetails"
-import "./HomepageContent.css"
+import "./HomepageContentAdmin.css"
 import Cookies from "js-cookie"
 import { getAllBoards } from "../../../services/BoardService"
 import { Board } from "../../../interfaces/model/Board"
 import { useNavigate } from "react-router-dom"
 
-const HomepageContent = (): ReactElement => {
+const HomepageContentAdmin = (): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [boards, setBoards] = useState<Board[]>([])
     const [showCards, setShowCards] = useState<boolean>(false)
@@ -38,16 +38,16 @@ const HomepageContent = (): ReactElement => {
     const latestUpdateHandler = (singleBoardData: Board) => {
         console.log(singleBoardData.createdDate)
         console.log(singleBoardData.modifiedDate)
-        if(singleBoardData.createdDate === singleBoardData.modifiedDate){
+        if (singleBoardData.createdDate === singleBoardData.modifiedDate) {
             return (
-                <p>{"Board has been created by "+ singleBoardData.createdBy + " on the " + singleBoardData.createdDate}</p>
+                <p>{"Board has been created by " + singleBoardData.createdBy + " on the " + singleBoardData.createdDate}</p>
             )
-        }else {
+        } else {
             return (
-                <p>{"Board has been updated by "+ singleBoardData.modifiedBy + " on the " + singleBoardData.modifiedDate}</p>
+                <p>{"Board has been updated by " + singleBoardData.modifiedBy + " on the " + singleBoardData.modifiedDate}</p>
             )
         }
-       
+
     }
 
     const cardDisplay = (): ReactElement => {
@@ -64,6 +64,8 @@ const HomepageContent = (): ReactElement => {
                                 className="card-style">
                                 <p>{element.boardCode}</p>
                                 <p> {latestUpdateHandler(element)}</p>
+                                <Button>update</Button>
+                                <Button>delete</Button>
                             </Card>
                         ))}
                     </div>
@@ -82,10 +84,16 @@ const HomepageContent = (): ReactElement => {
                 <h1>{userDetails?.firstName} {userDetails?.lastName} these are your boards</h1>
             </div>
             <div className="homepage-content-style">
+                <Card
+                    hoverable
+                    style={{ width: 240 }}
+                    cover={<img alt="example" src="https://media.licdn.com/dms/image/D4D03AQEc4-a6nd_J0g/profile-displayphoto-shrink_800_800/0/1694878219965?e=1714608000&v=beta&t=qlXttAt6t97RsLr9I7LJKv1VHcMZdbvBNYHClsvKFG0" />}
+                >
+                </Card>
                 {cardDisplay()}
             </div>
         </div>
     )
 }
 
-export default HomepageContent
+export default HomepageContentAdmin
