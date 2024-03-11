@@ -5,7 +5,6 @@ import RegisterPage from "./pages/register/RegisterPage";
 import Homepage from "./pages/homepage/Homepage";
 import BoardPage from "./pages/board/BoardPage";
 import { ProtectedRoutes } from "./services/ProtectedRoutes"
-import ProfilePage from "./pages/profile/ProfilePage";
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
           <Route path="register" element={<RegisterPage />} />
           <Route path="homepage" element={<Homepage />} />
           <Route path="board" element={<BoardPage />} />
-          <Route path="profile" element={<ProfilePage/>}/>
         </Route>
       </Routes>
     </Router>

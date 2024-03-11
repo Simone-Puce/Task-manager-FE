@@ -7,14 +7,12 @@ import "./HomepageContent.css"
 import Cookies from "js-cookie"
 import { getAllBoards } from "../../../services/BoardService"
 import { Board } from "../../../interfaces/model/Board"
-import { useNavigate } from "react-router-dom"
 
 const HomepageContent = (): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [boards, setBoards] = useState<Board[]>([])
     const [showCards, setShowCards] = useState<boolean>(false)
     const token = Cookies.get("jwt-token")
-    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchUserDetails = async () => {
@@ -60,7 +58,7 @@ const HomepageContent = (): ReactElement => {
                                 key={index}
                                 bordered={true}
                                 hoverable
-                                onClick={() => navigate("/board")}
+                                onClick={() => console.log("navigate to the board")}
                                 className="card-style">
                                 <p>{element.boardCode}</p>
                                 <p> {latestUpdateHandler(element)}</p>
@@ -79,6 +77,7 @@ const HomepageContent = (): ReactElement => {
     return (
         <div className="homepage-style">
             <div className="header-content-container">
+                <h1>{userDetails?.firstName} {userDetails?.lastName} these are your boards</h1>
                 <h1>{userDetails?.firstName} {userDetails?.lastName} these are your boards</h1>
             </div>
             <div className="homepage-content-style">
