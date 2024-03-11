@@ -3,6 +3,11 @@ import { Card } from "antd"
 import { getUserDetails } from "../../../services/UserService"
 import { ReactElement, useEffect, useState } from "react"
 import { UserDetails } from "../../../interfaces/model/UserDetails"
+import { Content } from "antd/es/layout/layout"
+import { Card } from "antd"
+import { getUserDetails } from "../../../services/UserService"
+import { ReactElement, useEffect, useState } from "react"
+import { UserDetails } from "../../../interfaces/model/UserDetails"
 import "./HomepageContent.css"
 import Cookies from "js-cookie"
 import { getAllBoards } from "../../../services/BoardService"
@@ -83,9 +88,12 @@ const HomepageContent = (): ReactElement => {
             </div>
             <div className="homepage-content-style">
                 {cardDisplay()}
+                {cardDisplay()}
             </div>
         </div>
     )
 }
+
+export default HomepageContent
 
 export default HomepageContent
