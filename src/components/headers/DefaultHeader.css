@@ -2,5 +2,8 @@
     text-align: center;
     color: white;
     border-bottom: 1px solid black;
-    font-size: large;
+    font-size: 20px;
+    text-shadow: white 5px 0 10px;
+    font-style: italic;
+    font-weight: bold;
 }

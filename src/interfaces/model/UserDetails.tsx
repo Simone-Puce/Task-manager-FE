@@ -3,5 +3,5 @@ export interface UserDetails{
     lastName: string,
     email: string,
     password: string,
-    roles: string[]
+    roles: any[]
 }
