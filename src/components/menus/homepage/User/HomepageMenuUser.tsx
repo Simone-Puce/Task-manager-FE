@@ -8,9 +8,9 @@ import {
     CloseOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../../../services/UserService";
+import { logoutUser } from "../../../../services/UserService";
 import SubMenu from "antd/es/menu/SubMenu";
-import "./HomepageMenuAdmin.css"
+import "./HomepageMenuUser.css"
 
 
 const HomepageMenuAdmin = (): ReactElement => {

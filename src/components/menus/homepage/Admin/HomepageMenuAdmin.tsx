@@ -8,9 +8,9 @@ import {
     FileAddOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../../../services/UserService";
+import { logoutUser } from "../../../../services/UserService";
 import "./HomepageMenuAdmin.css"
-import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
+import CreateBoardModal from "../../../modals/createBoard/CreateBoardModal";
 
 
 const HomepageMenuAdmin = (): ReactElement => {
@@ -31,6 +31,7 @@ const HomepageMenuAdmin = (): ReactElement => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+    
 
     return (
         <div>
@@ -54,6 +55,8 @@ const HomepageMenuAdmin = (): ReactElement => {
                 handleOk={handleOk}
                 handleCancel={handleCancel}
                 />
+
+                
                 <Menu.Item key="5" icon={<CloseOutlined />} onClick={handleLogout}>
                     Logout
                 </Menu.Item>

@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
 import { getUserDetails } from "../../../services/UserService";
-import HomepageMenuAdmin from "../../menus/homepage/HomepageMenuAdmin";
-import HomepageMenuUser from "../../menus/homepage/HomepageMenuUser";
+import HomepageMenuAdmin from "../../menus/homepage/Admin/HomepageMenuAdmin";
+import HomepageMenuUser from "../../menus/homepage/User/HomepageMenuUser";
 
 const HomepageSider = () => {
 
