@@ -36,8 +36,6 @@ const HomepageContentAdmin = (): ReactElement => {
     }, [token])
 
     const latestUpdateHandler = (singleBoardData: Board) => {
-        console.log(singleBoardData.createdDate)
-        console.log(singleBoardData.modifiedDate)
         if (singleBoardData.createdDate === singleBoardData.modifiedDate) {
             return (
                 <p>{"Board has been created by " + singleBoardData.createdBy + " on the " + singleBoardData.createdDate}</p>

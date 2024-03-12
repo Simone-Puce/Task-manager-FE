@@ -35,8 +35,8 @@ export const getBoardByCode = async (id: string) => {
     }
 }
 
-export const createNewBoard = async (newBoard: string) => {
-    const token = Cookies.get("jwt-token")
+export const createNewBoard = async (newBoard: string, token: string) => {
+
     try {
         const response = await axios.post(CREATE,
             {
