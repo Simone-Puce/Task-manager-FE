@@ -37,7 +37,6 @@ const LoginForm = (): ReactElement => {
     const onSubmit = async () => {
         const { email, password } = form.getFieldsValue(["email", "password"])
         const response = await loginUser({ email, password })
-        console.log(response)
         response.success === true ? successLoginHandler(response) : openNotification("top")
     }
 
