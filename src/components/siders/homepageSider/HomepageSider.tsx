@@ -8,7 +8,7 @@ const HomepageSider = () => {
 
     return (
         <Sider className='sider-style' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-            <HomepageMenu />
+            {getUserRole()}
         </Sider>
     )
 }
