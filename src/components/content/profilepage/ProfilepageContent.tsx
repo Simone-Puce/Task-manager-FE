@@ -18,7 +18,6 @@ const ProfilepageContent = () => {
         const fetchUserDetails = async () => {
             const token = Cookies.get("jwt-token")
             const response = await getUserDetails(token!)
-            console.log(response)
             setUserDetails(response.data)
         }
 
