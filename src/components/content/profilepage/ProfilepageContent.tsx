@@ -31,7 +31,7 @@ const ProfilepageContent = () => {
                 className="profile-card"
             >
                 <div className="img-card-container">
-                    <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" className="img-values"/>
+                    <img alt="" src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" className="img-values"/>
                 </div>
                 <p>{userDetails?.firstName}</p>
                 <p>{userDetails?.lastName}</p>

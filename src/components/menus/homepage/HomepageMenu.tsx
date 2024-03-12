@@ -10,7 +10,6 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
-import { IHomepageMenu } from "../../../interfaces/components/menu/IHomepageMenu";
 import SubMenu from "antd/es/menu/SubMenu";
 import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
@@ -18,7 +17,7 @@ import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
 import "./HomepageMenu.css"
 
 
-const HomepageMenu = ({ adminCreateBoard, userSubMenu }: IHomepageMenu): ReactElement => {
+const HomepageMenu = (): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,8 +39,8 @@ const HomepageMenu = ({ adminCreateBoard, userSubMenu }: IHomepageMenu): ReactEl
         setIsModalOpen(true);
     };
 
-    const handleOk = () => {
-        setIsModalOpen(false);
+    const handleOk = (form: any) => {
+        console.log(form)
     };
 
     const handleCancel = () => {
@@ -52,7 +51,7 @@ const HomepageMenu = ({ adminCreateBoard, userSubMenu }: IHomepageMenu): ReactEl
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
             return (
                 <>
-                    <Menu.Item icon={<FileAddOutlined />} onClick={showModal}>
+                    <Menu.Item key="4" icon={<FileAddOutlined />} onClick={showModal}>
                         Create Board
                     </Menu.Item>
                     <CreateBoardModal
