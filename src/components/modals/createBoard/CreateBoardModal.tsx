@@ -10,6 +10,7 @@ const CreateBoardModal = ({ isModalOpen, handleCancel }: ISuccessRegistrationMod
     <>
       <Modal title="Create a new board"
         open={isModalOpen}
+        onCancel={handleCancel}
         className='createBoardModalStyle'
         footer={<></>}
       >

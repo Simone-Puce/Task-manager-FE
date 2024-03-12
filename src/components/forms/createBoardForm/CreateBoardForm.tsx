@@ -3,6 +3,7 @@ import { ReactElement } from "react";
 import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal";
 import { createNewBoard } from "../../../services/BoardService";
 import Cookies from "js-cookie";
+import "./CreateBoardForm.css"
 
 const selectOptions: SelectProps['options'] =
     [
@@ -65,13 +66,16 @@ const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElem
                 />
             </Form.Item>
             <Form.Item>
-                <Button type="primary" htmlType="submit">
-                    Create
-                </Button>
-                <Button onClick={handleCancel}>
-                    Cancel
-                </Button>
+                <div className="buttons">
+                    <Button type="primary" htmlType="submit">
+                        Create
+                    </Button>
+                    <Button onClick={handleCancel}>
+                        Cancel
+                    </Button>
+                </div>
             </Form.Item>
+
         </Form>
     )
 }

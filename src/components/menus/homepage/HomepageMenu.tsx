@@ -39,10 +39,6 @@ const HomepageMenu = (): ReactElement => {
         setIsModalOpen(true);
     };
 
-    const handleOk = (form: any) => {
-        console.log(form)
-    };
-
     const handleCancel = () => {
         setIsModalOpen(false);
     };
@@ -57,7 +53,6 @@ const HomepageMenu = (): ReactElement => {
                     <CreateBoardModal
                         showModal={showModal}
                         isModalOpen={isModalOpen}
-                        handleOk={handleOk}
                         handleCancel={handleCancel}
                     />
                 </>
