@@ -12,22 +12,23 @@ const CreateTaskForm = ({ handleCancel }: ISuccessRegistrationModal): ReactEleme
     const selectOptions: SelectProps['options'] =
         [
             {
-                label: "TODO",
-                value: "Carlo"
+                label: "To do",
+                value: "TODO"
+                
 
             },
             {
-                label: "WIP",
-                value: "Vitto"
+                label: "Work in progress",
+                value: "WIP"
             },
             {
-                label: "REVIEW",
-                value: "valuw3"
+                label: "Review",
+                value: "REVIEW"
 
             },
             {
-                label: "DONE",
-                value: "Caaàpsjgrlo"
+                label: "Done",
+                value: "DONE"
 
             },
         ]
@@ -53,6 +54,7 @@ const CreateTaskForm = ({ handleCancel }: ISuccessRegistrationModal): ReactEleme
             </Form.Item>
             <Form.Item label="Status">
                 <Select
+                    defaultValue={selectOptions[0]}
                     allowClear
                     placeholder="Please select"
                     options={selectOptions}
