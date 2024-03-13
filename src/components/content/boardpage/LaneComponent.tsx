@@ -17,20 +17,34 @@ const LaneComponent = ({ laneStatus, tasks }: ILaneComponent): ReactElement => {
         });
     }, [tasks, laneStatus]);
 
+    const conditionalLaneRender = () => {
+        if (laneTasks?.length === 0) {
+            return (
+                <div className="general-task-div">
+                    <h1> {laneStatus} </h1>
+                </div>
+            )
+        } else {
+            return (
+                <div className="general-task-div">
+                    <h1> {laneStatus} </h1>
+                    {laneTasks.map((task: Task) => (
+                        <Card title={task.taskName}
+                            key={task.taskId}
+                            bordered={true}
+                            hoverable
+                            onClick={() => console.log("error")}
+                            className="card-style">
+                            Board
+                        </Card>
+                    ))}
+                </div>
+            )
+        }
+    }
+
     return (
-        <div className="general-task-div">
-            <h1> {laneStatus} </h1>
-            {laneTasks.map((task: Task) => (
-                <Card title={task.taskName}
-                    key={task.taskId}
-                    bordered={true}
-                    hoverable
-                    onClick={() => console.log("error")}
-                    className="card-style">
-                    Board
-                </Card>
-            ))}
-        </div>
+        conditionalLaneRender()
     )
 }
 
