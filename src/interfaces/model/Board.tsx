@@ -1,5 +1,5 @@
 export interface Board {
-    id: number
+    boardId?: number
     boardName?: string
     lanes?: any[]
     tasks?: []

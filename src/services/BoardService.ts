@@ -4,7 +4,7 @@ import Cookies from "js-cookie"
 const APP_CONTEXT_URI = "http://localhost:8080/task-manager"
 const VERSION_URI = APP_CONTEXT_URI + "/v1"
 const BOARD_BASE_URI = VERSION_URI + "/board"
-const FIND_BY_CODE = BOARD_BASE_URI + "/find-by-code"
+const FIND_BY_CODE = BOARD_BASE_URI + "/find-by-id"
 const PUT_BY_CODE = BOARD_BASE_URI + "/modify"
 const DELETE_BY_CODE = BOARD_BASE_URI + "/delete"
 const CREATE = BOARD_BASE_URI + "/create"
@@ -22,8 +22,7 @@ export const getAllBoards = async (token: string) => {
     }
 }
 
-export const getBoardByCode = async (id: string) => {
-    const token = Cookies.get("jwt-token")
+export const getBoardById = async (id: number, token: string) => {
     try {
         const response = await axios.get(FIND_BY_CODE, {
             params: { id: id },
