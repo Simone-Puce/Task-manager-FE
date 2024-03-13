@@ -48,7 +48,6 @@ const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElem
                 name="boardTitle"
                 label="Insert the name of the board"
                 rules={[{ required: true, message: 'Please input the title of the board' }]}
-
             >
                 <Input
                     allowClear
@@ -57,6 +56,7 @@ const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElem
             <Form.Item
                 label="Insert the lanes of your board"
                 name="lanes"
+                rules={[{required: true, message: 'Please select the column you need in the board'}]}
             >
                 <Select
                     mode="multiple"

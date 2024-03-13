@@ -61,7 +61,7 @@ const HomepageContentAdmin = (): ReactElement => {
                                 hoverable
                                 onClick={() => navigate("/board")}
                                 className="card-style">
-                                <p>{element.id}</p>
+                                <p>{element.boardId}</p>
                                 <p> {latestUpdateHandler(element)}</p>
                                 <Button>Update</Button>
                                 <Button>Delete</Button>

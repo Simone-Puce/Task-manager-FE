@@ -21,7 +21,6 @@ export const getUserBoards = async (token: string) => {
                 },
                 headers: { Authorization: `Bearer ${token}` }
             })
-        console.log(response)
         return response.data
     } catch (error) {
         console.log(error)
