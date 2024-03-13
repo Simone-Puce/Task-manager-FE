@@ -62,8 +62,8 @@ const HomepageContentAdmin = (): ReactElement => {
                                 className="card-style">
                                 <p>{element.id}</p>
                                 <p> {latestUpdateHandler(element)}</p>
-                                <Button>update</Button>
-                                <Button>delete</Button>
+                                <Button>Update</Button>
+                                <Button>Delete</Button>
                             </Card>
                         ))}
                     </div>
@@ -82,12 +82,6 @@ const HomepageContentAdmin = (): ReactElement => {
                 <h1>{userDetails?.firstName} {userDetails?.lastName} these are your boards</h1>
             </div>
             <div className="homepage-content-style">
-                <Card
-                    hoverable
-                    style={{ width: 240 }}
-                    cover={<img alt="example" src="https://media.licdn.com/dms/image/D4D03AQEc4-a6nd_J0g/profile-displayphoto-shrink_800_800/0/1694878219965?e=1714608000&v=beta&t=qlXttAt6t97RsLr9I7LJKv1VHcMZdbvBNYHClsvKFG0" />}
-                >
-                </Card>
                 {cardDisplay()}
             </div>
         </div>
