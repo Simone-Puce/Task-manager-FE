@@ -53,8 +53,7 @@ const HomepageContentAdmin = ({setSelectedBoardId} : IHomePage): ReactElement =>
                                 hoverable
                                 onClick={() => handleCardClick(element.boardId!)}
                                 className="card-style">
-                                <p>{element.id}</p>
-                                <p> {latestUpdateHandler(element)}</p>
+                                <p>{element.boardId}</p>      
                                 <Button>Update</Button>
                                 <Button>Delete</Button>
                             </Card>
