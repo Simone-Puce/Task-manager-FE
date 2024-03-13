@@ -6,8 +6,11 @@ import Homepage from "./pages/homepage/Homepage";
 import BoardPage from "./pages/board/BoardPage";
 import { ProtectedRoutes } from "./services/ProtectedRoutes"
 import ProfilePage from "./pages/profile/ProfilePage";
+import { useState } from "react";
 
 function App() {
+  const [selectedBoardId,setSelectedBoardId] = useState<number>()
+
   return (
     <Router>
       <Routes>
@@ -15,9 +18,8 @@ function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="homepage" element={<Homepage />} />
-          <Route path="board" element={<BoardPage />} />
+          <Route path="homepage" element={<Homepage setSelectedBoardId={setSelectedBoardId}/>} />
+          <Route path="board" element={<BoardPage selectedBoardId={selectedBoardId}/>} />
           <Route path="profile" element={<ProfilePage/>}/>
         </Route>
       </Routes>
