@@ -12,13 +12,11 @@ import "./BoardPage.css"
 const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
     const [board, setBoard] = useState<Board>()
     const token = Cookies.get("jwt-token")
-    const [isSpinning, setIsSpinning] = useState<boolean>(true)
 
     useEffect(()=>{
         const fetchBoard = async () => {
             const response = await getBoardById(selectedBoardId!,token!)
             setBoard(response.data)
-            setIsSpinning(false)
         } 
         fetchBoard()
     },[token, setSelectedBoardId, selectedBoardId])

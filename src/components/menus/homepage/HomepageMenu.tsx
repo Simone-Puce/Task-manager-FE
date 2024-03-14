@@ -57,30 +57,6 @@ const HomepageMenu = (): ReactElement => {
                     />
                 </>
             )
-        } else {
-            return (
-                <SubMenu
-                    key="sub4"
-                    title={"Boards"}
-                    icon={<CalendarOutlined />}
-                    className="submenu">
-                    <Menu.Item key="4" onClick={() => navigate("/board")}>
-                        Board1
-                    </Menu.Item>
-                    <Menu.Item key="6">
-                        Board2
-                    </Menu.Item>
-                    <Menu.Item key="7">
-                        Board3
-                    </Menu.Item>
-                    <Menu.Item key="8">
-                        Board4
-                    </Menu.Item>
-                    <Menu.Item key="9">
-                        Board5
-                    </Menu.Item>
-                </SubMenu>
-            )
         }
     }
 
@@ -88,6 +64,7 @@ const HomepageMenu = (): ReactElement => {
         localStorage.clear()
         navigate("/homepage")
     }
+
 
     return (
         <div>
