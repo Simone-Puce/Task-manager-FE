@@ -55,7 +55,7 @@ const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElem
                     <Button type="primary" htmlType="submit">
                         Create
                     </Button>
-                    <Button onClick={handleCancel()}>
+                    <Button onClick={handleCancel}>
                         Cancel
                     </Button>
                 </div>

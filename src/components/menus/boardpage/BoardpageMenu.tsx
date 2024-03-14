@@ -25,8 +25,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [showCards, setShowCards] = useState<boolean>(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const token = Cookies.get("jwt-token")
 
     const handleLogout = (): void => {
@@ -47,16 +46,21 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
             const response = await getUserBoards(token!)
             if (response !== undefined) {
                 setUserBoardsAssociation(response.data)
-                setShowCards(true)
             }
         }
         fetchUserBoards()
     }, [token])
 
+    useEffect(() => {
+        console.log("carlo")
+    }, [selectedBoardId])
+
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
-        navigate("/board")
+        localStorage.setItem("my-board-id", boardId.toString())
+        navigate("/spinner")
     }
+
     const boardItem = () => {
         return (
             userBoardsAssociation.map((element: Board) => (
@@ -70,7 +74,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
             )
         )
     }
-
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -115,7 +118,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         className="submenu">
                         {boardItem()}
                     </SubMenu>
-
                 </>
             )
         }
