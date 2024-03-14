@@ -47,7 +47,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
             const response = await getUserBoards(token!)
             if (response !== undefined) {
                 setUserBoardsAssociation(response.data)
-                console.log(response.data)
                 setShowCards(true)
             }
         }
@@ -102,7 +101,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         New Task
                     </Menu.Item>
                     <CreateTaskModal
-                        <CreateTaskModal
                         showModal={showModal}
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
