@@ -10,7 +10,7 @@ import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssocia
 import "./HomepageContentAdmin.css"
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 
-const HomepageContentAdmin = ({setSelectedBoardId} : IHomePage): ReactElement => {
+const HomepageContentUser = ({setSelectedBoardId} : IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const [showCards, setShowCards] = useState<boolean>(false)
@@ -38,6 +38,7 @@ const HomepageContentAdmin = ({setSelectedBoardId} : IHomePage): ReactElement =>
 
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId(elementId)
+        localStorage.setItem("my-board-id", elementId.toString())
         navigate("/board")
     }
 
@@ -82,4 +83,4 @@ const HomepageContentAdmin = ({setSelectedBoardId} : IHomePage): ReactElement =>
     )
 }
 
-export default HomepageContentAdmin
+export default HomepageContentUser

@@ -6,10 +6,17 @@ import Homepage from "./pages/homepage/Homepage";
 import BoardPage from "./pages/board/BoardPage";
 import { ProtectedRoutes } from "./services/ProtectedRoutes"
 import ProfilePage from "./pages/profile/ProfilePage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import SpinnerPage from "./pages/spinner/SpinnerPage";
 
 function App() {
   const [selectedBoardId,setSelectedBoardId] = useState<number>()
+  
+  useEffect(()=> {
+    if(localStorage.getItem("my-board-id") !== undefined && selectedBoardId === undefined){
+      setSelectedBoardId(parseInt(localStorage.getItem("my-board-id")!))
+    }
+  },[selectedBoardId, setSelectedBoardId])
 
   return (
     <Router>
@@ -19,8 +26,9 @@ function App() {
         <Route path="register" element={<RegisterPage />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="homepage" element={<Homepage setSelectedBoardId={setSelectedBoardId}/>} />
-          <Route path="board" element={<BoardPage selectedBoardId={selectedBoardId} setSelectedBoardId={setSelectedBoardId} />}/>
+          <Route path="board" element={<BoardPage setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId}/>} />
           <Route path="profile" element={<ProfilePage/>}/>
+          <Route path="spinner" element={<SpinnerPage/>}/>
         </Route>
       </Routes>
     </Router>

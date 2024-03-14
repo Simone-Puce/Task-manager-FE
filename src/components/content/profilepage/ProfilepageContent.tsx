@@ -24,6 +24,10 @@ const ProfilepageContent = () => {
         fetchUserDetails()
     }, [])
 
+    const handleNavigation = () => {
+        localStorage.clear()
+        navigate("/homepage")
+    }
 
     return (
         <div className="container-card">
@@ -36,7 +40,7 @@ const ProfilepageContent = () => {
                 <p>{userDetails?.firstName}</p>
                 <p>{userDetails?.lastName}</p>
                 <p>{userDetails?.email}</p>
-                <Button icon={<HomeOutlined />} onClick={() => navigate("/homepage")}></Button>
+                <Button icon={<HomeOutlined />} onClick={handleNavigation}></Button>
             </Card>
         </div>
     )

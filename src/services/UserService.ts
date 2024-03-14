@@ -8,6 +8,7 @@ const VERSION_URI = APP_CONTEXT_URI + "/v1"
 const REGISTER_USER_URI = VERSION_URI + "/register"
 const LOGIN_USER_URI = VERSION_URI + "/login"
 const GET_USER_DETAILS_URI = VERSION_URI + "/email";
+const GET_ALL_USERS = VERSION_URI + "/registered-users"
 
 export const registerNewUser = async (newUser: RegisterUser) => {
     try {
@@ -24,6 +25,17 @@ export const loginUser = async (loginUserData: LoginUser) => {
         return response.data;
     } catch (error: any) {
         return error.response.data
+    }
+}
+
+
+//has to be fixed on backend
+export const getAllUsers = async (token: string) => {
+    try {
+        const response = await axios.get(GET_ALL_USERS)
+        return response.data
+    } catch (error) {
+        console.log(error)
     }
 }
 

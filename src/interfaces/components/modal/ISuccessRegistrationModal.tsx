@@ -1,6 +1,10 @@
+import { Dispatch } from "react"
+
 export interface ISuccessRegistrationModal {
     showModal?: any,
     isModalOpen?: boolean,
     handleOk?: any,
-    handleCancel?: any
+    handleCancel?: any,
+    selectedBoardId?: number
+    setSelectedBoardId?: Dispatch<React.SetStateAction<number | undefined>>
 }

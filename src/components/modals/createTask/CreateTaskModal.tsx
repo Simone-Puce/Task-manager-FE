@@ -4,7 +4,7 @@ import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/
 import "./CreateTaskModal.css"
 import CreateTaskForm from "../../forms/createTaskForm/CreateTaskForm";
 
-const CreateTaskModal = ({ isModalOpen, handleCancel }: ISuccessRegistrationModal): ReactElement => {
+const CreateTaskModal = ({ isModalOpen, handleCancel, selectedBoardId, setSelectedBoardId}: ISuccessRegistrationModal): ReactElement => {
 
   return (
     <>
@@ -14,7 +14,7 @@ const CreateTaskModal = ({ isModalOpen, handleCancel }: ISuccessRegistrationModa
         className='createBoardModalStyle'
         footer={<></>}
       >
-        <CreateTaskForm/>
+        <CreateTaskForm handleCancel={handleCancel} setSelectedBoardId={setSelectedBoardId} isModalOpen={isModalOpen} selectedBoardId={selectedBoardId}/>
       </Modal>
     </>
   );
