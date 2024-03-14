@@ -9,14 +9,13 @@ import "./BoardPage.css"
 import { getBoardById } from "../../services/BoardService"
 import Cookies from "js-cookie"
 
-const BoardPage = ({selectedBoardId} : IBoardPage) => {
+const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
     const [board, setBoard] = useState<Board>()
     const token = Cookies.get("jwt-token")
 
     useEffect(()=>{
         const fetchBoard = async () => {
             const response = await getBoardById(selectedBoardId!,token!)
-            console.log(response.data)
             setBoard(response.data)
         } 
         fetchBoard()
@@ -26,7 +25,7 @@ const BoardPage = ({selectedBoardId} : IBoardPage) => {
         <Layout>
             <BoardpageHeader />
             <Layout>
-                <BoardpageSider />
+                <BoardpageSider setSelectedBoardId={setSelectedBoardId}/>
                 <BoardpageContent {...board}/>
             </Layout>
         </Layout>

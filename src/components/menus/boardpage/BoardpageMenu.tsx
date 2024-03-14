@@ -1,4 +1,4 @@
-import { Menu } from "antd"
+import { Button, Card, Menu } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import {
     UserOutlined,
@@ -15,14 +15,20 @@ import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
 import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
 import CreateTaskModal from "../../modals/createTask/CreateTaskModal";
+import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssociation";
+import { getUserBoards } from "../../../services/BoardUserServices";
+import { Board } from "../../../interfaces/model/Board";
+import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
 import "./BoardpageMenu.css"
 
-
-const BoardpageMenu = (): ReactElement => {
+const BoardpageMenu = ({ setSelectedBoardId }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
+    const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [showCards, setShowCards] = useState<boolean>(false)
     const token = Cookies.get("jwt-token")
+
     const handleLogout = (): void => {
         logoutUser()
         navigate("/")
@@ -35,6 +41,37 @@ const BoardpageMenu = (): ReactElement => {
         }
         fetchUserDetails()
     }, [token])
+
+    useEffect(() => {
+        const fetchUserBoards = async () => {
+            const response = await getUserBoards(token!)
+            if (response !== undefined) {
+                setUserBoardsAssociation(response.data)
+                console.log(response.data)
+                setShowCards(true)
+            }
+        }
+        fetchUserBoards()
+    }, [token])
+
+    const handleNavigation = (boardId: number) => {
+        setSelectedBoardId!(boardId)
+        navigate("/board")
+    }
+    const boardItem = () => {
+        return (
+            userBoardsAssociation.map((element: Board) => (
+                <Menu.Item
+                    title={element.boardName}
+                    onClick={() => handleNavigation(element.boardId!)}
+                >
+                    {element.boardName}
+                </Menu.Item>
+            )
+            )
+        )
+    }
+
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -75,21 +112,7 @@ const BoardpageMenu = (): ReactElement => {
                         title={"Boards"}
                         icon={<CalendarOutlined />}
                         className="submenu">
-                        <Menu.Item key="4" onClick={() => navigate("/board")}>
-                            Board1
-                        </Menu.Item>
-                        <Menu.Item key="6">
-                            Board2
-                        </Menu.Item>
-                        <Menu.Item key="7">
-                            Board3
-                        </Menu.Item>
-                        <Menu.Item key="8">
-                            Board4
-                        </Menu.Item>
-                        <Menu.Item key="9">
-                            Board5
-                        </Menu.Item>
+                        {boardItem()}
                     </SubMenu>
 
                 </>
