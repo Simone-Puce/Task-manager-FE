@@ -4,6 +4,8 @@ import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/
 import { createNewBoard } from "../../../services/BoardService";
 import Cookies from "js-cookie";
 import "./CreateBoardForm.css"
+import { createLane } from "../../../services/Lane";
+import { associateBordLane } from "../../../services/BoardLaneService";
 
 const selectOptions: SelectProps['options'] =
     [
@@ -28,13 +30,29 @@ const selectOptions: SelectProps['options'] =
 const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
+    const lanes = ["To do", "Work in progress", "Review", "Done"]
+
+    const associateLane = async (boardId: number, laneId: number) => {
+        const response = await associateBordLane(token!, boardId, laneId)
+    }
+
+    const createNewLane = async (boardId: number) => {
+        const response1 = await createLane(token!, "To do")
+        const response2 = await createLane(token!, "Work in progress")
+        const response3 = await createLane(token!, "Review")
+        const response4 = await createLane(token!, "Done")
+
+        associateLane(boardId, response1.data.laneId)
+        associateLane(boardId, response2.data.laneId)
+        associateLane(boardId, response3.data.laneId)
+        associateLane(boardId, response4.data.laneId)
+
+    }
 
     const onSubmit = async () => {
         const boardName: string = form.getFieldValue("boardTitle")
-        const lanes: string[] = form.getFieldValue("lanes")
         const response = await createNewBoard(boardName, token!)
-        console.log(response.data)
-
+        createNewLane(response.data.boardId)
     }
 
     return (
@@ -51,18 +69,6 @@ const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElem
             >
                 <Input
                     allowClear
-                />
-            </Form.Item>
-            <Form.Item
-                label="Insert the lanes of your board"
-                name="lanes"
-                rules={[{required: true, message: 'Please select the column you need in the board'}]}
-            >
-                <Select
-                    mode="multiple"
-                    allowClear
-                    placeholder="Please select"
-                    options={selectOptions}
                 />
             </Form.Item>
             <Form.Item>

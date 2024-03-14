@@ -8,9 +8,9 @@ import Cookies from "js-cookie"
 import { getAllBoards } from "../../../services/BoardService"
 import { Board } from "../../../interfaces/model/Board"
 import { useNavigate } from "react-router-dom"
-import { relative } from "path"
+import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 
-const HomepageContentAdmin = (): ReactElement => {
+const HomepageContentAdmin = ({setSelectedBoardId} : IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [boards, setBoards] = useState<Board[]>([])
     const [showCards, setShowCards] = useState<boolean>(false)
@@ -46,7 +46,12 @@ const HomepageContentAdmin = (): ReactElement => {
                 <p>{"Board has been updated by "+ singleBoardData.modifiedBy + " on the " + singleBoardData.modifiedDate}</p>
             )
         }
-       
+    }
+
+    
+    const handleCardClick = (elementId: number) => {
+        setSelectedBoardId(elementId)
+        navigate("/board")
     }
 
     const cardDisplay = (): ReactElement => {
@@ -55,17 +60,16 @@ const HomepageContentAdmin = (): ReactElement => {
                 <Content className="content-width">
                     <div className="homepage-card-container">
                         {boards.map((element, index) => (
-                            <Card title={element.boardName}
-                                key={index}
-                                bordered={true}
-                                hoverable
-                                onClick={() => navigate("/board")}
-                                className="card-style">
-                                <p>{element.boardId}</p>
-                                <p> {latestUpdateHandler(element)}</p>
-                                <Button>Update</Button>
-                                <Button>Delete</Button>
-                            </Card>
+                             <Card title={element.boardName}
+                             key={index}
+                             bordered={true}
+                             hoverable
+                             onClick={() => handleCardClick(element.boardId!)}
+                             className="card-style">
+                             <p>{element.boardId}</p>      
+                             <Button>Update</Button>
+                             <Button>Delete</Button>
+                         </Card>
                         ))}
                     </div>
                 </Content>

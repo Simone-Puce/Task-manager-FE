@@ -26,7 +26,7 @@ const Homepage = ({ setSelectedBoardId }: IHomePage) => {
 
     const getUserRole = () => {
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
-            return <HomepageContentAdmin />
+            return <HomepageContentAdmin setSelectedBoardId={setSelectedBoardId}/>
         } else {
             return <HomepageContentUser setSelectedBoardId={setSelectedBoardId}/>
         }

@@ -16,7 +16,6 @@ const BoardPage = ({selectedBoardId} : IBoardPage) => {
     useEffect(()=>{
         const fetchBoard = async () => {
             const response = await getBoardById(selectedBoardId!,token!)
-            console.log(response.data)
             setBoard(response.data)
         } 
         fetchBoard()
