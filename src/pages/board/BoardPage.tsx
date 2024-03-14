@@ -23,9 +23,9 @@ const BoardPage = ({selectedBoardId} : IBoardPage) => {
 
     return (
         <Layout>
-            <BoardpageHeader />
+            <BoardpageHeader {...board} />
             <Layout>
-                <BoardpageSider />
+                <BoardpageSider selectedBoardId={selectedBoardId}/>
                 <BoardpageContent {...board}/>
             </Layout>
         </Layout>

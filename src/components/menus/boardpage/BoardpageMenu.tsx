@@ -15,10 +15,10 @@ import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
 import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
 import CreateTaskModal from "../../modals/createTask/CreateTaskModal";
+import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
 import "./BoardpageMenu.css"
 
-
-const BoardpageMenu = (): ReactElement => {
+const BoardpageMenu = ({ selectedBoardId }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,6 +68,7 @@ const BoardpageMenu = (): ReactElement => {
                         showModal={showModal}
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
+                        selectedBoardId={selectedBoardId}
                     />
 
                     <SubMenu

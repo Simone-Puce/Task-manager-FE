@@ -1,4 +1,4 @@
-import { SelectProps, Input, Select, Button, Form } from "antd";
+import { Input, Button, Form } from "antd";
 import { ReactElement } from "react";
 import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal";
 import { createNewBoard } from "../../../services/BoardService";
@@ -7,33 +7,12 @@ import "./CreateBoardForm.css"
 import { createLane } from "../../../services/Lane";
 import { associateBordLane } from "../../../services/BoardLaneService";
 
-const selectOptions: SelectProps['options'] =
-    [
-        {
-            label: "To do",
-            value: "To do"
-        },
-        {
-            label: "Work in progress",
-            value: "Work in progress"
-        },
-        {
-            label: "Review",
-            value: "Review"
-        },
-        {
-            label: "Done",
-            value: "Done"
-        }
-    ]
-
 const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
-    const lanes = ["To do", "Work in progress", "Review", "Done"]
 
     const associateLane = async (boardId: number, laneId: number) => {
-        const response = await associateBordLane(token!, boardId, laneId)
+        await associateBordLane(token!, boardId, laneId)
     }
 
     const createNewLane = async (boardId: number) => {
@@ -76,7 +55,7 @@ const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElem
                     <Button type="primary" htmlType="submit">
                         Create
                     </Button>
-                    <Button onClick={handleCancel}>
+                    <Button onClick={handleCancel()}>
                         Cancel
                     </Button>
                 </div>

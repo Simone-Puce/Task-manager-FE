@@ -1,11 +1,12 @@
-import { Input, Button, Form, DatePicker, Select, SelectProps } from "antd";
+import { Input, Button, Form, Select, SelectProps } from "antd";
 import { ReactElement } from "react";
 import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal";
 import Cookies from "js-cookie";
 import "./CreateTaskForm.css"
+import { createTask } from "../../../services/TaskService";
 
 
-const CreateTaskForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElement => {
+const CreateTaskForm = ({ handleCancel, selectedBoardId }: ISuccessRegistrationModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
 
@@ -13,48 +14,54 @@ const CreateTaskForm = ({ handleCancel }: ISuccessRegistrationModal): ReactEleme
         [
             {
                 label: "To do",
-                value: "TODO"
-                
+                value: "To do"
+
 
             },
             {
                 label: "Work in progress",
-                value: "WIP"
+                value: "Work in progress"
             },
             {
                 label: "Review",
-                value: "REVIEW"
+                value: "Review"
 
             },
             {
                 label: "Done",
-                value: "DONE"
+                value: "Done"
 
             },
         ]
 
     const onSubmit = async () => {
-
-        console.log("Implement the 'saved Task' method")
-
+        const formValues = form.getFieldsValue()
+        await createTask(token!, {
+            taskName: formValues.taskName,
+            status: formValues.status,
+            boardId: selectedBoardId
+        })
+        handleCancel()
     }
 
     return (
-        <Form form={form} 
-        name="new_task_form" 
-        onFinish={onSubmit}
-        layout="vertical"
+        <Form form={form}
+            name="new_task_form"
+            onFinish={onSubmit}
+            layout="vertical"
         >
             <Form.Item
-                name="name"
+                name="taskName"
                 label="Task Name"
                 rules={[{ required: true, message: 'Please input the task name!' }]}
             >
                 <Input />
             </Form.Item>
-            <Form.Item label="Status">
+            <Form.Item
+                name="status"
+                label="Status"
+                rules={[{ required: true}]}>
                 <Select
-                    defaultValue={selectOptions[0]}
                     allowClear
                     placeholder="Please select"
                     options={selectOptions}
