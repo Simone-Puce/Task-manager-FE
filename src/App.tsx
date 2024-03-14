@@ -19,7 +19,7 @@ function App() {
         <Route path="register" element={<RegisterPage />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="homepage" element={<Homepage setSelectedBoardId={setSelectedBoardId}/>} />
-          <Route path="board" element={<BoardPage selectedBoardId={selectedBoardId}/>} />
+          <Route path="board" element={<BoardPage selectedBoardId={selectedBoardId} setSelectedBoardId={setSelectedBoardId} />}/>
           <Route path="profile" element={<ProfilePage/>}/>
         </Route>
       </Routes>
