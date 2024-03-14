@@ -5,27 +5,29 @@ import BoardpageSider from "../../components/siders/boardpageSider/BoardpageSide
 import { IBoardPage } from "../../interfaces/components/pages/IBoardPage"
 import { useEffect, useState } from "react"
 import { Board } from "../../interfaces/model/Board"
-import "./BoardPage.css"
 import { getBoardById } from "../../services/BoardService"
 import Cookies from "js-cookie"
+import "./BoardPage.css"
 
-const BoardPage = ({selectedBoardId} : IBoardPage) => {
+const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
     const [board, setBoard] = useState<Board>()
     const token = Cookies.get("jwt-token")
+    const [isSpinning, setIsSpinning] = useState<boolean>(true)
 
     useEffect(()=>{
         const fetchBoard = async () => {
             const response = await getBoardById(selectedBoardId!,token!)
             setBoard(response.data)
+            setIsSpinning(false)
         } 
         fetchBoard()
-    },[selectedBoardId, token])
+    },[token, setSelectedBoardId, selectedBoardId])
 
     return (
         <Layout>
             <BoardpageHeader {...board} />
             <Layout>
-                <BoardpageSider selectedBoardId={selectedBoardId}/>
+                <BoardpageSider setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId}/>
                 <BoardpageContent {...board}/>
             </Layout>
         </Layout>

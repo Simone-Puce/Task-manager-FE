@@ -2,21 +2,21 @@ import { Input, Button, Form, Select, SelectProps } from "antd";
 import { ReactElement } from "react";
 import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal";
 import Cookies from "js-cookie";
-import "./CreateTaskForm.css"
 import { createTask } from "../../../services/TaskService";
+import { useNavigate } from "react-router-dom";
+import "./CreateTaskForm.css"
 
 
-const CreateTaskForm = ({ handleCancel, selectedBoardId }: ISuccessRegistrationModal): ReactElement => {
+const CreateTaskForm = ({ handleCancel, selectedBoardId, setSelectedBoardId }: ISuccessRegistrationModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
+    const navigate = useNavigate()
 
     const selectOptions: SelectProps['options'] =
         [
             {
                 label: "To do",
                 value: "To do"
-
-
             },
             {
                 label: "Work in progress",
@@ -25,12 +25,10 @@ const CreateTaskForm = ({ handleCancel, selectedBoardId }: ISuccessRegistrationM
             {
                 label: "Review",
                 value: "Review"
-
             },
             {
                 label: "Done",
                 value: "Done"
-
             },
         ]
 
@@ -42,6 +40,8 @@ const CreateTaskForm = ({ handleCancel, selectedBoardId }: ISuccessRegistrationM
             boardId: selectedBoardId
         })
         handleCancel()
+        setSelectedBoardId!(parseInt(localStorage.getItem("my-board-id")!))
+        window.location.reload()
     }
 
     return (
@@ -60,7 +60,7 @@ const CreateTaskForm = ({ handleCancel, selectedBoardId }: ISuccessRegistrationM
             <Form.Item
                 name="status"
                 label="Status"
-                rules={[{ required: true}]}>
+                rules={[{ required: true }]}>
                 <Select
                     allowClear
                     placeholder="Please select"

@@ -18,7 +18,7 @@ import CreateTaskModal from "../../modals/createTask/CreateTaskModal";
 import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
 import "./BoardpageMenu.css"
 
-const BoardpageMenu = ({ selectedBoardId }: IBoardPage): ReactElement => {
+const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,6 +69,7 @@ const BoardpageMenu = ({ selectedBoardId }: IBoardPage): ReactElement => {
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
                         selectedBoardId={selectedBoardId}
+                        setSelectedBoardId={setSelectedBoardId}
                     />
 
                     <SubMenu
@@ -98,11 +99,16 @@ const BoardpageMenu = ({ selectedBoardId }: IBoardPage): ReactElement => {
         }
     }
 
+    const handleNavigation = () => {
+        localStorage.clear()
+        navigate("/homepage")
+    }
+
     return (
         <div>
             <Menu theme="dark"
                 mode="inline">
-                <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => navigate("/homepage")}>
+                <Menu.Item key="1" icon={<HomeOutlined />} onClick={handleNavigation}>
                     Homepage
                 </Menu.Item>
                 <Menu.Item key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>

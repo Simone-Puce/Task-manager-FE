@@ -35,22 +35,10 @@ const HomepageContentAdmin = ({setSelectedBoardId} : IHomePage): ReactElement =>
 
         fetchAllBoards()
     }, [token])
-
-    const latestUpdateHandler = (singleBoardData: Board) => {
-        if(singleBoardData.createdDate === singleBoardData.modifiedDate){
-            return (
-                <p>{"Board has been created by "+ singleBoardData.createdBy + " on the " + singleBoardData.createdDate}</p>
-            )
-        }else {
-            return (
-                <p>{"Board has been updated by "+ singleBoardData.modifiedBy + " on the " + singleBoardData.modifiedDate}</p>
-            )
-        }
-    }
-
     
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId(elementId)
+        localStorage.setItem("my-board-id", elementId.toString())
         navigate("/board")
     }
 
