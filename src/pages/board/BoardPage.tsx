@@ -5,9 +5,9 @@ import BoardpageSider from "../../components/siders/boardpageSider/BoardpageSide
 import { IBoardPage } from "../../interfaces/components/pages/IBoardPage"
 import { useEffect, useState } from "react"
 import { Board } from "../../interfaces/model/Board"
-import "./BoardPage.css"
 import { getBoardById } from "../../services/BoardService"
 import Cookies from "js-cookie"
+import "./BoardPage.css"
 
 const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
     const [board, setBoard] = useState<Board>()
