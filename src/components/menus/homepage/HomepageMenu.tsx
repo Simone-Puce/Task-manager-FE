@@ -65,7 +65,6 @@ const HomepageMenu = (): ReactElement => {
         navigate("/homepage")
     }
 
-
     return (
         <div>
             <Menu theme="dark"

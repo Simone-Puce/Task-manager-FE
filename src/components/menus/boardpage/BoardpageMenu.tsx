@@ -1,4 +1,4 @@
-import { Menu } from "antd"
+import { Button, Card, Menu } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import {
     UserOutlined,
@@ -51,16 +51,12 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         fetchUserBoards()
     }, [token])
 
-    useEffect(() => {
-        console.log("carlo")
-    }, [selectedBoardId])
-
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
         localStorage.setItem("my-board-id", boardId.toString())
         navigate("/spinner")
     }
-
+    
     const boardItem = () => {
         return (
             userBoardsAssociation.map((element: Board) => (
