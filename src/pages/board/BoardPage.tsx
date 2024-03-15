@@ -19,13 +19,13 @@ const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
             setBoard(response.data)
         } 
         fetchBoard()
-    },[selectedBoardId, token])
+    },[token, setSelectedBoardId, selectedBoardId])
 
     return (
         <Layout>
-            <BoardpageHeader />
+            <BoardpageHeader {...board} />
             <Layout>
-                <BoardpageSider setSelectedBoardId={setSelectedBoardId}/>
+                <BoardpageSider setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId}/>
                 <BoardpageContent {...board}/>
             </Layout>
         </Layout>

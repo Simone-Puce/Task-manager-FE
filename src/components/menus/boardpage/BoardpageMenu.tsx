@@ -21,12 +21,11 @@ import { Board } from "../../../interfaces/model/Board";
 import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
 import "./BoardpageMenu.css"
 
-const BoardpageMenu = ({ setSelectedBoardId }: IBoardPage): ReactElement => {
+const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [showCards, setShowCards] = useState<boolean>(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const token = Cookies.get("jwt-token")
 
     const handleLogout = (): void => {
@@ -47,8 +46,6 @@ const BoardpageMenu = ({ setSelectedBoardId }: IBoardPage): ReactElement => {
             const response = await getUserBoards(token!)
             if (response !== undefined) {
                 setUserBoardsAssociation(response.data)
-                console.log(response.data)
-                setShowCards(true)
             }
         }
         fetchUserBoards()
@@ -56,8 +53,10 @@ const BoardpageMenu = ({ setSelectedBoardId }: IBoardPage): ReactElement => {
 
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
-        navigate("/board")
+        localStorage.setItem("my-board-id", boardId.toString())
+        navigate("/spinner")
     }
+    
     const boardItem = () => {
         return (
             userBoardsAssociation.map((element: Board) => (
@@ -71,7 +70,6 @@ const BoardpageMenu = ({ setSelectedBoardId }: IBoardPage): ReactElement => {
             )
         )
     }
-
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -105,6 +103,8 @@ const BoardpageMenu = ({ setSelectedBoardId }: IBoardPage): ReactElement => {
                         showModal={showModal}
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
+                        selectedBoardId={selectedBoardId}
+                        setSelectedBoardId={setSelectedBoardId}
                     />
 
                     <SubMenu
@@ -114,7 +114,6 @@ const BoardpageMenu = ({ setSelectedBoardId }: IBoardPage): ReactElement => {
                         className="submenu">
                         {boardItem()}
                     </SubMenu>
-
                 </>
             )
         }

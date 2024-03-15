@@ -3,13 +3,13 @@ import { Layout } from 'antd';
 import HomepageHeader from '../../components/headers/homepage/HomepageHeader';
 import HomepageSider from '../../components/siders/homepageSider/HomepageSider';
 import HomepageContentAdmin from '../../components/content/homepage/HomepageContentAdmin';
-import "./Homepage.css"
 import { useEffect, useState } from 'react';
 import { getUserDetails } from '../../services/UserService';
 import Cookies from 'js-cookie';
 import { UserDetails } from '../../interfaces/model/UserDetails';
 import HomepageContentUser from '../../components/content/homepage/HomepageContentUser';
 import { IHomePage } from '../../interfaces/components/pages/IHomePage';
+import "./Homepage.css"
 
 const Homepage = ({ setSelectedBoardId }: IHomePage) => {
 
@@ -26,7 +26,7 @@ const Homepage = ({ setSelectedBoardId }: IHomePage) => {
 
     const getUserRole = () => {
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
-            return <HomepageContentAdmin />
+            return <HomepageContentAdmin setSelectedBoardId={setSelectedBoardId}/>
         } else {
             return <HomepageContentUser setSelectedBoardId={setSelectedBoardId}/>
         }

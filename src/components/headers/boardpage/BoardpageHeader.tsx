@@ -1,10 +1,12 @@
 import { ReactElement } from "react"
 import DefaultHeader from "../DefaultHeader"
+import { Board } from "../../../interfaces/model/Board"
 
-const BoardpageHeader = (): ReactElement => {
+const BoardpageHeader = (props: Board): ReactElement => {
+    
     return (
         <DefaultHeader 
-            givenString={"[Board name here]"}
+            givenString={props.boardName}
         />
     )
 }
