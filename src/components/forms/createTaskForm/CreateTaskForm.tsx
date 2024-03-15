@@ -41,7 +41,7 @@ const CreateTaskForm = ({ handleCancel, selectedBoardId, setSelectedBoardId }: I
         })
         handleCancel()
         setSelectedBoardId!(parseInt(localStorage.getItem("my-board-id")!))
-        window.location.reload()
+        navigate("/spinner")
     }
 
     return (
