@@ -54,9 +54,7 @@ const HomepageContentUser = ({setSelectedBoardId} : IHomePage): ReactElement => 
                                 hoverable
                                 onClick={() => handleCardClick(element.boardId!)}
                                 className="card-style">
-                                <p>{element.boardId}</p>      
-                                <Button>Update</Button>
-                                <Button>Delete</Button>
+                                <p>Click to see board details</p>      
                             </Card>
                         )
                         )

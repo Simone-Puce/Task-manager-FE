@@ -9,7 +9,7 @@ const SpinnerPage = (): ReactElement => {
     const spinnerFunction = () => {
         setTimeout(() => {
             navigate("/board")
-        }, 2500)
+        }, 500)
 
         return (
             <SyncLoader/>
