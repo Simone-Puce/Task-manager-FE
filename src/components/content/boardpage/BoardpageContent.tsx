@@ -2,6 +2,7 @@ import { Board } from "../../../interfaces/model/Board"
 import LaneComponent from "./LaneComponent"
 import { Lane } from "../../../interfaces/model/Lane"
 import AssociateUserBoardForm from "../../forms/associateUserBoardForm/AssociateUserBoardForm"
+import { useState } from "react"
 import { Select } from "antd"
 import { DefaultOptionType } from "antd/es/select"
 import "./BoardpageContent.css"
@@ -56,6 +57,7 @@ const BoardpageContent = (props: Board) => {
                 {mappedLanes()}
             </div>
         </div>
+
 
     )
 }
