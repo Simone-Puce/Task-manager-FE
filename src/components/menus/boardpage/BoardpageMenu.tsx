@@ -51,16 +51,12 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         fetchUserBoards()
     }, [token])
 
-    useEffect(() => {
-        console.log("carlo")
-    }, [selectedBoardId])
-
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
         localStorage.setItem("my-board-id", boardId.toString())
         navigate("/spinner")
     }
-
+    
     const boardItem = () => {
         return (
             userBoardsAssociation.map((element: Board) => (

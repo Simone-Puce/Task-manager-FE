@@ -29,7 +29,7 @@ const CreateTaskForm = ({ handleCancel, selectedBoardId, setSelectedBoardId }: I
             {
                 label: "Done",
                 value: "Done"
-            },
+            }
         ]
 
     const onSubmit = async () => {

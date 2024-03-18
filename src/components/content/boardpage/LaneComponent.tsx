@@ -35,7 +35,7 @@ const LaneComponent = ({ laneStatus, tasks }: ILaneComponent): ReactElement => {
                             hoverable
                             onClick={() => console.log("error")}
                             className="card-style">
-                            Board
+                            Task card
                         </Card>
                     ))}
                 </div>

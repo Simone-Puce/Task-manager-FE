@@ -17,6 +17,17 @@
     padding:10px;
 }
 
+.audit-userlist-container{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #F1F1E6;
+    padding:10px;
+}
+
+.select-style {
+    width: 250px;
+}
+
 .task-content-container {
     display: flex;
     flex-direction: column;
