@@ -1,14 +1,9 @@
 import { Button, Form, Select } from "antd"
 import Cookies from "js-cookie"
-import { UserDetails } from "../../../interfaces/model/UserDetails"
-import { useEffect, useState } from "react"
-import { getAllUsers } from "../../../services/UserService"
-
 
 const AssociateUserBoardForm = () => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
-    const [avaiableUser, setAvaiableUser] = useState<UserDetails[]>()
 
     const onSubmit = () => {
     }
@@ -30,10 +25,12 @@ const AssociateUserBoardForm = () => {
                     style={{width: "200px"}}
                     options={[
                         {
-                            label: "mock1@gmail.com"
+                            label: "mock1@gmail.com",
+                            value: "mock1@gmail.com"
                         },
                         {
-                            label: "mock2@gmail.com"
+                            label: "mock2@gmail.com",
+                            value: "mock2@gmail.com"
                         }
                     ]}
                 />
