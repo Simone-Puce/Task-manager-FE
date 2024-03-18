@@ -1,5 +1,5 @@
 import { Content } from "antd/es/layout/layout"
-import { Button, Card } from "antd"
+import { Card } from "antd"
 import { getUserDetails } from "../../../services/UserService"
 import { ReactElement, useEffect, useState } from "react"
 import { UserDetails } from "../../../interfaces/model/UserDetails"
@@ -7,8 +7,8 @@ import Cookies from "js-cookie"
 import { useNavigate } from "react-router-dom"
 import { getUserBoards } from "../../../services/BoardUserServices"
 import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssociation"
-import "./HomepageContentAdmin.css"
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
+import "./HomepageContentAdmin.css"
 
 const HomepageContentUser = ({setSelectedBoardId} : IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()

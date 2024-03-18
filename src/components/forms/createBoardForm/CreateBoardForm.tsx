@@ -25,13 +25,13 @@ const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElem
         associateLane(boardId, response2.data.laneId)
         associateLane(boardId, response3.data.laneId)
         associateLane(boardId, response4.data.laneId)
-
     }
 
     const onSubmit = async () => {
         const boardName: string = form.getFieldValue("boardTitle")
         const response = await createNewBoard(boardName, token!)
         createNewLane(response.data.boardId)
+        handleCancel()
     }
 
     return (

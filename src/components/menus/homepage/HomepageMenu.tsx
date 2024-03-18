@@ -5,12 +5,10 @@ import {
     MailOutlined,
     HomeOutlined,
     CloseOutlined,
-    CalendarOutlined,
     FileAddOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
-import SubMenu from "antd/es/menu/SubMenu";
 import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
 import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
