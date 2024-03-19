@@ -8,11 +8,11 @@ import { DefaultOptionType } from "antd/es/select"
 import "./BoardpageContent.css"
 
 const BoardpageContent = (props: Board) => {
-    const { boardId, boardName, lanes, tasks, users, createdBy, modifiedBy, createdDate, modifiedDate } = props
+    const { boardId, boardName, lanes, users, createdBy, modifiedBy, createdDate, modifiedDate } = props
 
     const sortArrayByLaneId = () => {
         if (lanes) {
-            lanes.sort((a, b) => a.laneId - b.laneId)
+            lanes.sort((a, b) => a.laneId! - b.laneId!)
         }
     }
 
@@ -20,7 +20,7 @@ const BoardpageContent = (props: Board) => {
         sortArrayByLaneId()
         return (
             lanes?.map((lane: Lane, index) => (
-                <LaneComponent key={index} laneStatus={lane.laneName} tasks={tasks} />
+                <LaneComponent key={index} laneStatus={lane.laneName} />
             )))
     }
 

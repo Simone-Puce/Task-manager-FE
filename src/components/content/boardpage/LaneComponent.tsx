@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import { ILaneComponent } from "../../../interfaces/components/contents/ILaneComponent";
 import { Task } from "../../../interfaces/model/Task";
 import { Card } from "antd";
@@ -6,16 +6,6 @@ import "./BoardpageContent.css"
 
 const LaneComponent = ({ laneStatus, tasks }: ILaneComponent): ReactElement => {
     const [laneTasks, setLaneTasks] = useState<Task[]>([])
-
-    useEffect(() => {
-        const newLaneTasks = tasks?.filter((task) => (
-            task.status?.toLowerCase() === laneStatus?.toLowerCase()
-        ));
-
-        setLaneTasks((prevLaneTasks) => {
-            return [...prevLaneTasks, ...newLaneTasks!.filter(task => !prevLaneTasks.includes(task))];
-        });
-    }, [tasks, laneStatus]);
 
     const conditionalLaneRender = () => {
         if (laneTasks?.length === 0) {

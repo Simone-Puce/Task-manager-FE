@@ -9,7 +9,6 @@ const FIND_BOARD_BY_USER = BOARD_USER_BASE_URI + "/find-boards-by-user"
 const CREATE_USER_BOARD_ASSOCIATION = BOARD_USER_BASE_URI + "/create"
 const UPDATE_USER_BOARD_ASSOCIATION = BOARD_USER_BASE_URI + "/modify"
 
-
 export const getUserBoards = async (token: string) => {
     const decodedToken = jwtDecode(token)
     const email = decodedToken.sub

@@ -36,8 +36,7 @@ const CreateTaskForm = ({ handleCancel, selectedBoardId, setSelectedBoardId }: I
         const formValues = form.getFieldsValue()
         await createTask(token!, {
             taskName: formValues.taskName,
-            status: formValues.status,
-            boardId: selectedBoardId
+            laneId: selectedBoardId
         })
         handleCancel()
         setSelectedBoardId!(parseInt(localStorage.getItem("my-board-id")!))
