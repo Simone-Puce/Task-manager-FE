@@ -10,7 +10,7 @@ import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssocia
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 import "./HomepageContentAdmin.css"
 
-const HomepageContentUser = ({setSelectedBoardId} : IHomePage): ReactElement => {
+const HomepageContentUser = ({ setSelectedBoardId }: IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const [showCards, setShowCards] = useState<boolean>(false)
@@ -54,7 +54,7 @@ const HomepageContentUser = ({setSelectedBoardId} : IHomePage): ReactElement => 
                                 hoverable
                                 onClick={() => handleCardClick(element.boardId!)}
                                 className="card-style">
-                                <p>Click to see board details</p>      
+                                <p>Click to see board details</p>
                             </Card>
                         )
                         )

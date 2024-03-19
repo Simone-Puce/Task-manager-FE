@@ -7,4 +7,5 @@ export interface ISuccessRegistrationModal {
     handleCancel?: any,
     selectedBoardId?: number
     setSelectedBoardId?: Dispatch<React.SetStateAction<number | undefined>>
+    setIsSpinning? :  Dispatch<React.SetStateAction<boolean | undefined>>
 }

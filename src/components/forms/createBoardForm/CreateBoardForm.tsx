@@ -5,17 +5,15 @@ import { createNewBoard } from "../../../services/BoardService";
 import Cookies from "js-cookie";
 import "./CreateBoardForm.css"
 
-const CreateBoardForm = ({ handleCancel }: ISuccessRegistrationModal): ReactElement => {
+const CreateBoardForm = ({ handleCancel, setIsSpinning }: ISuccessRegistrationModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
-    const [isSpinning, setIsSpinning] = useState<boolean>()
 
     const onSubmit = async () => {
         handleCancel()
-        setIsSpinning(true)
         const boardName: string = form.getFieldValue("boardTitle")
         const response = await createNewBoard(boardName, token!)
-        setIsSpinning(false)
+        console.log(response)
     }
 
     return (
