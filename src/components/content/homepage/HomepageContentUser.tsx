@@ -50,6 +50,7 @@ const HomepageContentUser = ({ setSelectedBoardId, isSpinning, setIsSpinning }: 
                                 onClick={() => handleCardClick(element.boardId!)}
                                 className="card-style">
                                 <p>Click to see board details</p>
+                                <p>Click to see board details</p>
                             </Card>
                         )
                         )

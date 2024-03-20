@@ -3,32 +3,32 @@
     padding: 10px;
     border-radius: 25px;
 }
-
+ 
 .task-card-style:hover {
     margin: 10px;
     padding: 10px;
     box-shadow: 5px 10px;
-
+ 
 }
-
+ 
 .serch-field{
     display: flex;
     justify-content: center;
     background-color: #F1F1E6;
     padding:10px;
 }
-
+ 
 .audit-userlist-container{
     display: flex;
     justify-content: space-evenly;
     background-color: #F1F1E6;
     padding:10px;
 }
-
+ 
 .select-style {
     width: 250px;
 }
-
+ 
 .task-content-container {
     display: flex;
     flex-direction: column;
@@ -37,33 +37,33 @@
     overflow-x: auto;
     right: 0;
 }
-
+ 
 .search-field {
     display: flex;
     justify-content: center;
     background-color: #F1F1E6;
     padding: 10px;
 }
-
+ 
 .task-content-style {
     display: flex;
     align-items: center;
     width: 100%;
     overflow-y: scroll;
     background-color: #F1F1E6;
-
+ 
     --sb-track-color: #001529;
     --sb-thumb-color: #1677ff;
     --sb-size: 15px;
     flex: 1;
 }
-
+ 
 .button-div{
     width: 100%;
     display: flex;
     justify-content: center;
 }
-
+ 
 .general-task-div {
     padding: 1em;
     width: 20%;
@@ -72,25 +72,25 @@
     display: flex;
     flex-direction: column;
 }
-
+ 
 .general-task-div>h1 {
     text-align: center;
 }
-
+ 
 .task-content-style::-webkit-scrollbar {
     width: var(--sb-size)
 }
-
+ 
 .task-content-style::-webkit-scrollbar-track {
     background: var(--sb-track-color);
 }
-
+ 
 .task-content-style::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
-
-
+ 
+ 
 }
-
+ 
 @supports not selector(::-webkit-scrollbar) {
     .task-content-style {
         scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);

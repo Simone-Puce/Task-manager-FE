@@ -48,8 +48,10 @@ const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }:
                                 hoverable
                                 onClick={() => handleCardClick(element.boardId!)}
                                 className="card-style">
-                                <Button>Update</Button>
-                                <Button>Delete</Button>
+                                <div className="card-button">
+                                    <Button type="primary">Update</Button>
+                                    <Button >Delete</Button>
+                                </div>
                             </Card>
                         ))}
                     </div>
