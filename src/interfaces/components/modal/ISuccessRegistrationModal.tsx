@@ -1,5 +1,6 @@
 import { Dispatch } from "react"
 
+
 export interface ISuccessRegistrationModal {
     showModal?: any,
     isModalOpen?: boolean,
