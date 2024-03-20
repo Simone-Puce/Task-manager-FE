@@ -9,41 +9,36 @@ import { getUserBoards } from "../../../services/BoardUserServices"
 import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssociation"
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 import "./HomepageContentAdmin.css"
+import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 
-const HomepageContentUser = ({setSelectedBoardId} : IHomePage): ReactElement => {
+const HomepageContentUser = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
-    const [showCards, setShowCards] = useState<boolean>(false)
     const token = Cookies.get("jwt-token")
     const navigate = useNavigate()
 
     useEffect(() => {
-        const fetchUserDetails = async () => {
-            const response = await getUserDetails(token!)
-            setUserDetails(response.data)
-        }
-        fetchUserDetails()
-    }, [token])
-
-    useEffect(() => {
-        const fetchUserBoards = async () => {
-            const response = await getUserBoards(token!)
-            if (response !== undefined) {
-                setUserBoardsAssociation(response.data)
+        setIsSpinning!(true)
+        const fetchUserDetailsAndBoards = async () => {
+            const response1 = await getUserDetails(token!)
+            setUserDetails(response1.data)
+            const response2 = await getUserBoards(token!)
+            if (response2 !== undefined) {
+                setUserBoardsAssociation(response2.data)
             }
-            setShowCards(true)
+            setIsSpinning!(false)
         }
-        fetchUserBoards()
-    }, [token])
+        fetchUserDetailsAndBoards()
+    }, [setIsSpinning, token])
 
     const handleCardClick = (elementId: number) => {
-        setSelectedBoardId(elementId)
+        setSelectedBoardId!(elementId)
         localStorage.setItem("my-board-id", elementId.toString())
         navigate("/board")
     }
 
     const cardDisplay = (): ReactElement => {
-        if (showCards) {
+        if (!isSpinning) {
             return (
                 <Content className="content-width">
                     <div className="homepage-card-container">
@@ -54,7 +49,7 @@ const HomepageContentUser = ({setSelectedBoardId} : IHomePage): ReactElement => 
                                 hoverable
                                 onClick={() => handleCardClick(element.boardId!)}
                                 className="card-style">
-                                <p>Click to see board details</p>      
+                                <p>Click to see board details</p>
                             </Card>
                         )
                         )
@@ -64,7 +59,7 @@ const HomepageContentUser = ({setSelectedBoardId} : IHomePage): ReactElement => 
             )
         } else {
             return (
-                <h1> No boards are loaded</h1>
+                <SpinnerPage />
             )
         }
     }

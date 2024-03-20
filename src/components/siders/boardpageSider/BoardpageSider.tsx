@@ -8,7 +8,7 @@ const BoardpageSider = ({selectedBoardId, setSelectedBoardId}: IBoardPage) => {
     const [collapsed, setCollapsed] = useState(false);
 
     return (
-        <Sider className='sider-style' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
             <BoardpageMenu setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId}/>
         </Sider>
     )

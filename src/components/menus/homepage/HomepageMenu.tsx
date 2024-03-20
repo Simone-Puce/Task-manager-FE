@@ -13,9 +13,10 @@ import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
 import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
 import "./HomepageMenu.css"
+import { IHomepageMenu } from "../../../interfaces/components/menu/IHomepageMenu";
 
 
-const HomepageMenu = (): ReactElement => {
+const HomepageMenu = ({setIsSpinning}: IHomepageMenu): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,6 +53,7 @@ const HomepageMenu = (): ReactElement => {
                         showModal={showModal}
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
+                        setIsSpinning={setIsSpinning}
                     />
                 </>
             )

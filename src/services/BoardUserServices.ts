@@ -9,7 +9,6 @@ const FIND_BOARD_BY_USER = BOARD_USER_BASE_URI + "/find-boards-by-user"
 const CREATE_USER_BOARD_ASSOCIATION = BOARD_USER_BASE_URI + "/create"
 const UPDATE_USER_BOARD_ASSOCIATION = BOARD_USER_BASE_URI + "/modify"
 
-
 export const getUserBoards = async (token: string) => {
     const decodedToken = jwtDecode(token)
     const email = decodedToken.sub
@@ -28,10 +27,13 @@ export const getUserBoards = async (token: string) => {
 }
 
 export const associateUserBoard = async (newUserBoardAssociation: UserBoardAssociation, token: string) => {
+    console.log(newUserBoardAssociation)
     try {
-        const response = await axios.post(UPDATE_USER_BOARD_ASSOCIATION,
+        const response = await axios.post(CREATE_USER_BOARD_ASSOCIATION,
             {
-                newUserBoardAssociation
+                email: newUserBoardAssociation.email,
+                boardId: newUserBoardAssociation.boardId,
+                roleCode: newUserBoardAssociation.roleCode
             }, {
             headers: { Authorization: `Bearer ${token}` }
         })
@@ -44,7 +46,7 @@ export const associateUserBoard = async (newUserBoardAssociation: UserBoardAssoc
 
 export const updateUserBoardAssociation = async (newUserBoardAssociation: UserBoardAssociation, token: string) => {
     try {
-        const response = await axios.put(CREATE_USER_BOARD_ASSOCIATION,
+        const response = await axios.put(UPDATE_USER_BOARD_ASSOCIATION,
             {
                 newUserBoardAssociation
             },

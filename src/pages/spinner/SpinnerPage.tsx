@@ -1,24 +1,12 @@
 import { ReactElement } from "react"
-import { useNavigate } from "react-router"
-import "./SpinnerPage.css"
 import SyncLoader from "react-spinners/SyncLoader";
+import "./SpinnerPage.css"
 
 const SpinnerPage = (): ReactElement => {
-    const navigate = useNavigate()
-
-    const spinnerFunction = () => {
-        setTimeout(() => {
-            navigate("/board")
-        }, 500)
-
-        return (
-            <SyncLoader/>
-        )
-    }
 
     return (
         <div className="spinner-container">
-            {spinnerFunction()}
+           <SyncLoader/>
         </div>
     )
 }
