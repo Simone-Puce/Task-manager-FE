@@ -34,7 +34,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
     return (
         <div className="general-task-div">
             <h1> {props.laneName} </h1>
-            <div hidden={hideCreateTask}>
+            <div hidden={hideCreateTask} className="button-div">
                 <Button icon={<FileAddOutlined />} onClick={showModal}>
                     New Task
                 </Button>

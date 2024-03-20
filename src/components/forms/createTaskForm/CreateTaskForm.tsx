@@ -1,4 +1,4 @@
-import { Input, Button, Form, Select, SelectProps } from "antd";
+import { Input, Button, Form } from "antd";
 import { ReactElement } from "react";
 import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal";
 import Cookies from "js-cookie";
