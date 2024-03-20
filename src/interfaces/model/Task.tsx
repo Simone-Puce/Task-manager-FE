@@ -1,8 +1,7 @@
 export interface Task {
     taskId?: number
     taskName?: string
-    status?: string
-    boardId?: number
+    laneId?: number,
     createdBy?: string
     modifiedBy?: string
     createdDate?: Date

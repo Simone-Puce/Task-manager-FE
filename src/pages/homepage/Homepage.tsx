@@ -10,8 +10,9 @@ import { UserDetails } from '../../interfaces/model/UserDetails';
 import HomepageContentUser from '../../components/content/homepage/HomepageContentUser';
 import { IHomePage } from '../../interfaces/components/pages/IHomePage';
 import "./Homepage.css"
+import SpinnerPage from '../spinner/SpinnerPage';
 
-const Homepage = ({ setSelectedBoardId }: IHomePage) => {
+const Homepage = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage) => {
 
     const token = Cookies.get("jwt-token")
     const [userDetails, setUserDetails] = useState<UserDetails>()
@@ -22,25 +23,31 @@ const Homepage = ({ setSelectedBoardId }: IHomePage) => {
             setUserDetails(response.data)
         }
         fetchUserDetails()
-    }, [token])
+    }, [token, isSpinning])
 
     const getUserRole = () => {
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
-            return <HomepageContentAdmin setSelectedBoardId={setSelectedBoardId}/>
+            return <HomepageContentAdmin setSelectedBoardId={setSelectedBoardId} isSpinning={isSpinning} setIsSpinning={setIsSpinning}/>
         } else {
-            return <HomepageContentUser setSelectedBoardId={setSelectedBoardId}/>
+            return <HomepageContentUser setSelectedBoardId={setSelectedBoardId} isSpinning={isSpinning} setIsSpinning={setIsSpinning}/>
         }
     }
 
-    return (
-        <Layout>
-            <HomepageHeader />
+    if(isSpinning) {
+        return (
+            <SpinnerPage/>
+        )
+    } else {
+        return (
             <Layout>
-                <HomepageSider />
-                {getUserRole()}
+                <HomepageHeader />
+                <Layout>
+                    <HomepageSider setIsSpinning={setIsSpinning}/>
+                    {getUserRole()}
+                </Layout>
             </Layout>
-        </Layout>
-    )
+        )
+    }
 }
 
 export default Homepage;

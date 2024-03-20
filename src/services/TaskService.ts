@@ -14,7 +14,6 @@ export const getTaskById = async (token: string, id: number) => {
             params: { id: id },
             headers: { Authorization: `Bearer ${token}` }
         })
-
         return response.data
     } catch (error) {
         console.log(error)
@@ -26,8 +25,7 @@ export const createTask = async (token: string, newTaskBody: Task) => {
         const response = await axios.post(CREATE_TASK,
             {
                 taskName: newTaskBody.taskName,
-                status: newTaskBody.status,
-                boardId: newTaskBody.boardId
+                laneId: newTaskBody.laneId
             },
             {
                 headers: { Authorization: `Bearer ${token}` }
