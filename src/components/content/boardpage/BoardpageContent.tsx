@@ -6,12 +6,12 @@ import { FloatButton, Select } from "antd"
 import { DefaultOptionType } from "antd/es/select"
 import { InfoCircleTwoTone } from '@ant-design/icons';
 import "./BoardpageContent.css"
-import { Content } from "antd/es/layout/layout"
 import { useEffect, useState } from "react"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
 import { UserInBoard } from "../../../interfaces/model/UserInBoard"
 import BoardInfoModal from "../../modals/boardInfo/BoardInfoModal"
+import { Content } from "antd/es/layout/layout"
 
 const BoardpageContent = (props: Board) => {
     const token = Cookies.get("jwt-token")
@@ -34,7 +34,7 @@ const BoardpageContent = (props: Board) => {
     const mappedLanes = () => {
         return (
             lanes?.map((lane: Lane, index) => (
-                <LaneComponent key={index} {...lane} isEditor={isEditor} boardId={boardId}/>
+                <LaneComponent key={index} {...lane} isEditor={isEditor} boardId={boardId} />
             )))
     }
 
@@ -63,40 +63,41 @@ const BoardpageContent = (props: Board) => {
 
 
     return (
-        <div className="task-content-container">
-            <BoardInfoModal
-                handleOk={handleOk}
-                isModalOpen={isModalOpen}
-                handleCancel={handleCancel}
-                modifiedBy={modifiedBy}
-                modifiedDate={modifiedDate}
-                boardName={boardName}
-            />
-            <div className="serch-field">
-                <AssociateUserBoardForm />
-            </div>
-            <div className="audit-userlist-container">
-                <div>
-                    <Select
-                        showSearch
-                        placeholder="User connected to the board"
-                        allowClear
-                        className="select-style"
-                        options={optionsHandler()}>
-                    </Select>
+        <Content>
+            <div className="task-content-container">
+                <BoardInfoModal
+                    handleOk={handleOk}
+                    isModalOpen={isModalOpen}
+                    handleCancel={handleCancel}
+                    modifiedBy={modifiedBy}
+                    modifiedDate={modifiedDate}
+                    boardName={boardName}
+                />
+                <div className="serch-field">
+                    <AssociateUserBoardForm />
+                </div>
+                <div className="audit-userlist-container">
+                    <div>
+                        <Select
+                            showSearch
+                            placeholder="User connected to the board"
+                            allowClear
+                            className="select-style"
+                            options={optionsHandler()}>
+                        </Select>
+                    </div>
+                </div>
+                <div className="task-content-style">
+                    {mappedLanes()}
+                    <FloatButton
+                        icon={<InfoCircleTwoTone />}
+                        type="primary"
+                        style={{ right: 50 }}
+                        onClick={showModal}
+                    />
                 </div>
             </div>
-            <div className="task-content-style">
-                {mappedLanes()}
-                <FloatButton
-                    icon={<InfoCircleTwoTone />}
-                    type="primary"
-                    style={{ right: 50 }}
-                    onClick={showModal}
-                />
-            </div>
-        </div>
-
+        </Content>
 
     )
 }

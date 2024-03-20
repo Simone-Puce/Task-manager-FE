@@ -87,8 +87,8 @@
  
 .task-content-style::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
-
-
+ 
+ 
 }
  
 @supports not selector(::-webkit-scrollbar) {
