@@ -9,7 +9,7 @@ export interface ISuccessRegistrationModal {
     selectedLane?: number,
     selectedBoardId?: number
     setSelectedBoardId?: Dispatch<React.SetStateAction<number | undefined>>
-    setIsSpinning? :  Dispatch<React.SetStateAction<boolean | undefined>>
+    setIsSpinning? :  Dispatch<React.SetStateAction<boolean>>
     modifiedBy?: string
     modifiedDate?: Date
     boardName?: string
