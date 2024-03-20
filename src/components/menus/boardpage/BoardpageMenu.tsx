@@ -14,7 +14,6 @@ import SubMenu from "antd/es/menu/SubMenu";
 import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
 import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
-import CreateTaskModal from "../../modals/createTask/CreateTaskModal";
 import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssociation";
 import { getUserBoards } from "../../../services/BoardUserServices";
 import { Board } from "../../../interfaces/model/Board";
@@ -96,17 +95,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         } else {
             return (
                 <>
-                    <Menu.Item key="10" icon={<FileAddOutlined />} onClick={showModal}>
-                        New Task
-                    </Menu.Item>
-                    <CreateTaskModal
-                        showModal={showModal}
-                        isModalOpen={isModalOpen}
-                        handleCancel={handleCancel}
-                        selectedBoardId={selectedBoardId}
-                        setSelectedBoardId={setSelectedBoardId}
-                    />
-
                     <SubMenu
                         key="sub4"
                         title={"Boards"}

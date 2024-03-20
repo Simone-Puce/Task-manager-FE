@@ -5,7 +5,8 @@ export interface ISuccessRegistrationModal {
     isModalOpen?: boolean,
     handleOk?: any,
     handleCancel?: any,
+    selectedLane?: number,
     selectedBoardId?: number
     setSelectedBoardId?: Dispatch<React.SetStateAction<number | undefined>>
-    setIsSpinning? :  Dispatch<React.SetStateAction<boolean | undefined>>
+    setIsSpinning? :  Dispatch<React.SetStateAction<boolean>>
 }

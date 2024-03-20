@@ -11,7 +11,7 @@ import SpinnerPage from "./pages/spinner/SpinnerPage";
 
 function App() {
   const [selectedBoardId,setSelectedBoardId] = useState<number>()
-  const [isSpinning, setIsSpinning] = useState<boolean>()
+  const [isSpinning, setIsSpinning] = useState<boolean>(false)
   
   useEffect(()=> {
     if(localStorage.getItem("my-board-id") !== undefined && selectedBoardId === undefined){
@@ -26,7 +26,7 @@ function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="homepage" element={<Homepage setSelectedBoardId={setSelectedBoardId} isSpinning={isSpinning}/>} />
+          <Route path="homepage" element={<Homepage setSelectedBoardId={setSelectedBoardId} isSpinning={isSpinning} setIsSpinning={setIsSpinning} />}/>
           <Route path="board" element={<BoardPage setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId}/>} />
           <Route path="profile" element={<ProfilePage/>}/>
           <Route path="spinner" element={<SpinnerPage/>}/>

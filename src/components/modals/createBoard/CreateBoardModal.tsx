@@ -4,7 +4,7 @@ import { ISuccessRegistrationModal } from '../../../interfaces/components/modal/
 import CreateBoardForm from '../../forms/createBoardForm/CreateBoardForm';
 import "./CreateBoardModal.css"
 
-const CreateBoardModal = ({ isModalOpen, handleCancel }: ISuccessRegistrationModal): ReactElement => {
+const CreateBoardModal = ({ isModalOpen, handleCancel, setIsSpinning }: ISuccessRegistrationModal): ReactElement => {
 
   return (
     <>
@@ -15,7 +15,7 @@ const CreateBoardModal = ({ isModalOpen, handleCancel }: ISuccessRegistrationMod
         footer={<></>}
       >
         <div className='createBoardModalStyle'>
-          <CreateBoardForm handleCancel={handleCancel}/>
+          <CreateBoardForm handleCancel={handleCancel} setIsSpinning={setIsSpinning}/>
         </div>
       </Modal>
     </>

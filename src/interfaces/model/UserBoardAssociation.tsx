@@ -1,6 +1,6 @@
 export interface UserBoardAssociation {
     boardId?: number
-    email: string
+    email?: string
     boardName?: string
-    roleCode: string
+    roleCode?: string
 }

@@ -12,7 +12,7 @@ import { IHomePage } from '../../interfaces/components/pages/IHomePage';
 import "./Homepage.css"
 import SpinnerPage from '../spinner/SpinnerPage';
 
-const Homepage = ({ setSelectedBoardId, isSpinning }: IHomePage) => {
+const Homepage = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage) => {
 
     const token = Cookies.get("jwt-token")
     const [userDetails, setUserDetails] = useState<UserDetails>()
@@ -27,9 +27,9 @@ const Homepage = ({ setSelectedBoardId, isSpinning }: IHomePage) => {
 
     const getUserRole = () => {
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
-            return <HomepageContentAdmin setSelectedBoardId={setSelectedBoardId}/>
+            return <HomepageContentAdmin setSelectedBoardId={setSelectedBoardId} isSpinning={isSpinning} setIsSpinning={setIsSpinning}/>
         } else {
-            return <HomepageContentUser setSelectedBoardId={setSelectedBoardId}/>
+            return <HomepageContentUser setSelectedBoardId={setSelectedBoardId} isSpinning={isSpinning} setIsSpinning={setIsSpinning}/>
         }
     }
 
@@ -42,7 +42,7 @@ const Homepage = ({ setSelectedBoardId, isSpinning }: IHomePage) => {
             <Layout>
                 <HomepageHeader />
                 <Layout>
-                    <HomepageSider />
+                    <HomepageSider setIsSpinning={setIsSpinning}/>
                     {getUserRole()}
                 </Layout>
             </Layout>

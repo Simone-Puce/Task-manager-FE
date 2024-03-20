@@ -31,8 +31,10 @@
 .task-content-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: auto;
     height: 100%;
+    overflow-x: auto;
+    right: 0;
 }
 
 .search-field {
@@ -44,10 +46,8 @@
 
 .task-content-style {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     width: 100%;
-    position: relative;
     overflow-y: scroll;
     background-color: #F1F1E6;
     --sb-track-color: #001529;
@@ -56,9 +56,13 @@
     flex: 1;
 }
 
+
 .general-task-div {
+    padding: 1em;
     width: 20%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .general-task-div>h1 {

@@ -2,25 +2,23 @@ import { Board } from "../../../interfaces/model/Board"
 import LaneComponent from "./LaneComponent"
 import { Lane } from "../../../interfaces/model/Lane"
 import AssociateUserBoardForm from "../../forms/associateUserBoardForm/AssociateUserBoardForm"
-import { useState } from "react"
 import { Select } from "antd"
 import { DefaultOptionType } from "antd/es/select"
 import "./BoardpageContent.css"
+import { Content } from "antd/es/layout/layout"
+import Cookies from "js-cookie"
+import { jwtDecode } from "jwt-decode"
+import { useState } from "react"
 
 const BoardpageContent = (props: Board) => {
+    const token = Cookies.get("jwt-token")
     const { boardId, boardName, lanes, users, createdBy, modifiedBy, createdDate, modifiedDate } = props
-
-    const sortArrayByLaneId = () => {
-        if (lanes) {
-            lanes.sort((a, b) => a.laneId! - b.laneId!)
-        }
-    }
+    const [isEditor, setIsEditor] = useState<boolean>()
 
     const mappedLanes = () => {
-        sortArrayByLaneId()
         return (
             lanes?.map((lane: Lane, index) => (
-                <LaneComponent key={index} laneStatus={lane.laneName} />
+                <LaneComponent key={index} {...lane} isEditor={isEditor} boardId={boardId}/>
             )))
     }
 
@@ -36,29 +34,30 @@ const BoardpageContent = (props: Board) => {
     }
 
     return (
-        <div className="task-content-container">
-            <div className="serch-field">
-                <AssociateUserBoardForm />
-            </div>
-            <div className="audit-userlist-container">
-                <div>
-                    Last update of the board from {modifiedBy} in date {modifiedDate?.toString()}
+        <Content>
+            <div className="task-content-container">
+                <div className="serch-field">
+                    <AssociateUserBoardForm {...props} />
                 </div>
-                <div>
-                    <Select
-                        placeholder="User connected to the board"
-                        allowClear
-                        className="select-style"
-                        options={optionsHandler()}>
-                    </Select>
+                <div className="audit-userlist-container">
+                    <div>
+                        Last update of the board from {modifiedBy} in date {modifiedDate?.toString()}
+                    </div>
+                    <div>
+                        <Select
+                            showSearch
+                            placeholder="User connected to the board"
+                            allowClear
+                            className="select-style"
+                            options={optionsHandler()}
+                        />
+                    </div>
+                </div>
+                <div className="task-content-style">
+                    {mappedLanes()}
                 </div>
             </div>
-            <div className="task-content-style">
-                {mappedLanes()}
-            </div>
-        </div>
-
-
+        </Content>
     )
 }
 
