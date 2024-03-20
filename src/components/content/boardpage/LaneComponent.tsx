@@ -7,10 +7,13 @@ import { ILaneComponent } from "../../../interfaces/components/contents/ILaneCom
 import "./BoardpageContent.css"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
+import TaskDetailsModal from "../../modals/createBoard/taskModal/TaskDetailsModal"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const [isTaskModalOpen, setIsTaskModalOpen] = useState<boolean>(false)
     const [hideCreateTask, setHideCreateTask] = useState<boolean>(false)
+    const [selectedTaskId, setSelectedTaskId] = useState<number>()
     const token = Cookies.get("jwt-token")
 
     useEffect(() => {
@@ -29,7 +32,14 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
 
     const handleCancel = () => {
         setIsModalOpen(false);
+        setIsTaskModalOpen(false)
     }
+
+    const showTaskModal = (taskId: number) => {
+        setSelectedTaskId(taskId)
+        setIsTaskModalOpen(true);
+    }
+
 
     return (
         <div className="general-task-div">
@@ -45,12 +55,18 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                 handleCancel={handleCancel}
                 selectedLane={props.laneId}
             />
+            <TaskDetailsModal
+                showTaskModal={showTaskModal}
+                isTaskModalOpen={isTaskModalOpen}
+                handleCancel={handleCancel}
+                selectedTaskId={selectedTaskId}
+            />
             {props.tasks!.map((task: Task) => (
                 <Card title={task.taskName}
                     key={task.taskId}
                     bordered={true}
                     hoverable
-                    onClick={() => console.log("error")}
+                    onClick={()=>showTaskModal(task.taskId!)}
                     className="card-style">
                     Task card
                 </Card>
