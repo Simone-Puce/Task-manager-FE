@@ -2,14 +2,16 @@ import { Board } from "../../../interfaces/model/Board"
 import LaneComponent from "./LaneComponent"
 import { Lane } from "../../../interfaces/model/Lane"
 import AssociateUserBoardForm from "../../forms/associateUserBoardForm/AssociateUserBoardForm"
-import { useState } from "react"
-import { Select } from "antd"
+import { Button, FloatButton, Modal, Select } from "antd"
 import { DefaultOptionType } from "antd/es/select"
+import { InfoCircleTwoTone } from '@ant-design/icons';
 import "./BoardpageContent.css"
+import { useState } from "react"
+import BoardInfoModal from "../../modals/boardInfo/BoardInfoModal"
 
 const BoardpageContent = (props: Board) => {
     const { boardId, boardName, lanes, users, createdBy, modifiedBy, createdDate, modifiedDate } = props
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const sortArrayByLaneId = () => {
         if (lanes) {
             lanes.sort((a, b) => a.laneId! - b.laneId!)
@@ -35,15 +37,33 @@ const BoardpageContent = (props: Board) => {
         return option
     }
 
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+
     return (
         <div className="task-content-container">
+            <BoardInfoModal
+                handleOk={handleOk}
+                isModalOpen={isModalOpen}
+                handleCancel={handleCancel}
+                modifiedBy={modifiedBy}
+                modifiedDate={modifiedDate}
+                boardName={boardName}
+            />
             <div className="serch-field">
                 <AssociateUserBoardForm />
             </div>
             <div className="audit-userlist-container">
-                <div>
-                    Last update of the board from {modifiedBy} in date {modifiedDate?.toString()}
-                </div>
                 <div>
                     <Select
                         placeholder="User connected to the board"
@@ -55,6 +75,12 @@ const BoardpageContent = (props: Board) => {
             </div>
             <div className="task-content-style">
                 {mappedLanes()}
+                <FloatButton
+                    icon={<InfoCircleTwoTone />}
+                    type="primary"
+                    style={{ right: 50 }}
+                    onClick={showModal}
+                />
             </div>
         </div>
 

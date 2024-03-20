@@ -10,7 +10,7 @@ import { Board } from "../../../interfaces/model/Board"
 import { useNavigate } from "react-router-dom"
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 
-const HomepageContentAdmin = ({setSelectedBoardId} : IHomePage): ReactElement => {
+const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [boards, setBoards] = useState<Board[]>([])
     const [showCards, setShowCards] = useState<boolean>(false)
@@ -35,7 +35,7 @@ const HomepageContentAdmin = ({setSelectedBoardId} : IHomePage): ReactElement =>
 
         fetchAllBoards()
     }, [token])
-    
+
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId(elementId)
         localStorage.setItem("my-board-id", elementId.toString())
@@ -48,15 +48,17 @@ const HomepageContentAdmin = ({setSelectedBoardId} : IHomePage): ReactElement =>
                 <Content className="content-width">
                     <div className="homepage-card-container">
                         {boards.map((element, index) => (
-                             <Card title={element.boardName}
-                             key={index}
-                             bordered={true}
-                             hoverable
-                             onClick={() => handleCardClick(element.boardId!)}
-                             className="card-style">
-                             <Button>Update</Button>
-                             <Button>Delete</Button>
-                         </Card>
+                            <Card title={element.boardName}
+                                key={index}
+                                bordered={true}
+                                hoverable
+                                onClick={() => handleCardClick(element.boardId!)}
+                                className="card-style">
+                                <div className="card-button">
+                                    <Button type="primary">Update</Button>
+                                    <Button >Delete</Button>
+                                </div>
+                            </Card>
                         ))}
                     </div>
                 </Content>

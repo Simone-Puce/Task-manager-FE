@@ -10,18 +10,18 @@
     box-shadow: 5px 10px;
 }
 
-.serch-field{
+.serch-field {
     display: flex;
     justify-content: center;
     background-color: #F1F1E6;
-    padding:10px;
+    padding: 10px;
 }
 
-.audit-userlist-container{
+.audit-userlist-container {
     display: flex;
     justify-content: space-evenly;
     background-color: #F1F1E6;
-    padding:10px;
+    padding: 10px;
 }
 
 .select-style {
