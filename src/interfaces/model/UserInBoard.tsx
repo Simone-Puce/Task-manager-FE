@@ -1,6 +1,6 @@
-export interface UserDetails{
+export interface UserInBoard {
     firstName: string,
     lastName: string,
     email: string,
-    roles: string[]
+    roleCodeForBoard: string
 }

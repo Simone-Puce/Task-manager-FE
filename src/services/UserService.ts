@@ -28,11 +28,13 @@ export const loginUser = async (loginUserData: LoginUser) => {
     }
 }
 
-
-//has to be fixed on backend
 export const getAllUsers = async (token: string) => {
     try {
-        const response = await axios.get(GET_ALL_USERS)
+        const response = await axios.get(GET_ALL_USERS,
+            {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+        )
         return response.data
     } catch (error) {
         console.log(error)

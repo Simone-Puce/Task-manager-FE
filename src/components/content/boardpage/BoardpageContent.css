@@ -8,6 +8,7 @@
     margin: 10px;
     padding: 10px;
     box-shadow: 5px 10px;
+
 }
 
 .serch-field {
@@ -31,8 +32,10 @@
 .task-content-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: auto;
     height: 100%;
+    overflow-x: auto;
+    right: 0;
 }
 
 .search-field {
@@ -44,21 +47,30 @@
 
 .task-content-style {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     width: 100%;
-    position: relative;
     overflow-y: scroll;
     background-color: #F1F1E6;
+
     --sb-track-color: #001529;
     --sb-thumb-color: #1677ff;
     --sb-size: 15px;
     flex: 1;
 }
 
+.button-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .general-task-div {
+    padding: 1em;
     width: 20%;
+    min-width: 20em;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .general-task-div>h1 {
@@ -75,6 +87,7 @@
 
 .task-content-style::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
+
 
 }
 

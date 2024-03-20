@@ -1,4 +1,5 @@
 import { Lane } from "./Lane"
+import { UserInBoard } from "./UserInBoard"
 
 export interface Board {
     boardId?: number

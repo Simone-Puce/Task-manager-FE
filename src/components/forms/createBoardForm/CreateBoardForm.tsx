@@ -10,10 +10,13 @@ const CreateBoardForm = ({ handleCancel, setIsSpinning }: ISuccessRegistrationMo
     const token = Cookies.get("jwt-token")
 
     const onSubmit = async () => {
+        setIsSpinning!(true)
         handleCancel()
         const boardName: string = form.getFieldValue("boardTitle")
-        const response = await createNewBoard(boardName, token!)
-        console.log(response)
+        await createNewBoard(boardName, token!)
+        setTimeout(() => {
+            setIsSpinning!(false)
+        }, 1000)
     }
 
     return (
@@ -42,7 +45,6 @@ const CreateBoardForm = ({ handleCancel, setIsSpinning }: ISuccessRegistrationMo
                     </Button>
                 </div>
             </Form.Item>
-
         </Form>
     )
 }
