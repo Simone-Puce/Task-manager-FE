@@ -8,6 +8,7 @@ import "./BoardpageContent.css"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
 import TaskDetailsModal from "../../modals/createBoard/taskModal/TaskDetailsModal"
+import CreateTaskButton from "../../button/CreateTaskButton"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -44,10 +45,8 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
     return (
         <div className="general-task-div">
             <h1> {props.laneName} </h1>
-            <div hidden={hideCreateTask} className="button-div">
-                <Button icon={<FileAddOutlined />} onClick={showModal}>
-                    New Task
-                </Button>
+            <div  className="button-div">
+                <CreateTaskButton/>
             </div>
             <CreateTaskModal
                 showModal={showModal}
