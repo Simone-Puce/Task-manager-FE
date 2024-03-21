@@ -34,15 +34,18 @@ const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }:
         localStorage.setItem("my-board-id", elementId.toString())
         navigate("/board")
     }
- 
+
     const updateBoardHandler = () => {
         console.log("carlo")
     }
- 
-    const deleteBoardHandler = () => {
-       
+
+    const deleteBoardHandler = async (boardId: number) => {
+        console.log(boardId)
+        await deleteBoard(boardId, token!)
+        const newBoards = boards.filter(board => board.boardId !== boardId)
+        setBoards(newBoards)
     }
- 
+
     return (
         <div className="homepage-style">
             <div className="header-content-container">
@@ -59,7 +62,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }:
                                 className="card-style">
                                 <div className="card-button">
                                     <Button type="primary" onClick={updateBoardHandler}>Update</Button>
-                                    <Button onClick={deleteBoardHandler}>Delete</Button>
+                                    <Button onClick={()=>deleteBoardHandler(element.boardId!)}>Delete</Button>
                                     <Button type="text" onClick={() => handleCardClick(element.boardId!)}><ArrowRightOutlined /></Button>
                                 </div>
                             </Card>
