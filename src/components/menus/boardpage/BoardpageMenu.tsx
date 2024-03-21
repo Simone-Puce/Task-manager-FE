@@ -14,7 +14,7 @@ import { getUserDetails, logoutUser } from "../../../services/UserService";
 import SubMenu from "antd/es/menu/SubMenu";
 import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
-import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
+import CreateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal";
 import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssociation";
 import { getUserBoards } from "../../../services/BoardUserServices";
 import { Board } from "../../../interfaces/model/Board";
@@ -90,6 +90,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         showModal={showModal}
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
+                        isCreating={true}
                     />
                 </>
             )
