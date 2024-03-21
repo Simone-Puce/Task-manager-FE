@@ -18,7 +18,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
     const token = Cookies.get("jwt-token")
     const navigate = useNavigate()
-
+ 
     useEffect(() => {
         const fetchUserDetailsAndBoards = async () => {
             const response2 = await getAllBoards(token!)
@@ -27,7 +27,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
         }
         fetchUserDetailsAndBoards()
     }, [token])
-
+ 
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId!(elementId)
         localStorage.setItem("my-board-id", elementId.toString())
@@ -79,7 +79,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
         setDisplayedBoards(newBoards)
         setInputValue(event.target.value)
     }
-
+ 
     return (
         <div className="homepage-style">
             <div className="header-content-container">
@@ -110,5 +110,6 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
         </div>
     )
 }
-
+ 
 export default HomepageContentAdmin
+ 

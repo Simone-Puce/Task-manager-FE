@@ -22,6 +22,7 @@ export const getLaneById = async (token: string, id: number) => {
 }
 
 export const createLane = async (token: string, newLane: Lane) => {
+    console.log(newLane)
     try {
         const response = await axios.post(CREATE_LANE,
             {

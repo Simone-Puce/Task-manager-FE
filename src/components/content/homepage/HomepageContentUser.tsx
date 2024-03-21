@@ -16,7 +16,7 @@ const HomepageContentUser = ({ setSelectedBoardId }: IHomePage): ReactElement =>
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const token = Cookies.get("jwt-token")
     const navigate = useNavigate()
-
+ 
     useEffect(() => {
         const fetchUserDetailsAndBoards = async () => {
             const response1 = await getUserDetails(token!)
@@ -34,7 +34,7 @@ const HomepageContentUser = ({ setSelectedBoardId }: IHomePage): ReactElement =>
         localStorage.setItem("my-board-id", elementId.toString())
         navigate("/board")
     }
-
+ 
     const cardDisplay = (): ReactElement => {
         return (
             <Content className="content-width">
@@ -56,7 +56,7 @@ const HomepageContentUser = ({ setSelectedBoardId }: IHomePage): ReactElement =>
             </Content>
         )
     }
-
+ 
     return (
         <div className="homepage-style">
             <div className="header-content-container">
@@ -68,5 +68,5 @@ const HomepageContentUser = ({ setSelectedBoardId }: IHomePage): ReactElement =>
         </div>
     )
 }
-
+ 
 export default HomepageContentUser
