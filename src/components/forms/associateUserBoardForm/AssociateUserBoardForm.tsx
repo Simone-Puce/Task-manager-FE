@@ -3,7 +3,7 @@ import { DefaultOptionType } from "antd/es/select"
 import Cookies from "js-cookie"
 import { useEffect, useState } from "react"
 import { UserDetails } from "../../../interfaces/model/UserDetails"
-import { getAllUsers, getUserDetails } from "../../../services/UserService"
+import { getAllUsers } from "../../../services/UserService"
 import { associateUserBoard } from "../../../services/BoardUserServices"
 import { IAssociateUserBoardForm } from "../../../interfaces/components/forms/IAssociateUserBoardForm"
 

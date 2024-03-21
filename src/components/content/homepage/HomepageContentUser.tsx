@@ -8,9 +8,8 @@ import { useNavigate } from "react-router-dom"
 import { getUserBoards } from "../../../services/BoardUserServices"
 import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssociation"
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
-import "./HomepageContentAdmin.css"
-import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 import { ArrowRightOutlined } from "@ant-design/icons"
+import "./HomepageContentAdmin.css"
 
 const HomepageContentUser = ({ setSelectedBoardId }: IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
