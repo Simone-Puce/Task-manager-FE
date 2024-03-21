@@ -1,8 +1,8 @@
 import { Modal } from "antd";
 import { ReactElement } from "react";
-import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal";
+import { ISuccessRegistrationModal } from "../../../../interfaces/components/modal/ISuccessRegistrationModal";
 import "./CreateTaskModal.css"
-import CreateTaskForm from "../../forms/createTaskForm/CreateTaskForm";
+import CreateTaskForm from "../../../forms/createTaskForm/CreateTaskForm";
 
 const CreateTaskModal = ({ isModalOpen, handleCancel, selectedLane, setSelectedBoardId}: ISuccessRegistrationModal): ReactElement => {
   return (
