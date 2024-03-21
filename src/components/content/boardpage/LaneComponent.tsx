@@ -1,27 +1,13 @@
 import { ReactElement, useEffect, useState } from "react"
 import { Task } from "../../../interfaces/model/Task"
-import { Button, Card } from "antd"
-import { FileAddOutlined } from '@ant-design/icons'
+import { Card } from "antd"
 import CreateTaskModal from "../../modals/createTask/CreateTaskModal"
 import { ILaneComponent } from "../../../interfaces/components/contents/ILaneComponent"
 import "./BoardpageContent.css"
-import { getUserDetails } from "../../../services/UserService"
-import Cookies from "js-cookie"
+import CreateTaskButton from "../../button/CreateTaskButton"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-    const [hideCreateTask, setHideCreateTask] = useState<boolean>(false)
-    const token = Cookies.get("jwt-token")
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            const response = await getUserDetails(token!)
-            if (response.data.roles[0].name === "ROLE_ADMIN") {
-                setHideCreateTask(true)
-            }
-        }
-        fetchUser()
-    }, [token])
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -34,10 +20,8 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
     return (
         <div className="general-task-div">
             <h1> {props.laneName} </h1>
-            <div hidden={hideCreateTask} className="button-div">
-                <Button icon={<FileAddOutlined />} onClick={showModal}>
-                    New Task
-                </Button>
+            <div className="button-div">
+                <CreateTaskButton showModal={showModal}/>
             </div>
             <CreateTaskModal
                 showModal={showModal}
