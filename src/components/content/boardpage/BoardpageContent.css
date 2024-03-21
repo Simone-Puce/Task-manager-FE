@@ -44,6 +44,12 @@
     background-color: #F1F1E6;
     padding: 10px;
 }
+
+.button-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
  
 .task-content-style {
     display: flex;

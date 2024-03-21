@@ -74,7 +74,7 @@ const BoardpageContent = (props: Board) => {
                     boardName={boardName}
                 />
                 <div className="serch-field">
-                    <AssociateUserBoardForm />
+                    <AssociateUserBoardForm {...props} />
                 </div>
                 <div className="audit-userlist-container">
                     <div>
