@@ -10,11 +10,12 @@ import { useNavigate } from "react-router-dom"
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 import "./HomepageContentAdmin.css"
 
-const token = Cookies.get("jwt-token")
 
 const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [boards, setBoards] = useState<Board[]>([])
+    const token = Cookies.get("jwt-token")
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -48,8 +49,10 @@ const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }:
                                 hoverable
                                 onClick={() => handleCardClick(element.boardId!)}
                                 className="card-style">
-                                <Button>Update</Button>
-                                <Button>Delete</Button>
+                                <div className="card-button">
+                                    <Button type="primary">Update</Button>
+                                    <Button >Delete</Button>
+                                </div>
                             </Card>
                         ))}
                     </div>

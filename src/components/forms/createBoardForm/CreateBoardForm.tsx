@@ -1,5 +1,5 @@
 import { Input, Button, Form } from "antd";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal";
 import { createNewBoard } from "../../../services/BoardService";
 import Cookies from "js-cookie";

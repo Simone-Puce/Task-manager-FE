@@ -6,4 +6,5 @@ export interface Task {
     modifiedBy?: string
     createdDate?: Date
     modifiedDate?: Date
+    description?: string
 }
