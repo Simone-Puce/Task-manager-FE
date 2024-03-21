@@ -6,7 +6,8 @@ import {
     HomeOutlined,
     CloseOutlined,
     CalendarOutlined,
-    FileAddOutlined
+    FileAddOutlined,
+    PlusSquareOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
@@ -95,6 +96,12 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         } else {
             return (
                 <>
+                <Menu.Item 
+                icon={<PlusSquareOutlined/>}
+                onClick={showModal}
+                >
+                    New Lane
+                </Menu.Item>
                     <SubMenu
                         key="sub4"
                         title={"Boards"}

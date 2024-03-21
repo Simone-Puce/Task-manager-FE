@@ -9,15 +9,16 @@ import { Board } from "../../../interfaces/model/Board"
 import { useNavigate } from "react-router-dom"
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 import "./HomepageContentAdmin.css"
-
-
+import { ArrowRightOutlined } from "@ant-design/icons"
+ 
+ 
 const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [boards, setBoards] = useState<Board[]>([])
     const token = Cookies.get("jwt-token")
-
+ 
     const navigate = useNavigate()
-
+ 
     useEffect(() => {
         const fetchUserDetailsAndBoards = async () => {
             const response1 = await getUserDetails(token!)
@@ -26,14 +27,22 @@ const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }:
             setBoards(response2.data)
         }
         fetchUserDetailsAndBoards()
-    }, [])
-
+    }, [token])
+ 
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId!(elementId)
         localStorage.setItem("my-board-id", elementId.toString())
         navigate("/board")
     }
-
+ 
+    const updateBoardHandler = () => {
+        console.log("carlo")
+    }
+ 
+    const deleteBoardHandler = () => {
+       
+    }
+ 
     return (
         <div className="homepage-style">
             <div className="header-content-container">
@@ -47,11 +56,11 @@ const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }:
                                 key={index}
                                 bordered={true}
                                 hoverable
-                                onClick={() => handleCardClick(element.boardId!)}
                                 className="card-style">
                                 <div className="card-button">
-                                    <Button type="primary">Update</Button>
-                                    <Button >Delete</Button>
+                                    <Button type="primary" onClick={updateBoardHandler}>Update</Button>
+                                    <Button onClick={deleteBoardHandler}>Delete</Button>
+                                    <Button type="text" onClick={() => handleCardClick(element.boardId!)}><ArrowRightOutlined /></Button>
                                 </div>
                             </Card>
                         ))}
@@ -61,5 +70,6 @@ const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }:
         </div>
     )
 }
-
+ 
 export default HomepageContentAdmin
+ 
