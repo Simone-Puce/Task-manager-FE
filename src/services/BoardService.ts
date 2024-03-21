@@ -72,10 +72,9 @@ export const updateBoard = async (newBoardName: string, id: number) => {
     }
 }
 
-export const deleteBoard = async (id: number) => {
-    const token = Cookies.get("jwt-token")
+export const deleteBoard = async (id: number, token: string) => {
     try {
-        const response = await axios.put(DELETE_BY_CODE,
+        const response = await axios.put(DELETE_BY_CODE,{},
             {
                 params: {
                     boardId: id

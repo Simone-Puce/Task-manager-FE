@@ -1,5 +1,5 @@
 import { Content } from "antd/es/layout/layout"
-import { Card } from "antd"
+import { Button, Card } from "antd"
 import { getUserDetails } from "../../../services/UserService"
 import { ReactElement, useEffect, useState } from "react"
 import { UserDetails } from "../../../interfaces/model/UserDetails"
@@ -10,6 +10,7 @@ import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssocia
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 import "./HomepageContentAdmin.css"
 import SpinnerPage from "../../../pages/spinner/SpinnerPage"
+import { ArrowRightOutlined } from "@ant-design/icons"
 
 const HomepageContentUser = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
@@ -47,9 +48,10 @@ const HomepageContentUser = ({ setSelectedBoardId, isSpinning, setIsSpinning }: 
                                 key={index}
                                 bordered={true}
                                 hoverable
-                                onClick={() => handleCardClick(element.boardId!)}
                                 className="card-style">
-                                <p>Click to see board details</p>      
+                                <div className="card-button">
+                                    <Button type="text" onClick={() => handleCardClick(element.boardId!)}><ArrowRightOutlined /></Button>
+                                </div>
                             </Card>
                         )
                         )
