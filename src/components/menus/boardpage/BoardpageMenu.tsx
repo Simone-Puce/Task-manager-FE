@@ -20,12 +20,14 @@ import { getUserBoards } from "../../../services/BoardUserServices";
 import { Board } from "../../../interfaces/model/Board";
 import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
 import "./BoardpageMenu.css"
+import CreateLaneModal from "../../modals/lane/CreateLaneModal";
 
 const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isLaneModalOpen, setIsLaneModalOpen] = useState(false)
     const token = Cookies.get("jwt-token")
 
     const handleLogout = (): void => {
@@ -56,7 +58,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         localStorage.setItem("my-board-id", boardId.toString())
         navigate("/spinner")
     }
-    
+
     const boardItem = () => {
         return (
             userBoardsAssociation.map((element: Board) => (
@@ -75,8 +77,13 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         setIsModalOpen(true);
     };
 
+    const showLaneModal = () => {
+        setIsLaneModalOpen(true);
+    }
+
     const handleCancel = () => {
         setIsModalOpen(false);
+        setIsLaneModalOpen(false);
     };
 
     const roleHandler = () => {
@@ -97,12 +104,19 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         } else {
             return (
                 <>
-                <Menu.Item 
-                icon={<PlusSquareOutlined/>}
-                onClick={showModal}
-                >
-                    New Lane
-                </Menu.Item>
+                    <Menu.Item
+                        icon={<PlusSquareOutlined />}
+                        onClick={showLaneModal}
+                    >
+                        New Lane
+                    </Menu.Item>
+                    <CreateLaneModal
+                        showLaneModal={showLaneModal}
+                        isLaneModalOpen={isLaneModalOpen}
+                        handleCancel={handleCancel}
+                        selectedBoardId={selectedBoardId}
+                   
+                    />
                     <SubMenu
                         key="sub4"
                         title={"Boards"}
