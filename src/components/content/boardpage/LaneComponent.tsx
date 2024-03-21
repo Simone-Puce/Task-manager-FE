@@ -2,13 +2,13 @@ import { ReactElement, useEffect, useState } from "react"
 import { Task } from "../../../interfaces/model/Task"
 import { Button, Card } from "antd"
 import { FileAddOutlined } from '@ant-design/icons'
-import CreateTaskModal from "../../modals/createTask/CreateTaskModal"
 import { ILaneComponent } from "../../../interfaces/components/contents/ILaneComponent"
 import "./BoardpageContent.css"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
-import TaskDetailsModal from "../../modals/createBoard/taskModal/TaskDetailsModal"
 import CreateTaskButton from "../../button/CreateTaskButton"
+import CreateTaskModal from "../../modals/createTask/CreateTaskModal"
+import TaskDetailsModal from "../../modals/createBoard/taskModal/TaskDetailsModal"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)

@@ -4,13 +4,13 @@ import { Lane } from "../../../interfaces/model/Lane"
 import AssociateUserBoardForm from "../../forms/associateUserBoardForm/AssociateUserBoardForm"
 import { FloatButton } from "antd"
 import { InfoCircleTwoTone } from '@ant-design/icons';
-import "./BoardpageContent.css"
 import { useEffect, useState } from "react"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
 import { UserInBoard } from "../../../interfaces/model/UserInBoard"
 import BoardInfoModal from "../../modals/boardInfo/BoardInfoModal"
 import { Content } from "antd/es/layout/layout"
+import "./BoardpageContent.css"
 
 const BoardpageContent = (props: Board) => {
     const token = Cookies.get("jwt-token")
