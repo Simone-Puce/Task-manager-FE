@@ -1,5 +1,4 @@
 import axios from "axios"
-import Cookies from "js-cookie"
 
 const APP_CONTEXT_URI = "http://localhost:8080/task-manager"
 const VERSION_URI = APP_CONTEXT_URI + "/v1"
@@ -51,8 +50,7 @@ export const createNewBoard = async (newBoard: string, token: string) => {
     }
 }
 
-export const updateBoard = async (newBoardName: string, id: number) => {
-    const token = Cookies.get("jwt-token")
+export const updateBoard = async (newBoardName: string, id: number, token: string) => {
     try {
         const response = await axios.put(PUT_BY_CODE,
             {

@@ -11,15 +11,14 @@ import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 import "./HomepageContentAdmin.css"
 import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 import { ArrowRightOutlined } from "@ant-design/icons"
- 
-const HomepageContentUser = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage): ReactElement => {
+
+const HomepageContentUser = ({ setSelectedBoardId }: IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const token = Cookies.get("jwt-token")
     const navigate = useNavigate()
- 
+
     useEffect(() => {
-        setIsSpinning!(true)
         const fetchUserDetailsAndBoards = async () => {
             const response1 = await getUserDetails(token!)
             setUserDetails(response1.data)
@@ -27,45 +26,38 @@ const HomepageContentUser = ({ setSelectedBoardId, isSpinning, setIsSpinning }: 
             if (response2 !== undefined) {
                 setUserBoardsAssociation(response2.data)
             }
-            setIsSpinning!(false)
         }
         fetchUserDetailsAndBoards()
-    }, [setIsSpinning, token])
- 
+    }, [token])
+
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId!(elementId)
         localStorage.setItem("my-board-id", elementId.toString())
         navigate("/board")
     }
- 
+
     const cardDisplay = (): ReactElement => {
-        if (!isSpinning) {
-            return (
-                <Content className="content-width">
-                    <div className="homepage-card-container">
-                        {userBoardsAssociation.map((element, index) => (
-                            <Card title={element.boardName}
-                                key={index}
-                                bordered={true}
-                                hoverable
-                                className="card-style">
-                                <div className="card-button">
-                                    <Button type="text" onClick={() => handleCardClick(element.boardId!)}><ArrowRightOutlined /></Button>
-                                </div>
-                            </Card>
-                        )
-                        )
-                        }
-                    </div>
-                </Content>
-            )
-        } else {
-            return (
-                <SpinnerPage />
-            )
-        }
+        return (
+            <Content className="content-width">
+                <div className="homepage-card-container">
+                    {userBoardsAssociation.map((element, index) => (
+                        <Card title={element.boardName}
+                            key={index}
+                            bordered={true}
+                            hoverable
+                            className="card-style">
+                            <div className="card-button">
+                                <Button type="text" onClick={() => handleCardClick(element.boardId!)}><ArrowRightOutlined /></Button>
+                            </div>
+                        </Card>
+                    )
+                    )
+                    }
+                </div>
+            </Content>
+        )
     }
- 
+
     return (
         <div className="homepage-style">
             <div className="header-content-container">
@@ -77,5 +69,5 @@ const HomepageContentUser = ({ setSelectedBoardId, isSpinning, setIsSpinning }: 
         </div>
     )
 }
- 
+
 export default HomepageContentUser
