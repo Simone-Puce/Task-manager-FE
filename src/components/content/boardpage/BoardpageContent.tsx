@@ -34,7 +34,7 @@ const BoardpageContent = (props: Board) => {
     const mappedLanes = () => {
         return (
             lanes?.map((lane: Lane, index) => (
-                <LaneComponent key={index} {...lane} isEditor={isEditor} boardId={boardId} />
+                <LaneComponent key={index} {...lane} isEditor={isEditor} boardId={boardId}/>
             )))
     }
 

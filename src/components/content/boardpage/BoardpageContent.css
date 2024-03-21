@@ -51,19 +51,12 @@
     width: 100%;
     overflow-y: scroll;
     background-color: #F1F1E6;
- 
     --sb-track-color: #001529;
     --sb-thumb-color: #1677ff;
     --sb-size: 15px;
     flex: 1;
 }
- 
-.button-div{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
- 
+
 .general-task-div {
     padding: 1em;
     width: 20%;
@@ -87,8 +80,7 @@
  
 .task-content-style::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
- 
- 
+
 }
  
 @supports not selector(::-webkit-scrollbar) {

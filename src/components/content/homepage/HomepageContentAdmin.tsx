@@ -10,11 +10,12 @@ import { useNavigate } from "react-router-dom"
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 import "./HomepageContentAdmin.css"
 
-const token = Cookies.get("jwt-token")
 
 const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage): ReactElement => {
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [boards, setBoards] = useState<Board[]>([])
+    const token = Cookies.get("jwt-token")
+
     const navigate = useNavigate()
 
     useEffect(() => {
