@@ -28,7 +28,7 @@ const TaskDetailsModal = (props : ITaskDetailsModal): ReactElement => {
                 footer={<></>}
             >
                 <div>
-                    
+                    {task?.description}
                 </div>
             </Modal>
         </>
