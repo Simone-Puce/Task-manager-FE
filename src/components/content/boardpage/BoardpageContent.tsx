@@ -2,8 +2,7 @@ import { Board } from "../../../interfaces/model/Board"
 import LaneComponent from "./LaneComponent"
 import { Lane } from "../../../interfaces/model/Lane"
 import AssociateUserBoardForm from "../../forms/associateUserBoardForm/AssociateUserBoardForm"
-import { FloatButton, Select } from "antd"
-import { DefaultOptionType } from "antd/es/select"
+import { FloatButton } from "antd"
 import { InfoCircleTwoTone } from '@ant-design/icons';
 import "./BoardpageContent.css"
 import { useEffect, useState } from "react"
@@ -27,6 +26,9 @@ const BoardpageContent = (props: Board) => {
                     setIsEditor(true)
                 }
             })
+            if(response.data.roles[0].name === "ROLE_ADMIN") {
+                setIsEditor(true)
+            }
         }
         checkIfUserIsEditor()
     })
@@ -38,29 +40,17 @@ const BoardpageContent = (props: Board) => {
             )))
     }
 
-    const optionsHandler = (): DefaultOptionType[] => {
-        const option: any[] = [{}]
-        users?.map((user: any) => {
-            option.push({
-                value: user.email,
-                label: user.email
-            })
-        })
-        return option
-    }
-
     const showModal = () => {
         setIsModalOpen(true);
-    };
+    }
 
     const handleOk = () => {
         setIsModalOpen(false);
-    };
+    }
 
     const handleCancel = () => {
         setIsModalOpen(false);
-    };
-
+    }
 
     return (
         <Content>
@@ -74,18 +64,7 @@ const BoardpageContent = (props: Board) => {
                     boardName={boardName}
                 />
                 <div className="serch-field">
-                    <AssociateUserBoardForm {...props} />
-                </div>
-                <div className="audit-userlist-container">
-                    <div>
-                        <Select
-                            showSearch
-                            placeholder="User connected to the board"
-                            allowClear
-                            className="select-style"
-                            options={optionsHandler()}>
-                        </Select>
-                    </div>
+                    <AssociateUserBoardForm {...props} isEditor={isEditor}/>
                 </div>
                 <div className="task-content-style">
                     {mappedLanes()}

@@ -11,9 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
 import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
-import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
 import "./HomepageMenu.css"
 import { IHomepageMenu } from "../../../interfaces/components/menu/IHomepageMenu";
+import CreateUpdateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal";
 
 
 const HomepageMenu = ({setIsSpinning}: IHomepageMenu): ReactElement => {
@@ -49,11 +49,12 @@ const HomepageMenu = ({setIsSpinning}: IHomepageMenu): ReactElement => {
                     <Menu.Item key="4" icon={<FileAddOutlined />} onClick={showModal}>
                         Create Board
                     </Menu.Item>
-                    <CreateBoardModal
+                    <CreateUpdateBoardModal
                         showModal={showModal}
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
                         setIsSpinning={setIsSpinning}
+                        isCreating={true}
                     />
                 </>
             )
