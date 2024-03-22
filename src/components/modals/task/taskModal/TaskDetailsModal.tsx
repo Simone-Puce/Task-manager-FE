@@ -1,4 +1,4 @@
-import { Button, Card, Modal, Upload, UploadProps, message } from "antd";
+import { Button, Card, Modal, Select, Upload, UploadProps, message } from "antd";
 import { ReactElement, useEffect, useState } from "react";
 import { UploadOutlined } from '@ant-design/icons'
 import { ITaskDetailsModal } from "../../../../interfaces/components/modal/ITaskDetailsModal";
@@ -60,6 +60,9 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         <p>{task?.createdDate?.toString()}</p>
                         <p>{task?.modifiedBy}</p>
                         <p>{task?.laneId}</p>
+                        <Select>
+                            
+                        </Select>
                         <div>
                             <Upload {...property}>
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
@@ -67,7 +70,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         </div>
                     </Card>
                 </Content>
-            </Modal>
+            </Modal>-
         </>
     )
 }

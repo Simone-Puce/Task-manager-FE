@@ -1,4 +1,4 @@
-import { Menu } from "antd"
+import { Menu, Popconfirm } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import {
     UserOutlined,
@@ -28,6 +28,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isLaneModalOpen, setIsLaneModalOpen] = useState(false)
+    const [confirmOpen, setConfirmOpen] = useState<boolean>();
     const token = Cookies.get("jwt-token")
 
     const handleLogout = (): void => {
@@ -86,6 +87,18 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         setIsLaneModalOpen(false);
     };
 
+    const showPopconfirm = () => {
+        setConfirmOpen(true);
+    }
+
+    const handleOk = () => {
+        handleLogout();
+    }
+
+    const closeConfirm = () => {   
+        setConfirmOpen(false)
+    }
+
     const roleHandler = () => {
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
             return (
@@ -143,8 +156,16 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                     Notifications
                 </Menu.Item>
                 {roleHandler()}
-                <Menu.Item key="5" icon={<CloseOutlined />} onClick={handleLogout}>
-                    Logout
+                <Menu.Item key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
+                    <Popconfirm
+                        title="Do you want to logout?"
+                        placement="bottom"
+                        open={confirmOpen}
+                        onConfirm={handleOk}
+                        onCancel={closeConfirm}
+                    >
+                        Logout
+                    </Popconfirm>
                 </Menu.Item>
             </Menu>
         </div>
