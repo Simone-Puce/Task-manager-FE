@@ -17,7 +17,7 @@ const TaskDetailsModal = (props : ITaskDetailsModal): ReactElement => {
         }
 
         fetchTaskDetails()
-    },[])
+    },[props.selectedTaskId, token])
 
     return (
         <>

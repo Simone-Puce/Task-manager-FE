@@ -4,7 +4,7 @@ import CreateBoardForm from '../../forms/createBoardForm/CreateBoardForm';
 import "./CreateUpdateBoardModal.css"
 import { ICreateUPdateBoardModal } from '../../../interfaces/components/modal/ICreateUpdateBoardModal';
 
-const CreateUpdateBoardModal = ({ isModalOpen, handleCancel, setIsSpinning, isCreating, boardId }: ICreateUPdateBoardModal): ReactElement => {
+const CreateUpdateBoardModal = ({ isModalOpen, handleCancel, isCreating, boardId, showModal, reset }: ICreateUPdateBoardModal): ReactElement => {
 
   if (isCreating) {
     return (
@@ -16,7 +16,7 @@ const CreateUpdateBoardModal = ({ isModalOpen, handleCancel, setIsSpinning, isCr
           footer={<></>}
         >
           <div className='createBoardModalStyle'>
-            <CreateBoardForm handleCancel={handleCancel} setIsSpinning={setIsSpinning} isCreating={isCreating} />
+            <CreateBoardForm handleCancel={handleCancel} isCreating={isCreating} showModal={showModal} reset={reset}/>
           </div>
         </Modal>
       </>
@@ -30,7 +30,7 @@ const CreateUpdateBoardModal = ({ isModalOpen, handleCancel, setIsSpinning, isCr
         footer={<></>}
       >
         <div className='createBoardModalStyle'>
-          <CreateBoardForm handleCancel={handleCancel} setIsSpinning={setIsSpinning} isCreating={isCreating} boardId={boardId}/>
+          <CreateBoardForm handleCancel={handleCancel} isCreating={isCreating} boardId={boardId} showModal={showModal} reset={reset}/>
         </div>
       </Modal>
     )
