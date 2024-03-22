@@ -1,14 +1,13 @@
 import { ReactElement, useEffect, useState } from "react"
 import { Task } from "../../../interfaces/model/Task"
-import { Button, Card } from "antd"
-import { FileAddOutlined } from '@ant-design/icons'
+import { Card } from "antd"
 import CreateTaskModal from "../../modals/task/createTask/CreateTaskModal"
 import { ILaneComponent } from "../../../interfaces/components/contents/ILaneComponent"
-import "./BoardpageContent.css"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
 import TaskDetailsModal from "../../modals/task/taskModal/TaskDetailsModal"
 import CreateTaskButton from "../../button/CreateTaskButton"
+import "./BoardpageContent.css"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -45,8 +44,8 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
     return (
         <div className="general-task-div">
             <h1> {props.laneName} </h1>
-            <div  className="button-div">
-                <CreateTaskButton/>
+            <div className="button-div">
+                <CreateTaskButton />
             </div>
             <CreateTaskModal
                 showModal={showModal}
@@ -65,7 +64,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     key={task.taskId}
                     bordered={true}
                     hoverable
-                    onClick={()=>showTaskModal(task.taskId!)}
+                    onClick={() => showTaskModal(task.taskId!)}
                     className="card-style">
                     Task card
                 </Card>

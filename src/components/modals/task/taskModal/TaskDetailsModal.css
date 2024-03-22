@@ -1,16 +1,9 @@
-.taskDetailsModalStyle{
+.modal-Card{
     text-align: center;
+    justify-content: center;
 }
 
 .footer-div {
     display: flex;
     justify-content: center;
-}
-
-.create-Button {
-    margin: 5px;
-}
-
-.cancel-button {
-    margin: 5px;
 }
