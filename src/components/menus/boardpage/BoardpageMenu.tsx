@@ -91,6 +91,19 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         setIsLaneModalOpen(false)
     }
 
+    
+    const showPopconfirm = () => {
+        setConfirmOpen(true);
+    }
+
+    const handleOk = () => {
+        handleLogout();
+    }
+
+    const closeConfirm = () => {   
+        setConfirmOpen(false)
+    }
+
     const checkIfUserIsEditor = (): boolean => {
         let userIsEditor = false
         board?.users?.map(user => {
