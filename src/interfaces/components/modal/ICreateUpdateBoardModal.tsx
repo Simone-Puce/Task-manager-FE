@@ -11,4 +11,5 @@ export interface ICreateUPdateBoardModal {
     setIsSpinning? :  Dispatch<React.SetStateAction<boolean>>
     isCreating?: boolean
     boardId?: number
+    reset?: ()=>void
 }

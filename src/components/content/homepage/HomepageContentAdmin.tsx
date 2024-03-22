@@ -1,5 +1,5 @@
 import { Content } from "antd/es/layout/layout"
-import { Button, Card, Input, Spin } from "antd"
+import { Button, Card, Input } from "antd"
 import { ReactElement, useEffect, useState } from "react"
 import Cookies from "js-cookie"
 import { deleteBoard, getAllBoards } from "../../../services/BoardService"
@@ -17,8 +17,13 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
     const [displayedBoards, setDisplayedBoards] = useState<Board[]>([])
     const [updateBoardId, setUpdateBoardId] = useState<number>()
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const [seed, setSeed] = useState(1)
     const token = Cookies.get("jwt-token")
     const navigate = useNavigate()
+
+    const reset = () => {
+        setSeed(Math.random())
+    }
 
     useEffect(() => {
         const fetchUserDetailsAndBoards = async () => {
@@ -27,7 +32,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
             setDisplayedBoards(response2.data)
         }
         fetchUserDetailsAndBoards()
-    }, [token, isModalOpen])
+    }, [token, isModalOpen, seed])
 
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId!(elementId)
@@ -109,6 +114,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
                     handleCancel={handleCancel}
                     isCreating={false}
                     boardId={updateBoardId}
+                    reset={reset}
                 />
                 <div className="homepage-content-style">
                     {mainContentHandler()}
@@ -122,6 +128,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
                     <h1>These are all the boards </h1>
                 </div>
                 <CreateUpdateBoardModal
+                    reset={reset}
                     showModal={showModal}
                     isModalOpen={isModalOpen}
                     handleCancel={handleCancel}

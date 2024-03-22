@@ -11,12 +11,27 @@ import { UserInBoard } from "../../../interfaces/model/UserInBoard"
 import BoardInfoModal from "../../modals/boardInfo/BoardInfoModal"
 import { Content } from "antd/es/layout/layout"
 import "./BoardpageContent.css"
+import { getBoardById } from "../../../services/BoardService"
 
 const BoardpageContent = (props: Board) => {
     const token = Cookies.get("jwt-token")
     const { boardId, boardName, lanes, users, createdBy, modifiedBy, createdDate, modifiedDate } = props
     const [isEditor, setIsEditor] = useState<boolean>()
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [newBoard, setNewBoard] = useState<Board>()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [seed, setSeed] = useState(1)
+
+    const reset = () => {
+        setSeed(Math.random())
+    }
+
+    useEffect(() => {
+        const fetchNewLanes = async () => {
+            const response = await getBoardById(boardId!, token!)
+            setNewBoard(response.data)
+        }
+        fetchNewLanes()
+    }, [boardId, token, seed, lanes])
 
     useEffect(() => {
         const checkIfUserIsEditor = async () => {
@@ -26,30 +41,30 @@ const BoardpageContent = (props: Board) => {
                     setIsEditor(true)
                 }
             })
-            if(response.data.roles[0].name === "ROLE_ADMIN") {
+            if (response.data.roles[0].name === "ROLE_ADMIN") {
                 setIsEditor(true)
             }
         }
         checkIfUserIsEditor()
-    })
+    }, [token, users])
 
     const mappedLanes = () => {
         return (
-            lanes?.map((lane: Lane, index) => (
-                <LaneComponent key={index} {...lane} isEditor={isEditor} boardId={boardId}/>
+            newBoard?.lanes?.map((lane: Lane, index) => (
+                <LaneComponent key={index} {...lane} isEditor={isEditor} boardId={boardId} reset={reset} />
             )))
     }
 
     const showModal = () => {
-        setIsModalOpen(true);
+        setIsModalOpen(true)
     }
 
     const handleOk = () => {
-        setIsModalOpen(false);
+        setIsModalOpen(false)
     }
 
     const handleCancel = () => {
-        setIsModalOpen(false);
+        setIsModalOpen(false)
     }
 
     return (
@@ -64,7 +79,7 @@ const BoardpageContent = (props: Board) => {
                     boardName={boardName}
                 />
                 <div className="serch-field">
-                    <AssociateUserBoardForm {...props} isEditor={isEditor}/>
+                    <AssociateUserBoardForm {...props} isEditor={isEditor} />
                 </div>
                 <div className="task-content-style">
                     {mappedLanes()}

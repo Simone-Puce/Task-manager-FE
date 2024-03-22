@@ -8,4 +8,5 @@ export interface ILaneComponent {
     tasks?: Task[],
     active?: boolean,
     isEditor?: boolean,
+    reset: ()=> void
 }
