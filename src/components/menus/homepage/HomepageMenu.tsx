@@ -1,4 +1,4 @@
-import { Menu } from "antd"
+import { Button, Menu, Popconfirm } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import {
     UserOutlined,
@@ -16,10 +16,12 @@ import { IHomepageMenu } from "../../../interfaces/components/menu/IHomepageMenu
 import CreateUpdateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal";
 
 
-const HomepageMenu = ({setIsSpinning}: IHomepageMenu): ReactElement => {
+const HomepageMenu = ({ setIsSpinning }: IHomepageMenu): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [confirmOpen, setConfirmOpen] = useState<boolean>();
+
     const token = Cookies.get("jwt-token")
     const handleLogout = (): void => {
         logoutUser()
@@ -66,6 +68,18 @@ const HomepageMenu = ({setIsSpinning}: IHomepageMenu): ReactElement => {
         navigate("/homepage")
     }
 
+    const showPopconfirm = () => {
+        setConfirmOpen(true);
+    }
+
+    const handleOk = () => {
+        handleLogout();
+    }
+
+    const closeConfirm = () => {   
+        setConfirmOpen(false)
+    }
+
     return (
         <div>
             <Menu theme="dark"
@@ -80,8 +94,16 @@ const HomepageMenu = ({setIsSpinning}: IHomepageMenu): ReactElement => {
                     Notifications
                 </Menu.Item>
                 {roleHandler()}
-                <Menu.Item key="5" icon={<CloseOutlined />} onClick={handleLogout}>
-                    Logout
+                <Menu.Item key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
+                    <Popconfirm
+                        title="Do you want to logout?"
+                        placement="bottom"
+                        open={confirmOpen}
+                        onConfirm={handleOk}
+                        onCancel={closeConfirm}
+                    >
+                        Logout
+                    </Popconfirm>
                 </Menu.Item>
             </Menu>
         </div>
