@@ -6,18 +6,14 @@ import "./CreateBoardForm.css"
 import { ICreateUPdateBoardModal } from "../../../interfaces/components/modal/ICreateUpdateBoardModal";
 import "./CreateBoardForm.css"
 
-const CreateBoardForm = ({ handleCancel, setIsSpinning, isCreating, boardId }: ICreateUPdateBoardModal): ReactElement => {
+const CreateBoardForm = ({ handleCancel, isCreating, boardId }: ICreateUPdateBoardModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
 
     const onSubmitCreate = async () => {
-        setIsSpinning!(true)
         handleCancel()
         const boardName: string = form.getFieldValue("boardTitle")
         await createNewBoard(boardName, token!)
-        setTimeout(() => {
-            setIsSpinning!(false)
-        }, 1000)
     }
 
     const onSubmitUpdate = async () => {
@@ -56,7 +52,6 @@ const CreateBoardForm = ({ handleCancel, setIsSpinning, isCreating, boardId }: I
             </Form>
         )
     } else {
-
         return (
             <Form
                 layout="vertical"

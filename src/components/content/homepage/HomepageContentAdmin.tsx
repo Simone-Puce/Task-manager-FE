@@ -1,5 +1,5 @@
 import { Content } from "antd/es/layout/layout"
-import { Button, Card, Input, Select } from "antd"
+import { Button, Card, Input, Spin } from "antd"
 import { ReactElement, useEffect, useState } from "react"
 import Cookies from "js-cookie"
 import { deleteBoard, getAllBoards } from "../../../services/BoardService"
@@ -9,6 +9,7 @@ import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 import { ArrowRightOutlined } from "@ant-design/icons"
 import CreateUpdateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal"
 import "./HomepageContentAdmin.css"
+import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 
 const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement => {
     const [inputValue, setInputValue] = useState('')
@@ -26,7 +27,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
             setDisplayedBoards(response2.data)
         }
         fetchUserDetailsAndBoards()
-    }, [token])
+    }, [token, isModalOpen])
 
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId!(elementId)
@@ -45,11 +46,9 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
     const updateBoardHandler = async (boardId: number) => {
         setIsModalOpen(true)
         setUpdateBoardId(boardId)
-
     }
 
     const deleteBoardHandler = async (boardId: number) => {
-        console.log(boardId)
         await deleteBoard(boardId, token!)
         const newBoards = boards.filter(board => board.boardId !== boardId)
         setBoards(newBoards)
@@ -80,35 +79,60 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
         setInputValue(event.target.value)
     }
 
-    return (
-        <div className="homepage-style">
-            <div className="header-content-container">
-                <h1>These are all the boards </h1>
+    const mainContentHandler = () => {
+        return (
+            <Content className="content-width">
+                <div className="filter-board-div">
+                    <Input
+                        className="input-filter"
+                        placeholder="Filter the boards"
+                        onChange={filterBoards}
+                        value={inputValue}
+                    />
+                </div>
+                <div className="homepage-card-container">
+                    {boardmap()}
+                </div>
+            </Content>
+        )
+    }
+
+    if (!isModalOpen) {
+        return (
+            <div className="homepage-style">
+                <div className="header-content-container">
+                    <h1>These are all the boards </h1>
+                </div>
+                <CreateUpdateBoardModal
+                    showModal={showModal}
+                    isModalOpen={isModalOpen}
+                    handleCancel={handleCancel}
+                    isCreating={false}
+                    boardId={updateBoardId}
+                />
+                <div className="homepage-content-style">
+                    {mainContentHandler()}
+                </div>
             </div>
-            <CreateUpdateBoardModal
-                showModal={showModal}
-                isModalOpen={isModalOpen}
-                handleCancel={handleCancel}
-                isCreating={false}
-                boardId={updateBoardId}
-            />
-            <div className="homepage-content-style">
-                <Content className="content-width">
-                    <div className="filter-board-div">
-                        <Input
-                            className="input-filter"
-                            placeholder="Filter the boards"
-                            onChange={filterBoards}
-                            value={inputValue}
-                        />
-                    </div>
-                    <div className="homepage-card-container">
-                        {boardmap()}
-                    </div>
-                </Content>
+        )
+    } else {
+        return (
+            <div className="homepage-style">
+                <div className="header-content-container">
+                    <h1>These are all the boards </h1>
+                </div>
+                <CreateUpdateBoardModal
+                    showModal={showModal}
+                    isModalOpen={isModalOpen}
+                    handleCancel={handleCancel}
+                    isCreating={false}
+                    boardId={updateBoardId}
+                />
+                <SpinnerPage />
             </div>
-        </div>
-    )
+        )
+    }
+
 }
 
 export default HomepageContentAdmin
