@@ -7,6 +7,10 @@ import Cookies from "js-cookie";
 import { Task } from "../../../../interfaces/model/Task";
 import { Content } from "antd/es/layout/layout";
 import "./TaskDetailsModal.css"
+import { Board } from "../../../../interfaces/model/Board";
+import { getBoardById } from "../../../../services/BoardService";
+import { DefaultOptionType } from "antd/es/select";
+import { Lane } from "../../../../interfaces/model/Lane";
 
 
 const property: UploadProps = {
@@ -32,16 +36,40 @@ const property: UploadProps = {
 const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     const token = Cookies.get("jwt-token")
     const [task, setTask] = useState<Task>()
+    const [board, setBoard] = useState<Board>()
+    const [selectValue, setSelectValue]= useState<string>()
 
     useEffect(() => {
         const fetchTaskDetails = async () => {
-            const response = await getTaskById(token!, props.selectedTaskId!)
-            setTask(response.data)
-            console.log(response.data)
+            const taskResponse = await getTaskById(token!, props.selectedTaskId!)
+            setTask(taskResponse.data)
+            const boardResponse = await getBoardById(props.boardId, token!)
+            setBoard(boardResponse.data)
+            setSelectValue(props.laneName)
         }
 
         fetchTaskDetails()
-    }, [])
+    }, [props.boardId, props.laneName, props.selectedTaskId, token])
+
+    const selecteLaneOptions = (): DefaultOptionType[] => {
+        const option: any[] = []
+        board?.lanes?.map((lane: Lane) => {
+            option.push({
+                value: lane.boardId,
+                label: lane.laneName
+            })
+        })
+        return option
+    }
+
+    const updateLaneOfTask = async () => {
+        //call service to update lane 
+    }
+
+    const handleSelectLaneChange = (value: string) => {
+        console.log(value)
+
+    }
 
     return (
         <>
@@ -50,19 +78,20 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                 onCancel={props.handleCancel}
                 className='modal-Card'
                 footer={<></>}
-
             >
                 <Content>
                     <Card className="modal-Card">
-
                         <p>{task?.description}</p>
                         <p>{task?.createdBy}</p>
                         <p>{task?.createdDate?.toString()}</p>
                         <p>{task?.modifiedBy}</p>
-                        <p>{task?.laneId}</p>
-                        <Select>
-                            
-                        </Select>
+                        <Select
+                            className="task-select-modal-style"
+                            options={selecteLaneOptions()}
+                            onChange={handleSelectLaneChange}
+                            value={selectValue}
+                        />
+                        
                         <div>
                             <Upload {...property}>
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
@@ -70,7 +99,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         </div>
                     </Card>
                 </Content>
-            </Modal>-
+            </Modal>
         </>
     )
 }

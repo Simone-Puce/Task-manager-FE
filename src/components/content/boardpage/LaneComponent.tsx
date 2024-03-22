@@ -61,6 +61,9 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     isTaskModalOpen={isTaskModalOpen}
                     handleCancel={handleCancel}
                     selectedTaskId={selectedTaskId}
+                    boardId={props.boardId!}
+                    laneId={props.laneId!}
+                    laneName={props.laneName!}
                 />
                {taskMapper()}
             </div>
@@ -81,6 +84,9 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     isTaskModalOpen={isTaskModalOpen}
                     handleCancel={handleCancel}
                     selectedTaskId={selectedTaskId}
+                    boardId={props.boardId!}
+                    laneId={props.laneId!}
+                    laneName={props.laneName!}
                 />
                 <SpinnerPage />
             </div>
