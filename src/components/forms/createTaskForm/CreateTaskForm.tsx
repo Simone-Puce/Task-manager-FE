@@ -1,12 +1,12 @@
 import { Input, Button, Form } from "antd";
 import { ReactElement } from "react";
-import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal";
 import Cookies from "js-cookie";
 import { createTask } from "../../../services/TaskService";
 import "./CreateTaskForm.css"
+import { ICreateUpdateTaskModal } from "../../../interfaces/components/modal/ICreateUpdateTaskModal";
 
 
-const CreateTaskForm = ({ handleCancel, selectedLane }: ISuccessRegistrationModal): ReactElement => {
+const CreateTaskForm = ({ handleCancel, selectedLane, reset }: ICreateUpdateTaskModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
 
@@ -17,6 +17,7 @@ const CreateTaskForm = ({ handleCancel, selectedLane }: ISuccessRegistrationModa
             laneId: selectedLane
         })
         handleCancel()
+        reset()
     }
 
     return (

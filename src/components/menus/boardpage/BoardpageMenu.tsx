@@ -21,9 +21,11 @@ import { Board } from "../../../interfaces/model/Board";
 import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
 import "./BoardpageMenu.css"
 import CreateLaneModal from "../../modals/lane/CreateLaneModal";
+import { getBoardById } from "../../../services/BoardService";
 
 const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
+    const [board, setBoard] = useState<Board>()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -37,12 +39,14 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
     }
 
     useEffect(() => {
-        const fetchUserDetails = async () => {
-            const response = await getUserDetails(token!)
-            setUserDetails(response.data)
+        const fetchUserDetailsAndBoard = async () => {
+            const userDetailsResponse = await getUserDetails(token!)
+            setUserDetails(userDetailsResponse.data)
+            const getBoardResponse = await getBoardById(selectedBoardId!, token!)
+            setBoard(getBoardResponse.data)
         }
-        fetchUserDetails()
-    }, [token])
+        fetchUserDetailsAndBoard()
+    }, [selectedBoardId, token])
 
     useEffect(() => {
         const fetchUserBoards = async () => {
@@ -75,28 +79,26 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
     }
 
     const showModal = () => {
-        setIsModalOpen(true);
-    };
+        setIsModalOpen(true)
+    }
 
     const showLaneModal = () => {
-        setIsLaneModalOpen(true);
+        setIsLaneModalOpen(true)
     }
 
     const handleCancel = () => {
-        setIsModalOpen(false);
-        setIsLaneModalOpen(false);
-    };
-
-    const showPopconfirm = () => {
-        setConfirmOpen(true);
+        setIsModalOpen(false)
+        setIsLaneModalOpen(false)
     }
 
-    const handleOk = () => {
-        handleLogout();
-    }
-
-    const closeConfirm = () => {   
-        setConfirmOpen(false)
+    const checkIfUserIsEditor = (): boolean => {
+        let userIsEditor = false
+        board?.users?.map(user => {
+            if (user.email === userDetails?.email && user.roleCodeForBoard === "EDITOR") {
+                userIsEditor = true
+            }
+        })
+        return userIsEditor
     }
 
     const roleHandler = () => {
@@ -114,13 +116,12 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                     />
                 </>
             )
-        } else {
+        } else if (checkIfUserIsEditor()) {
             return (
                 <>
                     <Menu.Item
                         icon={<PlusSquareOutlined />}
-                        onClick={showLaneModal}
-                    >
+                        onClick={showLaneModal}>
                         New Lane
                     </Menu.Item>
                     <CreateLaneModal
@@ -128,7 +129,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         isLaneModalOpen={isLaneModalOpen}
                         handleCancel={handleCancel}
                         selectedBoardId={selectedBoardId}
-                   
                     />
                     <SubMenu
                         key="sub4"
@@ -139,6 +139,8 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                     </SubMenu>
                 </>
             )
+        } else {
+            return <></>
         }
     }
 
