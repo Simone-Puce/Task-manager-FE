@@ -6,4 +6,5 @@ export interface ITaskDetailsModal{
     boardId: number
     laneId: number
     laneName: string
+    reset: ()=>void
 }

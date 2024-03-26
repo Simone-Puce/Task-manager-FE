@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 import HomepageHeader from '../../components/headers/homepage/HomepageHeader';
 import HomepageSider from '../../components/siders/homepageSider/HomepageSider';
 import HomepageContentAdmin from '../../components/content/homepage/HomepageContentAdmin';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { getUserDetails } from '../../services/UserService';
 import Cookies from 'js-cookie';
 import { UserDetails } from '../../interfaces/model/UserDetails';
@@ -11,7 +11,7 @@ import HomepageContentUser from '../../components/content/homepage/HomepageConte
 import { IHomePage } from '../../interfaces/components/pages/IHomePage';
 import "./Homepage.css"
 
-const Homepage = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage) => {
+const Homepage = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage): ReactElement => {
     const token = Cookies.get("jwt-token")
     const [userDetails, setUserDetails] = useState<UserDetails>()
 
@@ -25,7 +25,7 @@ const Homepage = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage) 
 
     const getUserRole = () => {
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
-            return <HomepageContentAdmin setSelectedBoardId={setSelectedBoardId} />
+            return <HomepageContentAdmin setSelectedBoardId={setSelectedBoardId} isSpinning={isSpinning} />
         } else {
             return <HomepageContentUser setSelectedBoardId={setSelectedBoardId} isSpinning={isSpinning} setIsSpinning={setIsSpinning} />
         }
@@ -40,6 +40,7 @@ const Homepage = ({ setSelectedBoardId, isSpinning, setIsSpinning }: IHomePage) 
             </Layout>
         </Layout>
     )
+
 }
 
 export default Homepage;

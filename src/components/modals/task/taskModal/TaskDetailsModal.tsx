@@ -2,15 +2,15 @@ import { Button, Card, Modal, Select, Upload, UploadProps, message } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import { UploadOutlined } from '@ant-design/icons'
 import { ITaskDetailsModal } from "../../../../interfaces/components/modal/ITaskDetailsModal";
-import { getTaskById } from "../../../../services/TaskService";
+import { getTaskById, updateTask } from "../../../../services/TaskService";
 import Cookies from "js-cookie";
 import { Task } from "../../../../interfaces/model/Task";
 import { Content } from "antd/es/layout/layout";
-import "./TaskDetailsModal.css"
 import { Board } from "../../../../interfaces/model/Board";
 import { getBoardById } from "../../../../services/BoardService";
-import { DefaultOptionType } from "antd/es/select";
+import { SelectProps } from "antd/es/select";
 import { Lane } from "../../../../interfaces/model/Lane";
+import "./TaskDetailsModal.css"
 
 
 const property: UploadProps = {
@@ -28,16 +28,15 @@ const property: UploadProps = {
         } else if (info.file.status === 'error') {
             message.error(`${info.file.name} file upload failed.`);
         }
-    },
-};
-
-
+    }
+}
 
 const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     const token = Cookies.get("jwt-token")
     const [task, setTask] = useState<Task>()
     const [board, setBoard] = useState<Board>()
-    const [selectValue, setSelectValue]= useState<string>()
+    const [selectedValue, setSelectedValue] = useState<number>(props.laneId)
+    const options: SelectProps['options'] = []
 
     useEffect(() => {
         const fetchTaskDetails = async () => {
@@ -45,35 +44,33 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
             setTask(taskResponse.data)
             const boardResponse = await getBoardById(props.boardId, token!)
             setBoard(boardResponse.data)
-            setSelectValue(props.laneName)
         }
 
         fetchTaskDetails()
     }, [props.boardId, props.laneName, props.selectedTaskId, token])
 
-    const selecteLaneOptions = (): DefaultOptionType[] => {
-        const option: any[] = []
-        board?.lanes?.map((lane: Lane) => {
-            option.push({
-                value: lane.boardId,
-                label: lane.laneName
-            })
+    board?.lanes?.forEach((lane: Lane) => {
+        options.push({
+            value: lane.laneId,
+            label: lane.laneName
         })
-        return option
-    }
+    })
 
-    const updateLaneOfTask = async () => {
-        //call service to update lane 
-    }
-
-    const handleSelectLaneChange = (value: string) => {
-        console.log(value)
-
+    const handleSelectLaneChange = async (value: number) => {
+        setSelectedValue(value)
+        await updateTask(token!, {
+            taskName: task?.taskName,
+            description: task?.description,
+            laneId: value,
+            taskId: task?.taskId
+        })
+        props.reset()
     }
 
     return (
         <>
-            <Modal title={task?.taskName}
+            <Modal
+                title={task?.taskName}
                 open={props.isTaskModalOpen}
                 onCancel={props.handleCancel}
                 className='modal-Card'
@@ -85,13 +82,15 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         <p>{task?.createdBy}</p>
                         <p>{task?.createdDate?.toString()}</p>
                         <p>{task?.modifiedBy}</p>
-                        <Select
-                            className="task-select-modal-style"
-                            options={selecteLaneOptions()}
-                            onChange={handleSelectLaneChange}
-                            value={selectValue}
-                        />
-                        
+                        <p>Column</p>
+                        <p>
+                            <Select
+                                className="task-select-modal-style"
+                                onChange={handleSelectLaneChange}
+                                options={options}
+                                value={selectedValue}
+                            />
+                        </p>
                         <div>
                             <Upload {...property}>
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>

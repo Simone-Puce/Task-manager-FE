@@ -11,7 +11,7 @@ import CreateUpdateBoardModal from "../../modals/createBoard/CreateUpdateBoardMo
 import "./HomepageContentAdmin.css"
 import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 
-const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement => {
+const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning }: IHomePage): ReactElement => {
     const [inputValue, setInputValue] = useState('')
     const [boards, setBoards] = useState<Board[]>([])
     const [displayedBoards, setDisplayedBoards] = useState<Board[]>([])
@@ -32,7 +32,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
             setDisplayedBoards(response2.data)
         }
         fetchUserDetailsAndBoards()
-    }, [token, isModalOpen, seed])
+    }, [token, isModalOpen, seed, isSpinning])
 
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId!(elementId)
@@ -41,11 +41,11 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
     }
 
     const showModal = () => {
-        setIsModalOpen(true);
+        setIsModalOpen(true)
     }
 
     const handleCancel = () => {
-        setIsModalOpen(false);
+        setIsModalOpen(false)
     }
 
     const updateBoardHandler = async (boardId: number) => {
@@ -79,7 +79,10 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
     }
 
     const filterBoards = (event: any) => {
-        const newBoards = boards.filter((board: Board) => board.boardName?.includes(event.target.value))
+        const searchFilterString: string = event.target.value
+        const newBoards = boards.filter((board: Board) =>
+            board.boardName?.toLocaleLowerCase().includes(searchFilterString.toLocaleLowerCase().trim())
+        )
         setDisplayedBoards(newBoards)
         setInputValue(event.target.value)
     }
@@ -102,7 +105,7 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
         )
     }
 
-    if (!isModalOpen) {
+    if (!isModalOpen && !isSpinning) {
         return (
             <div className="homepage-style">
                 <div className="header-content-container">
@@ -141,6 +144,5 @@ const HomepageContentAdmin = ({ setSelectedBoardId }: IHomePage): ReactElement =
     }
 
 }
- 
+
 export default HomepageContentAdmin
- 

@@ -6,7 +6,7 @@ const SpinnerPage = (): ReactElement => {
 
     return (
         <div className="spinner-container">
-           <SyncLoader/>
+            <SyncLoader />
         </div>
     )
 }

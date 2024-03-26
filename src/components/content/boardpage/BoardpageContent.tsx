@@ -10,8 +10,8 @@ import Cookies from "js-cookie"
 import { UserInBoard } from "../../../interfaces/model/UserInBoard"
 import BoardInfoModal from "../../modals/boardInfo/BoardInfoModal"
 import { Content } from "antd/es/layout/layout"
-import "./BoardpageContent.css"
 import { getBoardById } from "../../../services/BoardService"
+import "./BoardpageContent.css"
 
 const BoardpageContent = (props: Board) => {
     const token = Cookies.get("jwt-token")
@@ -36,7 +36,7 @@ const BoardpageContent = (props: Board) => {
     useEffect(() => {
         const checkIfUserIsEditor = async () => {
             const response = await getUserDetails(token!)
-            users?.map((user: UserInBoard) => {
+            users?.forEach((user: UserInBoard) => {
                 if (user.email === response.data.email && user.roleCodeForBoard === "EDITOR") {
                     setIsEditor(true)
                 }
@@ -67,6 +67,15 @@ const BoardpageContent = (props: Board) => {
         setIsModalOpen(false)
     }
 
+    const searchField = () => {
+        if(isEditor)
+        return (
+            <div className="serch-field">
+                    <AssociateUserBoardForm {...props} isEditor={isEditor} />
+                </div>
+        )
+    }
+    
     return (
         <Content>
             <div className="task-content-container">
@@ -78,9 +87,7 @@ const BoardpageContent = (props: Board) => {
                     modifiedDate={modifiedDate}
                     boardName={boardName}
                 />
-                <div className="serch-field">
-                    <AssociateUserBoardForm {...props} isEditor={isEditor} />
-                </div>
+                {searchField()}
                 <div className="task-content-style">
                     {mappedLanes()}
                     <FloatButton
@@ -92,7 +99,6 @@ const BoardpageContent = (props: Board) => {
                 </div>
             </div>
         </Content>
-
     )
 }
 

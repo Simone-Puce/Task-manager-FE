@@ -6,6 +6,7 @@ import { UserDetails } from "../../../interfaces/model/UserDetails"
 import { getAllUsers } from "../../../services/UserService"
 import { associateUserBoard } from "../../../services/BoardUserServices"
 import { IAssociateUserBoardForm } from "../../../interfaces/components/forms/IAssociateUserBoardForm"
+import { UserInBoard } from "../../../interfaces/model/UserInBoard"
 
 const AssociateUserBoardForm = (props: IAssociateUserBoardForm) => {
     const [form] = Form.useForm()
@@ -15,14 +16,18 @@ const AssociateUserBoardForm = (props: IAssociateUserBoardForm) => {
     useEffect(() => {
         const fetchAllNonAdminUserAndUserDetails = async () => {
             const response = await getAllUsers(token!)
-            setNonAdminUsers(response.data)            
+            const allNonUserAdmin = response.data
+            const userAssociatedWithBoard: string[] = []
+            props.users?.map((propUser: UserInBoard) => userAssociatedWithBoard.push(propUser.email))
+            const newUserArray = allNonUserAdmin.filter((user: UserDetails) => !userAssociatedWithBoard.includes(user.email))
+            setNonAdminUsers(newUserArray)
         }
         fetchAllNonAdminUserAndUserDetails()
-    }, [token])
+    }, [props.users, token])
 
     const optionsHandler = (): DefaultOptionType[] => {
-        const option: any[] = [{}]
-        nonAdminUsers?.map((user: UserDetails) => {
+        const option: any[] = []
+        nonAdminUsers?.forEach((user: UserDetails) => {
             option.push({
                 value: user.email,
                 label: user.email
@@ -39,6 +44,8 @@ const AssociateUserBoardForm = (props: IAssociateUserBoardForm) => {
                 boardId: props.boardId,
                 roleCode: formValues.userRole
             }, token!)
+        setNonAdminUsers(nonAdminUsers.filter(user => user.email !== formValues.selectedUserEmail))
+        form.resetFields()
     }
 
     if (props.isEditor) {
