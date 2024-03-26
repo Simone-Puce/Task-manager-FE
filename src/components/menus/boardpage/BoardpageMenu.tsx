@@ -19,9 +19,10 @@ import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssocia
 import { getUserBoards } from "../../../services/BoardUserServices";
 import { Board } from "../../../interfaces/model/Board";
 import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
-import "./BoardpageMenu.css"
 import CreateLaneModal from "../../modals/lane/CreateLaneModal";
 import { getBoardById } from "../../../services/BoardService";
+import "./BoardpageMenu.css"
+
 
 const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
@@ -68,6 +69,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         return (
             userBoardsAssociation.map((element: Board) => (
                 <Menu.Item
+                    className="menu-item-hover"
                     title={element.boardName}
                     onClick={() => handleNavigation(element.boardId!)}
                 >
@@ -91,7 +93,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         setIsLaneModalOpen(false)
     }
 
-    
+
     const showPopconfirm = () => {
         setConfirmOpen(true);
     }
@@ -100,7 +102,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         handleLogout();
     }
 
-    const closeConfirm = () => {   
+    const closeConfirm = () => {
         setConfirmOpen(false)
     }
 
@@ -118,7 +120,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
             return (
                 <>
-                    <Menu.Item key="4" icon={<FileAddOutlined />} onClick={showModal}>
+                    <Menu.Item className="menu-item-hover" key="4" icon={<FileAddOutlined />} onClick={showModal}>
                         Create Board
                     </Menu.Item>
                     <CreateBoardModal
@@ -133,6 +135,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
             return (
                 <>
                     <Menu.Item
+                        className="menu-item-hover"
                         icon={<PlusSquareOutlined />}
                         onClick={showLaneModal}>
                         New Lane
@@ -147,7 +150,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         key="sub4"
                         title={"Boards"}
                         icon={<CalendarOutlined />}
-                        className="submenu">
+                        className="submenu menu-item-hover">
                         {boardItem()}
                     </SubMenu>
                 </>
@@ -159,19 +162,20 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
 
     return (
         <div>
-            <Menu theme="dark"
-                mode="inline">
-                <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => navigate("/homepage")}>
+            <Menu
+                mode="inline"
+                className="sider-menu-board">
+                <Menu.Item className="menu-item-hover" key="1" icon={<HomeOutlined />} onClick={() => navigate("/homepage")}>
                     Homepage
                 </Menu.Item>
-                <Menu.Item key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
+                <Menu.Item className="menu-item-hover" key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
                     Profile
                 </Menu.Item>
-                <Menu.Item key="3" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
+                <Menu.Item className="menu-item-hover" key="3" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
                     Notifications
                 </Menu.Item>
                 {roleHandler()}
-                <Menu.Item key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
+                <Menu.Item className="menu-item-hover" key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
                     <Popconfirm
                         title="Do you want to logout?"
                         placement="bottom"

@@ -1,8 +1,10 @@
 .profile-header-style{
     height: 50%;
+    background-color: #B10135;
 }
 
 .header-title{
+    margin-top: 2em;
     text-align: center;
     font-size: 50px;
     font-style: italic;

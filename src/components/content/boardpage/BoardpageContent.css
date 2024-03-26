@@ -57,8 +57,8 @@
     width: 100%;
     overflow-y: scroll;
     background-color: #F1F1E6;
-    --sb-track-color: #001529;
-    --sb-thumb-color: #1677ff;
+    --sb-track-color: #F1F1E6;
+    --sb-thumb-color: #B10135;
     --sb-size: 15px;
     flex: 1;
 }

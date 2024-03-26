@@ -1,6 +1,6 @@
 import { Header } from "antd/es/layout/layout"
 import { ReactElement } from "react"
-import "./LoginRegister.css"
+import "./LoginRegistration.css"
 
 const LoginRegisterHeader = (): ReactElement => {
     return (

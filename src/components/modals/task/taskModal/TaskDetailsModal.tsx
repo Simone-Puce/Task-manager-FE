@@ -12,6 +12,7 @@ import { SelectProps } from "antd/es/select";
 import { Lane } from "../../../../interfaces/model/Lane";
 import "./TaskDetailsModal.css"
 
+
 const property: UploadProps = {
     name: 'file',
     action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',

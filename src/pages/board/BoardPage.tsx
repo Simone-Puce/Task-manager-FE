@@ -31,5 +31,4 @@ const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
         </Layout>
     )
 }
-
 export default BoardPage
