@@ -11,10 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
 import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
-import "./HomepageMenu.css"
 import { IHomepageMenu } from "../../../interfaces/components/menu/IHomepageMenu";
 import CreateUpdateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal";
-
+import "./HomepageMenu.css"
 
 const HomepageMenu = ({ setIsSpinning }: IHomepageMenu): ReactElement => {
     const navigate = useNavigate()
@@ -48,7 +47,7 @@ const HomepageMenu = ({ setIsSpinning }: IHomepageMenu): ReactElement => {
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
             return (
                 <>
-                    <Menu.Item key="4" icon={<FileAddOutlined />} onClick={showModal}>
+                    <Menu.Item className="menu-item-hover" key="4" icon={<FileAddOutlined />} onClick={showModal}>
                         Create Board
                     </Menu.Item>
                     <CreateUpdateBoardModal
@@ -82,19 +81,19 @@ const HomepageMenu = ({ setIsSpinning }: IHomepageMenu): ReactElement => {
 
     return (
         <div>
-            <Menu theme="dark"
+            <Menu className="homepage-sider-menu"
                 mode="inline">
-                <Menu.Item key="1" icon={<HomeOutlined />} onClick={handleNavigation}>
+                <Menu.Item className="menu-item-hover" key="1" icon={<HomeOutlined />} onClick={handleNavigation}>
                     Homepage
                 </Menu.Item>
-                <Menu.Item key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
+                <Menu.Item className="menu-item-hover" key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
                     Profile
                 </Menu.Item>
-                <Menu.Item key="3" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
+                <Menu.Item className="menu-item-hover" key="3" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
                     Notifications
                 </Menu.Item>
                 {roleHandler()}
-                <Menu.Item key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
+                <Menu.Item className="menu-item-hover" key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
                     <Popconfirm
                         title="Do you want to logout?"
                         placement="bottom"
