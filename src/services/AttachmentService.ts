@@ -7,20 +7,13 @@ const DOWNLOAD_BY_ID = ATTACHMENT_BASE_URI + "/download-by-id"
 const DELETE_BY_ID = ATTACHMENT_BASE_URI + "/delete"
 const UPLOAD = ATTACHMENT_BASE_URI + "/upload"
 
-
-export const uploadNewFile = async (newBoard: string, token: string) => {
-
+export const downloadFile = async (id: number, token: string) => {
     try {
-        const response = await axios.post(UPLOAD,
-            {
-                boardName: newBoard
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-        return response.data
+        const response = await axios.get(DOWNLOAD_BY_ID, {
+            headers: {Authorization: `Bearer ${token}`},
+            params: {id: id}
+        })
+       return response.data
     } catch (error) {
         console.log(error)
     }

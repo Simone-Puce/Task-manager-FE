@@ -1,3 +1,5 @@
+import { Attachment } from "./Attachment"
+
 export interface Task {
     taskId?: number
     taskName?: string
@@ -7,4 +9,5 @@ export interface Task {
     createdDate?: Date
     modifiedDate?: Date
     description?: string
+    attachments?: Attachment[]
 }

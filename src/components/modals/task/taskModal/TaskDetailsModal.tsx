@@ -1,4 +1,4 @@
-import { Button, Card, Modal, Select, Upload, UploadProps, message } from "antd";
+import { Button, Card, Modal, Select, Table, Upload, UploadProps, message } from "antd";
 import { ReactElement, useEffect, useState } from "react";
 import { UploadOutlined } from '@ant-design/icons'
 import { ITaskDetailsModal } from "../../../../interfaces/components/modal/ITaskDetailsModal";
@@ -11,6 +11,7 @@ import { getBoardById } from "../../../../services/BoardService";
 import { SelectProps } from "antd/es/select";
 import { Lane } from "../../../../interfaces/model/Lane";
 import "./TaskDetailsModal.css"
+import TaskAttachmentTable from "./taskTable/TaskAttachmentTable";
 
 
 const property: UploadProps = {
@@ -93,6 +94,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                                 value={selectedValue}
                             />
                         </p>
+                        <TaskAttachmentTable {...task}/>
                         <div>
                             <Upload {...property}>
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
