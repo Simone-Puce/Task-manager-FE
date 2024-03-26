@@ -3,21 +3,22 @@ import { Attachment } from "../../../../../interfaces/model/Attachment"
 import { Task } from "../../../../../interfaces/model/Task"
 import "./TaskAttachmentTable.css"
 import { downloadFile } from "../../../../../services/AttachmentService"
-import fileDownload from 'js-file-download'
 import Cookies from "js-cookie"
+import { saveAs } from "file-saver"
 
 const TaskAttachmentTable = (task: Task) => {
     const { attachments } = task
     const token = Cookies.get("jwt-token")
-    
-    
+
+
     const downloadHandler = async (attachment: Attachment) => {
         const downloadResponse = await downloadFile(attachment.attachmentId!, token!)
-        const blob = new Blob([downloadResponse], {type: "application/pdf"})
-        let link = document.createElement("a")
+        const blob = new Blob([downloadResponse], { type: "application/pdf" })
+        saveAs(blob, attachment.attachmentName)
+        /*let link = document.createElement("a")
         link.href = URL.createObjectURL(blob)
         link.download = attachment.attachmentName!
-        link.click()
+        link.click()*/
         //const url = URL.createObjectURL(blob)
         //window.open(url)
     }
@@ -38,7 +39,7 @@ const TaskAttachmentTable = (task: Task) => {
             key: 'action',
             render: (record: Attachment) => (
                 <Space className="table-button-container">
-                    <Button onClick={()=>downloadHandler(record)}>a</Button>
+                    <Button onClick={() => downloadHandler(record)}>a</Button>
                     <Button>b</Button>
                 </Space>
             ),
