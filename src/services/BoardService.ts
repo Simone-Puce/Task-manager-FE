@@ -23,8 +23,8 @@ export const getAllBoards = async (token: string) => {
 export const getBoardById = async (id: number, token: string) => {
     try {
         const response = await axios.get(FIND_BY_CODE, {
-            params: { id: id },
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
+            params: {id: id}
         })
         return response.data
     } catch (error) {
