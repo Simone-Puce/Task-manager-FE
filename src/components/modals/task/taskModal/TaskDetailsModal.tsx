@@ -81,12 +81,15 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         <p>{task?.createdBy}</p>
                         <p>{task?.createdDate?.toString()}</p>
                         <p>{task?.modifiedBy}</p>
-                        <Select
-                            className="task-select-modal-style"
-                            onChange={handleSelectLaneChange}
-                            options={options}
-                            value={selectedValue}
-                        />
+                        <p>Column</p>
+                        <p>
+                            <Select
+                                className="task-select-modal-style"
+                                onChange={handleSelectLaneChange}
+                                options={options}
+                                value={selectedValue}
+                            />
+                        </p>
                         <div>
                             <Upload {...property}>
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
