@@ -5,8 +5,8 @@ import CreateTaskModal from "../../modals/task/createTask/CreateTaskModal"
 import { ILaneComponent } from "../../../interfaces/components/contents/ILaneComponent"
 import TaskDetailsModal from "../../modals/task/taskModal/TaskDetailsModal"
 import CreateTaskButton from "../../button/CreateTaskButton"
-import "./BoardpageContent.css"
 import SpinnerPage from "../../../pages/spinner/SpinnerPage"
+import "./BoardpageContent.css"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -42,7 +42,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
         )
     }
 
-    if (!isModalOpen) {
+    if (!isModalOpen && !isTaskModalOpen) {
         return (
             <div className="general-task-div">
                 <h1> {props.laneName} </h1>
@@ -64,6 +64,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     boardId={props.boardId!}
                     laneId={props.laneId!}
                     laneName={props.laneName!}
+                    reset={props.reset}
                 />
                {taskMapper()}
             </div>
@@ -87,6 +88,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     boardId={props.boardId!}
                     laneId={props.laneId!}
                     laneName={props.laneName!}
+                    reset={props.reset}
                 />
                 <SpinnerPage />
             </div>
