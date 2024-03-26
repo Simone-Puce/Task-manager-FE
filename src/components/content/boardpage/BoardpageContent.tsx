@@ -27,6 +27,7 @@ const BoardpageContent = (props: Board) => {
 
     useEffect(() => {
         const fetchNewLanes = async () => {
+            console.log(boardId)
             const response = await getBoardById(boardId!, token!)
             setNewBoard(response.data)
         }
