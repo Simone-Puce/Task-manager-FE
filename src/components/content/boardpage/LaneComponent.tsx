@@ -27,12 +27,8 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
     }
 
     const showTaskModal = async (taskId: number) => {
-        const response = await getUserDetails(token!)
-        const loggedUser: UserDetails = response.data
-        if (loggedUser.roles[0].name === "ROLE_USER") {
-            setSelectedTaskId(taskId)
-            setIsTaskModalOpen(true);
-        }
+        setSelectedTaskId(taskId)
+        setIsTaskModalOpen(true);
     }
 
     const taskMapper = () => {

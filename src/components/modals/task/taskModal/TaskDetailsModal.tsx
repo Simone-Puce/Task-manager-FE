@@ -40,10 +40,12 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
 
     useEffect(() => {
         const fetchTaskDetails = async () => {
-            const taskResponse = await getTaskById(token!, props.selectedTaskId!)
+            if(props.selectedTaskId){
+                const taskResponse = await getTaskById(token!, props.selectedTaskId!)
             setTask(taskResponse.data)
             const boardResponse = await getBoardById(props.boardId, token!)
             setBoard(boardResponse.data)
+            }
         }
 
         fetchTaskDetails()
