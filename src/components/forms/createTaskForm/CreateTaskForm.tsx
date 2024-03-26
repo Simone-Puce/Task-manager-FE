@@ -12,7 +12,7 @@ const CreateTaskForm = ({ handleCancel, selectedLane, reset }: ICreateUpdateTask
 
     const onSubmit = async () => {
         const formValues = form.getFieldsValue()
-        const response = await createTask(token!, {
+        await createTask(token!, {
             taskName: formValues.taskName,
             laneId: selectedLane
         })

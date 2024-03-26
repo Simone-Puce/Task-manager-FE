@@ -5,13 +5,17 @@ import CreateTaskModal from "../../modals/task/createTask/CreateTaskModal"
 import { ILaneComponent } from "../../../interfaces/components/contents/ILaneComponent"
 import TaskDetailsModal from "../../modals/task/taskModal/TaskDetailsModal"
 import CreateTaskButton from "../../button/CreateTaskButton"
-import "./BoardpageContent.css"
 import SpinnerPage from "../../../pages/spinner/SpinnerPage"
+import { getUserDetails } from "../../../services/UserService"
+import Cookies from "js-cookie"
+import "./BoardpageContent.css"
+import { UserDetails } from "../../../interfaces/model/UserDetails"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState<boolean>(false)
     const [selectedTaskId, setSelectedTaskId] = useState<number>()
+    const token = Cookies.get("jwt-token")
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -22,9 +26,13 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
         setIsTaskModalOpen(false)
     }
 
-    const showTaskModal = (taskId: number) => {
-        setSelectedTaskId(taskId)
-        setIsTaskModalOpen(true);
+    const showTaskModal = async (taskId: number) => {
+        const response = await getUserDetails(token!)
+        const loggedUser: UserDetails = response.data
+        if (loggedUser.roles[0].name === "ROLE_USER") {
+            setSelectedTaskId(taskId)
+            setIsTaskModalOpen(true);
+        }
     }
 
     const taskMapper = () => {
@@ -42,7 +50,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
         )
     }
 
-    if (!isModalOpen) {
+    if (!isModalOpen && !isTaskModalOpen) {
         return (
             <div className="general-task-div">
                 <h1> {props.laneName} </h1>
@@ -61,8 +69,12 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     isTaskModalOpen={isTaskModalOpen}
                     handleCancel={handleCancel}
                     selectedTaskId={selectedTaskId}
+                    boardId={props.boardId!}
+                    laneId={props.laneId!}
+                    laneName={props.laneName!}
+                    reset={props.reset}
                 />
-               {taskMapper()}
+                {taskMapper()}
             </div>
         )
     } else {
@@ -81,6 +93,10 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     isTaskModalOpen={isTaskModalOpen}
                     handleCancel={handleCancel}
                     selectedTaskId={selectedTaskId}
+                    boardId={props.boardId!}
+                    laneId={props.laneId!}
+                    laneName={props.laneName!}
+                    reset={props.reset}
                 />
                 <SpinnerPage />
             </div>

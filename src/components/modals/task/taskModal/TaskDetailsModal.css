@@ -14,3 +14,7 @@
 .cancel-button {
     margin: 5px;
 }
+
+.task-select-modal-style {
+    min-width: 200px
+}

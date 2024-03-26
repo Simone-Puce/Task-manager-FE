@@ -2,12 +2,15 @@ import { Button, Card, Modal, Select, Upload, UploadProps, message } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import { UploadOutlined } from '@ant-design/icons'
 import { ITaskDetailsModal } from "../../../../interfaces/components/modal/ITaskDetailsModal";
-import { getTaskById } from "../../../../services/TaskService";
+import { getTaskById, updateTask } from "../../../../services/TaskService";
 import Cookies from "js-cookie";
 import { Task } from "../../../../interfaces/model/Task";
 import { Content } from "antd/es/layout/layout";
+import { Board } from "../../../../interfaces/model/Board";
+import { getBoardById } from "../../../../services/BoardService";
+import { SelectProps } from "antd/es/select";
+import { Lane } from "../../../../interfaces/model/Lane";
 import "./TaskDetailsModal.css"
-
 
 const property: UploadProps = {
     name: 'file',
@@ -24,45 +27,69 @@ const property: UploadProps = {
         } else if (info.file.status === 'error') {
             message.error(`${info.file.name} file upload failed.`);
         }
-    },
-};
-
-
+    }
+}
 
 const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     const token = Cookies.get("jwt-token")
     const [task, setTask] = useState<Task>()
+    const [board, setBoard] = useState<Board>()
+    const [selectedValue, setSelectedValue] = useState<number>(props.laneId)
+    const options: SelectProps['options'] = []
 
     useEffect(() => {
         const fetchTaskDetails = async () => {
-            const response = await getTaskById(token!, props.selectedTaskId!)
-            setTask(response.data)
-            console.log(response.data)
+            const taskResponse = await getTaskById(token!, props.selectedTaskId!)
+            setTask(taskResponse.data)
+            const boardResponse = await getBoardById(props.boardId, token!)
+            setBoard(boardResponse.data)
         }
 
         fetchTaskDetails()
-    }, [])
+    }, [props.boardId, props.laneName, props.selectedTaskId, token])
+
+    board?.lanes?.forEach((lane: Lane) => {
+        options.push({
+            value: lane.laneId,
+            label: lane.laneName
+        })
+    })
+
+    const handleSelectLaneChange = async (value: number) => {
+        setSelectedValue(value)
+        await updateTask(token!, {
+            taskName: task?.taskName,
+            description: task?.description,
+            laneId: value,
+            taskId: task?.taskId
+        })
+        props.reset()
+    }
 
     return (
         <>
-            <Modal title={task?.taskName}
+            <Modal
+                title={task?.taskName}
                 open={props.isTaskModalOpen}
                 onCancel={props.handleCancel}
                 className='modal-Card'
                 footer={<></>}
-
             >
                 <Content>
                     <Card className="modal-Card">
-
                         <p>{task?.description}</p>
                         <p>{task?.createdBy}</p>
                         <p>{task?.createdDate?.toString()}</p>
                         <p>{task?.modifiedBy}</p>
-                        <p>{task?.laneId}</p>
-                        <Select>
-                            
-                        </Select>
+                        <p>Column</p>
+                        <p>
+                            <Select
+                                className="task-select-modal-style"
+                                onChange={handleSelectLaneChange}
+                                options={options}
+                                value={selectedValue}
+                            />
+                        </p>
                         <div>
                             <Upload {...property}>
                                 <Button icon={<UploadOutlined />}>Click to Upload</Button>
@@ -70,7 +97,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         </div>
                     </Card>
                 </Content>
-            </Modal>-
+            </Modal>
         </>
     )
 }

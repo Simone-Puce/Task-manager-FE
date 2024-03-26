@@ -1,4 +1,4 @@
-import { Button, Menu, Popconfirm } from "antd"
+import { Menu, Popconfirm } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import {
     UserOutlined,
@@ -16,7 +16,7 @@ import { IHomepageMenu } from "../../../interfaces/components/menu/IHomepageMenu
 import CreateUpdateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal";
 
 
-const HomepageMenu = ({ setIsSpinning }: IHomepageMenu): ReactElement => {
+const HomepageMenu = ({ setIsSpinning, resetBoard }: IHomepageMenu): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -37,12 +37,14 @@ const HomepageMenu = ({ setIsSpinning }: IHomepageMenu): ReactElement => {
     }, [token])
 
     const showModal = () => {
-        setIsModalOpen(true);
-    };
+        setIsModalOpen(true)
+        setIsSpinning!(true)
+    }
 
     const handleCancel = () => {
-        setIsModalOpen(false);
-    };
+        setIsModalOpen(false)
+        setIsSpinning!(false)
+    }
 
     const roleHandler = () => {
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
@@ -57,6 +59,7 @@ const HomepageMenu = ({ setIsSpinning }: IHomepageMenu): ReactElement => {
                         handleCancel={handleCancel}
                         setIsSpinning={setIsSpinning}
                         isCreating={true}
+                        reset={resetBoard}
                     />
                 </>
             )
@@ -76,7 +79,7 @@ const HomepageMenu = ({ setIsSpinning }: IHomepageMenu): ReactElement => {
         handleLogout();
     }
 
-    const closeConfirm = () => {   
+    const closeConfirm = () => {
         setConfirmOpen(false)
     }
 
