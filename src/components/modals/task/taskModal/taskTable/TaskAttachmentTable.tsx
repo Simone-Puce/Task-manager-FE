@@ -39,8 +39,8 @@ const TaskAttachmentTable = (task: Task) => {
             key: 'action',
             render: (record: Attachment) => (
                 <Space className="table-button-container">
-                    <Button onClick={() => downloadHandler(record)}>a</Button>
-                    <Button>b</Button>
+                    <Button onClick={() => downloadHandler(record)}>download</Button>
+                    <Button>delete</Button>
                 </Space>
             ),
         },
