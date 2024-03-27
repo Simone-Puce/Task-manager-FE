@@ -88,7 +88,7 @@ const AssociateUserBoardForm = (props: IAssociateUserBoardForm) => {
                     />
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" className="color-button">
                         Add user
                     </Button>
                 </Form.Item>

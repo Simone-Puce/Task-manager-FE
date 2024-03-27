@@ -2,8 +2,8 @@ import { Board } from "../../../interfaces/model/Board"
 import LaneComponent from "./LaneComponent"
 import { Lane } from "../../../interfaces/model/Lane"
 import AssociateUserBoardForm from "../../forms/associateUserBoardForm/AssociateUserBoardForm"
-import { FloatButton } from "antd"
-import { InfoCircleTwoTone } from '@ant-design/icons';
+import { ConfigProvider, FloatButton } from "antd"
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
@@ -27,7 +27,7 @@ const BoardpageContent = (props: Board) => {
 
     useEffect(() => {
         const fetchNewLanes = async () => {
-            if(boardId !== undefined){
+            if (boardId !== undefined) {
                 const response = await getBoardById(boardId!, token!)
                 setNewBoard(response.data)
             }
@@ -70,14 +70,21 @@ const BoardpageContent = (props: Board) => {
     }
 
     const searchField = () => {
-        if(isEditor)
-        return (
-            <div className="serch-field">
+        if (isEditor)
+            return (
+                <div className="serch-field">
                     <AssociateUserBoardForm {...props} isEditor={isEditor} />
                 </div>
-        )
+            )
+            
     }
     
+    const customTheme = {
+        token: {
+          colorPrimary: '#B10135',
+        },
+      }
+
     return (
         <Content>
             <div className="task-content-container">
@@ -92,12 +99,16 @@ const BoardpageContent = (props: Board) => {
                 {searchField()}
                 <div className="task-content-style">
                     {mappedLanes()}
-                    <FloatButton
-                        icon={<InfoCircleTwoTone />}
-                        type="primary"
-                        style={{ right: 50 }}
-                        onClick={showModal}
-                    />
+                    <ConfigProvider theme={customTheme}>
+                        <FloatButton
+                            icon={<InfoCircleOutlined />}
+                            description="Info"
+                            shape="square"
+                            type="primary"
+                            style={{ right: 50 }}
+                            onClick={showModal}
+                        />
+                    </ConfigProvider>
                 </div>
             </div>
         </Content>

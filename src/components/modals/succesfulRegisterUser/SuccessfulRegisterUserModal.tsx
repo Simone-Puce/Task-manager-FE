@@ -18,8 +18,8 @@ const SuccessfulRegisterUserModal = ({ isModalOpen, handleCancel }: ISuccessRegi
         className='succesRegistrationModalStyle'
         footer={
           <div className='footer-div'>
-            <Button type="primary" className='login-button' onClick={() => navigate("/login")}>Login</Button>
-            <Button type="link" className='newUser-button' onClick={handleCancel}>New User</Button>
+            <Button type="primary" className='login-button color-button' onClick={() => navigate("/login")}>Login</Button>
+            <Button type="default" className='newUser-button secondary-color-button' onClick={handleCancel}>New User</Button>
           </div>
         }
       >

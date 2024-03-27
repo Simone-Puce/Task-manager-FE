@@ -97,7 +97,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         <TaskAttachmentTable {...task}/>
                         <div>
                             <Upload {...property}>
-                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                                <Button icon={<UploadOutlined />} className="color-button">Click to Upload</Button>
                             </Upload>
                         </div>
                     </Card>
