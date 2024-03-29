@@ -8,17 +8,18 @@ import CreateTaskButton from "../../button/CreateTaskButton"
 import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
+import { deleteTask } from "../../../services/TaskService"
 import "./BoardpageContent.css"
-import { UserDetails } from "../../../interfaces/model/UserDetails"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState<boolean>(false)
     const [selectedTaskId, setSelectedTaskId] = useState<number>()
-    const token = Cookies.get("jwt-token")
+    const [tasksNewMapping, setTasksNewMapping] = useState<Task[]>()
+    const token: string = Cookies.get("jwt-token")!
 
     const showModal = () => {
-        setIsModalOpen(true);
+        setIsModalOpen(true)
     }
 
     const handleCancel = () => {
@@ -36,18 +37,40 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
     }
 
     const taskMapper = () => {
-        return (
-            props.tasks!.map((task: Task) => (
-                <Card title={task.taskName}
-                    key={task.taskId}
-                    bordered={true}
-                    hoverable
-                    onClick={() => showTaskModal(task.taskId!)}
-                    className="card-style">
-                    Task card
-                </Card>
-            ))
-        )
+        if (tasksNewMapping === undefined) {
+            return (
+                props.tasks!.map((task: Task) => (
+                    <Card title={task.taskName}
+                        key={task.taskId}
+                        bordered={true}
+                        hoverable
+                        onClick={() => showTaskModal(task.taskId!)}
+                        className="card-style">
+                        Task card
+                    </Card>
+                ))
+            )
+        } else {
+            return (
+                tasksNewMapping.map((task: Task) => (
+                    <Card title={task.taskName}
+                        key={task.taskId}
+                        bordered={true}
+                        hoverable
+                        onClick={() => showTaskModal(task.taskId!)}
+                        className="card-style">
+                        Task card
+                    </Card>
+                ))
+            )
+        }
+    }
+
+    const deleteTaskHandler = async () => {
+        await deleteTask(token, selectedTaskId!)
+        const filteredNewTasks = props.tasks!.filter((task) => task.taskId !== selectedTaskId)
+        setTasksNewMapping(filteredNewTasks)
+        setIsTaskModalOpen(false)
     }
 
     if (!isModalOpen && !isTaskModalOpen) {
@@ -67,11 +90,13 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                 <TaskDetailsModal
                     showTaskModal={showTaskModal}
                     isTaskModalOpen={isTaskModalOpen}
+                    deleteTask={deleteTaskHandler}
                     handleCancel={handleCancel}
                     selectedTaskId={selectedTaskId}
                     boardId={props.boardId!}
                     laneId={props.laneId!}
                     laneName={props.laneName!}
+                    isEditor={props.isEditor!}
                     reset={props.reset}
                 />
                 {taskMapper()}
@@ -93,9 +118,11 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     isTaskModalOpen={isTaskModalOpen}
                     handleCancel={handleCancel}
                     selectedTaskId={selectedTaskId}
+                    deleteTask={deleteTaskHandler}
                     boardId={props.boardId!}
                     laneId={props.laneId!}
                     laneName={props.laneName!}
+                    isEditor={props.isEditor!}
                     reset={props.reset}
                 />
                 <SpinnerPage />

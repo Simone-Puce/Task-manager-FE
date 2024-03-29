@@ -1,4 +1,4 @@
-import { Card, Modal, Select  } from "antd";
+import { Button, Card, Modal, Select } from "antd";
 import { ReactElement, useEffect, useState } from "react";
 import { ITaskDetailsModal } from "../../../../interfaces/components/modal/ITaskDetailsModal";
 import { getTaskById, updateTask } from "../../../../services/TaskService";
@@ -14,7 +14,7 @@ import "./TaskDetailsModal.css"
 import UploadFileForm from "../../../forms/uploadFile/UploadFileForm";
 
 const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
-    const token = Cookies.get("jwt-token")
+    const token: string = Cookies.get("jwt-token")!
     const [task, setTask] = useState<Task>()
     const [board, setBoard] = useState<Board>()
     const [selectedValue, setSelectedValue] = useState<number>(props.laneId)
@@ -22,11 +22,11 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
 
     useEffect(() => {
         const fetchTaskDetails = async () => {
-            if(props.selectedTaskId){
+            if (props.selectedTaskId) {
                 const taskResponse = await getTaskById(token!, props.selectedTaskId!)
-            setTask(taskResponse.data)
-            const boardResponse = await getBoardById(props.boardId, token!)
-            setBoard(boardResponse.data)
+                setTask(taskResponse.data)
+                const boardResponse = await getBoardById(props.boardId, token!)
+                setBoard(boardResponse.data)
             }
         }
 
@@ -51,6 +51,14 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
         props.reset()
     }
 
+    const deleteButtonConditionalRender = () => {
+        if(props.isEditor){
+            return <Button className="color-button element-margin" onClick={props.deleteTask}> Delete task </Button>
+        } else {
+            return <></>
+        }
+    }
+
     return (
         <>
             <Modal
@@ -61,23 +69,23 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                 footer={<></>}
             >
                 <Content>
-                    <Card className="modal-Card">
+                    <Card className="modal-card">
                         <p>{task?.description}</p>
                         <p>{task?.createdBy}</p>
                         <p>{task?.createdDate?.toString()}</p>
                         <p>{task?.modifiedBy}</p>
-                        <p>Column</p>
-                        <p>
+                        <div className="update-delete-task">
                             <Select
-                                className="task-select-modal-style"
+                                className="task-select-modal-style element-margin"
                                 onChange={handleSelectLaneChange}
                                 options={options}
                                 value={selectedValue}
                             />
-                        </p>
-                        <TaskAttachmentTable {...task}/>
-                        <UploadFileForm/>
-                    </Card> 
+                            {deleteButtonConditionalRender()}
+                        </div>
+                        <TaskAttachmentTable {...task} />
+                        <UploadFileForm />
+                    </Card>
                 </Content>
             </Modal>
         </>

@@ -15,7 +15,7 @@ import "./BoardpageContent.css"
 
 const BoardpageContent = (props: Board) => {
     const token = Cookies.get("jwt-token")
-    const { boardId, boardName, lanes, users, createdBy, modifiedBy, createdDate, modifiedDate } = props
+    const { boardId, boardName, lanes, users, modifiedBy, modifiedDate } = props
     const [isEditor, setIsEditor] = useState<boolean>()
     const [newBoard, setNewBoard] = useState<Board>()
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -56,6 +56,8 @@ const BoardpageContent = (props: Board) => {
                 <LaneComponent key={index} {...lane} isEditor={isEditor} boardId={boardId} reset={reset} />
             )))
     }
+
+    
 
     const showModal = () => {
         setIsModalOpen(true)

@@ -7,7 +7,7 @@ const TASK_BASE_URI = VERSION_URI + "/task"
 const FIND_TASK_BY_ID = TASK_BASE_URI + "/find-by-id"
 const CREATE_TASK = TASK_BASE_URI + "/create"
 const UPDATE_TASK = TASK_BASE_URI + "/modify"
-
+const DELETE_TASK = TASK_BASE_URI + "/delete"
 
 export const getTaskById = async (token: string, id: number) => {
     try {
@@ -39,7 +39,6 @@ export const createTask = async (token: string, newTaskBody: Task) => {
 }
 
 export const updateTask = async (token: string, updatedTask: Task) => {
-    console.log(updatedTask)
     try {
         const response = await axios.put(UPDATE_TASK,
             {
@@ -56,6 +55,18 @@ export const updateTask = async (token: string, updatedTask: Task) => {
                 }
             })
         return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteTask = async (token: string, taskId: number) => {
+    try {
+        axios.put(DELETE_TASK, {},
+            {
+                params: { taskId: taskId },
+                headers: { Authorization: `Bearer ${token}` }
+            })
     } catch (error) {
         console.log(error)
     }

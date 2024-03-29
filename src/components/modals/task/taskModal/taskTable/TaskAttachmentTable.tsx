@@ -1,17 +1,21 @@
 import { Button, Space, Table, TableProps } from "antd"
 import { Attachment } from "../../../../../interfaces/model/Attachment"
 import { Task } from "../../../../../interfaces/model/Task"
-import "./TaskAttachmentTable.css"
-import { getFileById } from "../../../../../services/AttachmentService"
+import { deleteAttachment, getFileById } from "../../../../../services/AttachmentService"
 import Cookies from "js-cookie"
 import { saveAs } from "file-saver"
+import "./TaskAttachmentTable.css"
+import { useState } from "react"
 
 const TaskAttachmentTable = (task: Task) => {
     const { attachments } = task
-    const token = Cookies.get("jwt-token")
+    const [newAttachments, setNewAttachments] = useState<Attachment[]>()
+    const token: string = Cookies.get("jwt-token")!
 
     const deleteHandler = async (attachment: Attachment) => {
-
+        await deleteAttachment(attachment.attachmentId!, token)
+        const newAttachmentsFiltered = attachments!.filter((checkAttachment) => checkAttachment.attachmentId !== attachment.attachmentId )
+        setNewAttachments(newAttachmentsFiltered)
     }
 
     const downloadHandler = async (attachment: Attachment) => {
@@ -32,10 +36,10 @@ const TaskAttachmentTable = (task: Task) => {
             const decodedTxt = atob(file64)
             const byteArray = new Uint8Array(decodedTxt.length)
             for (let i = 0; i < decodedTxt.length; i++) {
-                byteArray[i] = decodedTxt.charCodeAt(i);
+                byteArray[i] = decodedTxt.charCodeAt(i)
             }
-            const blob = new Blob([byteArray.buffer], { type: 'text/plain' });
-            saveAs(blob, attachment.attachmentName+".txt")
+            const blob = new Blob([byteArray.buffer], { type: 'text/plain' })
+            saveAs(blob, attachment.attachmentName + ".txt")
         }
     }
 
@@ -64,9 +68,15 @@ const TaskAttachmentTable = (task: Task) => {
 
     const populateBoard = (): Attachment[] => {
         const data: Attachment[] = []
-        attachments?.forEach((attachment: Attachment) => {
-            data.push(attachment)
-        })
+        if (newAttachments === undefined) {
+            attachments?.forEach((attachment: Attachment) => {
+                data.push(attachment)
+            })
+        } else {
+            newAttachments?.forEach((attachment: Attachment) => {
+                data.push(attachment)
+            })
+        }
         return data
     }
 

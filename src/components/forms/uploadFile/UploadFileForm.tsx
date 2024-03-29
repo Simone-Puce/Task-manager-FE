@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Upload, Button, Layout } from 'antd';
+import React, { useState } from 'react'
+import { Upload, Button, Layout } from 'antd'
 
 const UploadButton = () => {
-  const [fileList, setFileList] = useState<any[]>([]);
+  const [fileList, setFileList] = useState<any[]>([])
 
   const onChange = (fileList: any) => {
-    setFileList(fileList);
+    setFileList(fileList)
     console.log(fileList)
   }
 
