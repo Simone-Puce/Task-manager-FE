@@ -47,10 +47,10 @@ const CreateBoardForm = ({ handleCancel, isCreating, boardId, reset }: ICreateUP
                 </Form.Item>
                 <Form.Item>
                     <div className="buttons">
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" className="color-button">
                             Create
                         </Button>
-                        <Button onClick={handleCancel}>
+                        <Button onClick={handleCancel} className="secondary-color-button">
                             Cancel
                         </Button>
                     </div>

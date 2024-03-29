@@ -11,7 +11,7 @@ const LoginForm = (): ReactElement => {
     const navigate = useNavigate()
     const [form] = Form.useForm()
     const [notificationApi, contextHolder] = notification.useNotification();
-    
+
     const emailRules: Rule[] = [
         { required: true, message: "Please input your email!", type: "email" }
     ]
@@ -58,14 +58,20 @@ const LoginForm = (): ReactElement => {
                     <Input.Password />
                 </Form.Item>
                 <div className="submit-registration">
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit">
-                            Sign In
-                        </Button>
-                    </Form.Item>
-                    <Form.Item>
-                        <Link to="/register">Create account</Link>
-                    </Form.Item>
+                    <div className="login-button-style">
+                        <Form.Item className="login-button-style">
+                            <Button type="primary" htmlType="submit" className="color-button">
+                                Sign In
+                            </Button>
+                        </Form.Item>
+                    </div>
+                    <div className="login-button-style">
+                        <Form.Item>
+                            <Button type="primary" onClick={() => navigate("/register")} className="secondary-color-button">
+                                Sign up
+                            </Button>
+                        </Form.Item>
+                    </div>
                 </div>
             </Form>
         </div>

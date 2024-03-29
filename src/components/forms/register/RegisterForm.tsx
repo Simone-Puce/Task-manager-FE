@@ -20,9 +20,9 @@ const RegisterForm = (): ReactElement => {
 
     const clickedManagment = () => {
         setClicked(true)
-        setTimeout(()=>{
+        setTimeout(() => {
             setClicked(false)
-        },1500)
+        }, 1500)
     }
 
     const handleClickChange = () => {
@@ -90,7 +90,7 @@ const RegisterForm = (): ReactElement => {
             <Form
                 className="register-form-style"
                 form={form}
-                layout="vertical"   
+                layout="vertical"
                 name="login"
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
@@ -117,6 +117,7 @@ const RegisterForm = (): ReactElement => {
                     <Input.Password />
                 </Form.Item>
                 <div className="submit-login">
+                    <div className="register-button-style">
                     <Form.Item>
                         <Popover
                             placement="left"
@@ -125,14 +126,19 @@ const RegisterForm = (): ReactElement => {
                             open={clicked}
                             onOpenChange={handleClickChange}
                         >
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary" htmlType="submit" className="color-button">
                                 Register
                             </Button>
                         </Popover>
                     </Form.Item>
-                    <Form.Item>
-                        <Link to="/">Login</Link>
-                    </Form.Item>
+                    </div>
+                    <div className="register-button-style">
+                        <Form.Item>
+                            <Button type="primary" onClick={() => navigate("/")} className="secondary-color-button">
+                                Login
+                            </Button>
+                        </Form.Item>
+                    </div>
                 </div>
             </Form>
         </div>

@@ -34,10 +34,10 @@ const CreateTaskForm = ({ handleCancel, selectedLane, reset }: ICreateUpdateTask
                 <Input />
             </Form.Item>
             <div className="buttons">
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" className="color-button">
                     Add
                 </Button>
-                <Button onClick={handleCancel}>
+                <Button onClick={handleCancel} className="secondary-color-button">
                     Cancel
                 </Button>
             </div>

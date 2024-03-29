@@ -28,11 +28,22 @@
   color: #61dafb;
 }
 
-.menu-item-hover:hover{
+.menu-item-hover:hover {
   background-color: #B10135 !important;
+  color: white !important;
 }
 
 .ant-layout-sider-trigger {
   background-color: #B10135 !important;
   border-top: 2px solid #5D5D5F;
+}
+
+.color-button {
+  background-color: #B10135;
+  color: white;
+}
+
+.secondary-color-button {
+  background-color: #ddd;
+  color: #5D5D5F;
 }

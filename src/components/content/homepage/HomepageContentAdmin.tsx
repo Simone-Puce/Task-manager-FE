@@ -69,8 +69,8 @@ const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning }: IHomePage): Re
                     hoverable
                     className="card-style">
                     <div className="card-button">
-                        <Button type="primary" onClick={() => updateBoardHandler(element.boardId!)}>Update</Button>
-                        <Button onClick={() => deleteBoardHandler(element.boardId!)}>Delete</Button>
+                        <Button type="primary" onClick={() => updateBoardHandler(element.boardId!)} className="color-button">Update</Button>
+                        <Button onClick={() => deleteBoardHandler(element.boardId!)} className="secondary-color-button">Delete</Button>
                         <Button type="text" onClick={() => handleCardClick(element.boardId!)}><ArrowRightOutlined /></Button>
                     </div>
                 </Card>

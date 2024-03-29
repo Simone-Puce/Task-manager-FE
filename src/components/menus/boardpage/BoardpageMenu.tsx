@@ -137,7 +137,8 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                     <Menu.Item
                         className="menu-item-hover"
                         icon={<PlusSquareOutlined />}
-                        onClick={showLaneModal}>
+                        onClick={showLaneModal}
+                        color="green">
                         New Lane
                     </Menu.Item>
                     <CreateLaneModal
@@ -150,8 +151,11 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         key="sub4"
                         title={"Boards"}
                         icon={<CalendarOutlined />}
-                        className="submenu menu-item-hover">
-                        {boardItem()}
+                        className="submenu"
+                        >
+
+                            {boardItem()}
+                   
                     </SubMenu>
                 </>
             )

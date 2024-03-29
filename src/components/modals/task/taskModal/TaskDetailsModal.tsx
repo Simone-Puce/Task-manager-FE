@@ -85,4 +85,4 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
 }
 
 
-export default TaskDetailsModal;
+export default TaskDetailsModal
