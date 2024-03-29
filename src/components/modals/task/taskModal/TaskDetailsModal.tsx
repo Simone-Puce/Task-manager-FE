@@ -1,6 +1,5 @@
-import { Button, Card, Modal, Select, Table, Upload, UploadProps, message } from "antd";
+import { Card, Modal, Select  } from "antd";
 import { ReactElement, useEffect, useState } from "react";
-import { UploadOutlined } from '@ant-design/icons'
 import { ITaskDetailsModal } from "../../../../interfaces/components/modal/ITaskDetailsModal";
 import { getTaskById, updateTask } from "../../../../services/TaskService";
 import Cookies from "js-cookie";
@@ -10,27 +9,9 @@ import { Board } from "../../../../interfaces/model/Board";
 import { getBoardById } from "../../../../services/BoardService";
 import { SelectProps } from "antd/es/select";
 import { Lane } from "../../../../interfaces/model/Lane";
-import "./TaskDetailsModal.css"
 import TaskAttachmentTable from "./taskTable/TaskAttachmentTable";
-
-
-const property: UploadProps = {
-    name: 'file',
-    action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-    headers: {
-        authorization: 'authorization-text',
-    },
-    onChange(info) {
-        if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    }
-}
+import "./TaskDetailsModal.css"
+import UploadFileForm from "../../../forms/uploadFile/UploadFileForm";
 
 const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     const token = Cookies.get("jwt-token")
@@ -95,12 +76,8 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                             />
                         </p>
                         <TaskAttachmentTable {...task}/>
-                        <div>
-                            <Upload {...property}>
-                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                            </Upload>
-                        </div>
-                    </Card>
+                        <UploadFileForm/>
+                    </Card> 
                 </Content>
             </Modal>
         </>
