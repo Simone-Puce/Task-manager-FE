@@ -11,6 +11,7 @@ import "./BoardPage.css"
 
 const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
     const [board, setBoard] = useState<Board>()
+    const [isBoardSpinning, setIsBoardSpinning] = useState<boolean>(false)
     const token = Cookies.get("jwt-token")
 
     useEffect(()=>{
@@ -21,12 +22,19 @@ const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
         fetchBoard()
     },[token, setSelectedBoardId, selectedBoardId])
 
+    const renderBoardPageContent = () => (
+        <BoardpageContent
+            board={board!}
+            isBoardSpinning={isBoardSpinning}
+        />
+    )
+
     return (
         <Layout>
             <BoardpageHeader {...board} />
             <Layout>
-                <BoardpageSider setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId}/>
-                <BoardpageContent {...board}/>
+                <BoardpageSider setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId} setIsBoardSpinning={setIsBoardSpinning}/>
+                {board && renderBoardPageContent()}
             </Layout>
         </Layout>
     )

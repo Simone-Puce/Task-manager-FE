@@ -52,7 +52,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     }
 
     const deleteButtonConditionalRender = () => {
-        if(props.isEditor){
+        if (props.isEditor) {
             return <Button className="color-button element-margin" onClick={props.deleteTask}> Delete task </Button>
         } else {
             return <></>
@@ -70,10 +70,10 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
             >
                 <Content>
                     <Card className="modal-card">
-                        <p>{task?.description}</p>
-                        <p>{task?.createdBy}</p>
-                        <p>{task?.createdDate?.toString()}</p>
-                        <p>{task?.modifiedBy}</p>
+                        <p>Task description: {task?.description}</p>
+                        <p>Creator: {task?.createdBy}</p>
+                        <p>Task creation date:{task?.createdDate?.toString()}</p>
+                        <p>Last update from:{task?.modifiedBy}</p>
                         <div className="update-delete-task">
                             <Select
                                 className="task-select-modal-style element-margin"

@@ -24,7 +24,7 @@ import { getBoardById } from "../../../services/BoardService";
 import "./BoardpageMenu.css"
 
 
-const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): ReactElement => {
+const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
     const [board, setBoard] = useState<Board>()
     const [userDetails, setUserDetails] = useState<UserDetails>()
@@ -86,11 +86,13 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
 
     const showLaneModal = () => {
         setIsLaneModalOpen(true)
+        setIsBoardSpinning!(true)
     }
 
     const handleCancel = () => {
         setIsModalOpen(false)
         setIsLaneModalOpen(false)
+        setIsBoardSpinning!(false)
     }
 
 
@@ -108,7 +110,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
 
     const checkIfUserIsEditor = (): boolean => {
         let userIsEditor = false
-        board?.users?.map(user => {
+        board?.users?.forEach(user => {
             if (user.email === userDetails?.email && user.roleCodeForBoard === "EDITOR") {
                 userIsEditor = true
             }
@@ -152,10 +154,10 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         title={"Boards"}
                         icon={<CalendarOutlined />}
                         className="submenu"
-                        >
+                    >
 
-                            {boardItem()}
-                   
+                        {boardItem()}
+
                     </SubMenu>
                 </>
             )

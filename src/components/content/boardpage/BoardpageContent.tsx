@@ -12,10 +12,12 @@ import BoardInfoModal from "../../modals/boardInfo/BoardInfoModal"
 import { Content } from "antd/es/layout/layout"
 import { getBoardById } from "../../../services/BoardService"
 import "./BoardpageContent.css"
+import { IBoardPageContent } from "../../../interfaces/components/contents/IBoardpageContent"
+import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 
-const BoardpageContent = (props: Board) => {
+const BoardpageContent = ({ board, isBoardSpinning }: IBoardPageContent) => {
     const token = Cookies.get("jwt-token")
-    const { boardId, boardName, lanes, users, modifiedBy, modifiedDate } = props
+    const { boardId, boardName, lanes, users, modifiedBy, modifiedDate } = board
     const [isEditor, setIsEditor] = useState<boolean>()
     const [newBoard, setNewBoard] = useState<Board>()
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -57,8 +59,6 @@ const BoardpageContent = (props: Board) => {
             )))
     }
 
-    
-
     const showModal = () => {
         setIsModalOpen(true)
     }
@@ -75,46 +75,56 @@ const BoardpageContent = (props: Board) => {
         if (isEditor)
             return (
                 <div className="serch-field">
-                    <AssociateUserBoardForm {...props} isEditor={isEditor} />
+                    <AssociateUserBoardForm {...board} isEditor={isEditor} />
                 </div>
             )
-            
+
     }
-    
+
     const customTheme = {
         token: {
-          colorPrimary: '#B10135',
+            colorPrimary: '#B10135',
         },
-      }
+    }
 
-    return (
-        <Content>
-            <div className="task-content-container">
-                <BoardInfoModal
-                    handleOk={handleOk}
-                    isModalOpen={isModalOpen}
-                    handleCancel={handleCancel}
-                    modifiedBy={modifiedBy}
-                    modifiedDate={modifiedDate}
-                    boardName={boardName}
-                />
-                {searchField()}
-                <div className="task-content-style">
-                    {mappedLanes()}
-                    <ConfigProvider theme={customTheme}>
-                        <FloatButton
-                            icon={<InfoCircleOutlined />}
-                            description="Info"
-                            shape="square"
-                            type="primary"
-                            style={{ right: 50 }}
-                            onClick={showModal}
-                        />
-                    </ConfigProvider>
+    if (!isBoardSpinning) {
+        return (
+            <Content>
+                <div className="task-content-container">
+                    <BoardInfoModal
+                        handleOk={handleOk}
+                        isModalOpen={isModalOpen}
+                        handleCancel={handleCancel}
+                        modifiedBy={modifiedBy}
+                        modifiedDate={modifiedDate}
+                        boardName={boardName}
+                    />
+                    {searchField()}
+                    <div className="task-content-style">
+                        {mappedLanes()}
+                        <ConfigProvider theme={customTheme}>
+                            <FloatButton
+                                icon={<InfoCircleOutlined />}
+                                description="Info"
+                                shape="square"
+                                type="primary"
+                                style={{ right: 50 }}
+                                onClick={showModal}
+                            />
+                        </ConfigProvider>
+                    </div>
                 </div>
-            </div>
-        </Content>
-    )
+            </Content>
+        )
+    } else {
+        return (
+            <Content>
+                <div className="spinner-holder-content">
+                    <SpinnerPage />
+                </div>
+            </Content>
+        )
+    }
 }
 
 export default BoardpageContent

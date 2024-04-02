@@ -1,15 +1,14 @@
 import { Modal } from "antd"
-import Cookies from "js-cookie"
 import { ReactElement } from "react"
 import { ICreateLaneModal } from "../../../interfaces/components/modal/ICreateLaneModal"
 import CreateUpdateLaneForm from "../../forms/createUpdateLaneForm/CreateUpdateLaneForm"
 
 const CreateLaneModal = (props: ICreateLaneModal): ReactElement => {
-    const { showLaneModal, isLaneModalOpen, handleCancel, selectedBoardId } = props
+    const { isLaneModalOpen, handleCancel, selectedBoardId } = props
     return (
         <Modal title="LANE NAME"
-            open={props.isLaneModalOpen}
-            onCancel={props.handleCancel}
+            open={isLaneModalOpen}
+            onCancel={handleCancel}
             className="newLaneModalStyle"
             footer={<></>}
         >

@@ -94,3 +94,12 @@
         scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
     }
 }
+
+.spinner-holder-content {
+    width: 100%;
+    height: 100%;
+    background-color: #F1F1E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

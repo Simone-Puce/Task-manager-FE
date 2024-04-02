@@ -2,7 +2,7 @@ import { Button, Input, Popover, message } from "antd"
 import Form, { Rule } from "antd/es/form"
 import { ReactElement, useState } from "react"
 import "./RegisterForm.css"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { registerNewUser } from "../../../services/UserService"
 import SuccessfulRegisterUserModal from "../../modals/succesfulRegisterUser/SuccessfulRegisterUserModal"
 

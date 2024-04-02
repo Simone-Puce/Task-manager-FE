@@ -1,6 +1,5 @@
 import { Button, Form, Input } from "antd"
 import { createLane } from "../../../services/LaneServices"
-import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal"
 import { ReactElement } from "react"
 import Cookies from "js-cookie"
 import { ICreateLaneModal } from "../../../interfaces/components/modal/ICreateLaneModal"
