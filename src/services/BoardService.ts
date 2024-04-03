@@ -27,8 +27,8 @@ export const getBoardById = async (id: number, token: string) => {
             params: {id: id}
         })
         return response.data
-    } catch (error) {
-        console.log(error)
+    } catch (error: any) {
+        return error
     }
 }
 

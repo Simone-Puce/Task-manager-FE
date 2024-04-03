@@ -9,23 +9,34 @@ import { getBoardById } from "../../services/BoardService"
 import Cookies from "js-cookie"
 import "./BoardPage.css"
 
-const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
+const BoardPage = ({ selectedBoardId, setSelectedBoardId, isSpinning, setIsBoardSpinning }: IBoardPage) => {
     const [board, setBoard] = useState<Board>()
-    const [isBoardSpinning, setIsBoardSpinning] = useState<boolean>(false)
     const token = Cookies.get("jwt-token")
+    const [seed, setSeed] = useState(1)
 
-    useEffect(()=>{
+    const reset = () => {
+        setSeed(Math.random())
+    }
+
+    useEffect(() => {
         const fetchBoard = async () => {
-            const response = await getBoardById(selectedBoardId!,token!)
-            setBoard(response.data)
-        } 
+            if (selectedBoardId === undefined) {
+                const localStorageId = localStorage.getItem("my-board-id")
+                const response = await getBoardById(parseInt(localStorageId!), token!)
+                setBoard(response.data)
+            } else {
+                const response = await getBoardById(selectedBoardId!, token!)
+                setBoard(response.data)
+            }
+
+        }
         fetchBoard()
-    },[token, setSelectedBoardId, selectedBoardId])
+    }, [token, setSelectedBoardId, selectedBoardId, seed])
 
     const renderBoardPageContent = () => (
         <BoardpageContent
             board={board!}
-            isBoardSpinning={isBoardSpinning}
+            isBoardSpinning={isSpinning!}
         />
     )
 
@@ -33,7 +44,11 @@ const BoardPage = ({selectedBoardId, setSelectedBoardId} : IBoardPage) => {
         <Layout>
             <BoardpageHeader {...board} />
             <Layout>
-                <BoardpageSider setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId} setIsBoardSpinning={setIsBoardSpinning}/>
+                <BoardpageSider
+                    setSelectedBoardId={setSelectedBoardId}
+                    selectedBoardId={selectedBoardId}
+                    reset={reset}
+                />
                 {board && renderBoardPageContent()}
             </Layout>
         </Layout>

@@ -10,14 +10,18 @@ import { getBoardById } from "../../../../services/BoardService";
 import { SelectProps } from "antd/es/select";
 import { Lane } from "../../../../interfaces/model/Lane";
 import TaskAttachmentTable from "./taskTable/TaskAttachmentTable";
-import "./TaskDetailsModal.css"
 import UploadFileForm from "../../../forms/uploadFile/UploadFileForm";
+import AssociateUserTaskForm from "../../../forms/associateUserTaskForm/AssociateUserTaskForm";
+import { getUserDetails } from "../../../../services/UserService";
+import { UserInBoard } from "../../../../interfaces/model/UserInBoard";
+import "./TaskDetailsModal.css"
 
 const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     const token: string = Cookies.get("jwt-token")!
     const [task, setTask] = useState<Task>()
     const [board, setBoard] = useState<Board>()
     const [selectedValue, setSelectedValue] = useState<number>(props.laneId)
+    const [isUserAssociatedWithTask, setIsUserAssociatedWithTask] = useState<boolean>()
     const options: SelectProps['options'] = []
 
     useEffect(() => {
@@ -32,6 +36,21 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
 
         fetchTaskDetails()
     }, [props.boardId, props.laneName, props.selectedTaskId, token])
+
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            const userDetailsResponse = await getUserDetails(token)
+            const loggedUserEmail = userDetailsResponse.data.email
+            if (task && loggedUserEmail) {
+                task.users?.forEach((user: UserInBoard) => {
+                    if (user.email === loggedUserEmail) {
+                        setIsUserAssociatedWithTask(true)
+                    }
+                })
+            }
+        }
+        fetchUserDetails()
+    }, [task, token])
 
     board?.lanes?.forEach((lane: Lane) => {
         options.push({
@@ -52,10 +71,38 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     }
 
     const deleteButtonConditionalRender = () => {
-        if (props.isEditor) {
+        if (props.isEditor || isUserAssociatedWithTask) {
             return <Button className="color-button element-margin" onClick={props.deleteTask}> Delete task </Button>
         } else {
             return <></>
+        }
+    }
+
+    const associateFormConditionalRender = () => {
+        if (props.isEditor || isUserAssociatedWithTask) {
+            return (
+                <div className="user-task-form-container">
+                    <AssociateUserTaskForm {...props} usersTask={task?.users!} />
+                </div>
+            )
+        } else {
+            return <></>
+        }
+    }
+
+    const updateTaskStatusConditionalRender = () => {
+        if (props.isEditor || isUserAssociatedWithTask) {
+            return (
+                <div className="update-delete-task">
+                    <Select
+                        className="task-select-modal-style element-margin"
+                        onChange={handleSelectLaneChange}
+                        options={options}
+                        value={selectedValue}
+                    />
+                    {deleteButtonConditionalRender()}
+                </div>
+            )
         }
     }
 
@@ -74,15 +121,8 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         <p>Creator: {task?.createdBy}</p>
                         <p>Task creation date:{task?.createdDate?.toString()}</p>
                         <p>Last update from:{task?.modifiedBy}</p>
-                        <div className="update-delete-task">
-                            <Select
-                                className="task-select-modal-style element-margin"
-                                onChange={handleSelectLaneChange}
-                                options={options}
-                                value={selectedValue}
-                            />
-                            {deleteButtonConditionalRender()}
-                        </div>
+                        {associateFormConditionalRender()}
+                        {updateTaskStatusConditionalRender()}
                         <TaskAttachmentTable {...task} />
                         <UploadFileForm />
                     </Card>

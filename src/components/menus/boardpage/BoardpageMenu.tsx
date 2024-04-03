@@ -24,7 +24,7 @@ import { getBoardById } from "../../../services/BoardService";
 import "./BoardpageMenu.css"
 
 
-const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning }: IBoardPage): ReactElement => {
+const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning, reset }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
     const [board, setBoard] = useState<Board>()
     const [userDetails, setUserDetails] = useState<UserDetails>()
@@ -82,6 +82,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
 
     const showModal = () => {
         setIsModalOpen(true)
+        setIsBoardSpinning!(true)
     }
 
     const showLaneModal = () => {
@@ -95,13 +96,12 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
         setIsBoardSpinning!(false)
     }
 
-
     const showPopconfirm = () => {
-        setConfirmOpen(true);
+        setConfirmOpen(true)
     }
 
     const handleOk = () => {
-        handleLogout();
+        handleLogout()
     }
 
     const closeConfirm = () => {
@@ -148,6 +148,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
                         isLaneModalOpen={isLaneModalOpen}
                         handleCancel={handleCancel}
                         selectedBoardId={selectedBoardId}
+                        reset={reset}
                     />
                     <SubMenu
                         key="sub4"
@@ -155,9 +156,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
                         icon={<CalendarOutlined />}
                         className="submenu"
                     >
-
                         {boardItem()}
-
                     </SubMenu>
                 </>
             )

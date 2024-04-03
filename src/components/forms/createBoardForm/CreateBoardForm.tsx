@@ -10,6 +10,7 @@ const CreateBoardForm = ({ handleCancel, isCreating, boardId, reset }: ICreateUP
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
 
+    console.log(reset)
     const onSubmitCreate = async () => {
         handleCancel()
         const boardName: string = form.getFieldValue("boardTitle")

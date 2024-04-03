@@ -31,6 +31,7 @@ const BoardpageContent = ({ board, isBoardSpinning }: IBoardPageContent) => {
         const fetchNewLanes = async () => {
             if (boardId !== undefined) {
                 const response = await getBoardById(boardId!, token!)
+                console.log(response)
                 setNewBoard(response.data)
             }
         }

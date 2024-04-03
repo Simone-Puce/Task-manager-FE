@@ -27,7 +27,7 @@ function App() {
         <Route path="register" element={<RegisterPage />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="homepage" element={<Homepage setSelectedBoardId={setSelectedBoardId} isSpinning={isSpinning} setIsSpinning={setIsSpinning} />} />
-          <Route path="board" element={<BoardPage setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId} />} />
+          <Route path="board" element={<BoardPage setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId} isSpinning={isSpinning} setIsBoardSpinning={setIsSpinning}/>} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="spinner" element={<SpinnerPage />} />
         </Route>

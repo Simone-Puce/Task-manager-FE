@@ -1,6 +1,6 @@
 import { ReactElement, useState } from "react"
 import { Task } from "../../../interfaces/model/Task"
-import { Card } from "antd"
+import { Card, Form, Input } from "antd"
 import CreateTaskModal from "../../modals/task/createTask/CreateTaskModal"
 import { ILaneComponent } from "../../../interfaces/components/contents/ILaneComponent"
 import TaskDetailsModal from "../../modals/task/taskModal/TaskDetailsModal"
@@ -10,20 +10,23 @@ import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
 import { deleteTask } from "../../../services/TaskService"
 import "./BoardpageContent.css"
+import { updateLane } from "../../../services/LaneServices"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const [isCreateUpdateTaskOpen, setIsCreateUpdateTaskOpen] = useState<boolean>(false)
     const [isTaskModalOpen, setIsTaskModalOpen] = useState<boolean>(false)
     const [selectedTaskId, setSelectedTaskId] = useState<number>()
     const [tasksNewMapping, setTasksNewMapping] = useState<Task[]>()
+    const [isColumnNameInUpdate, setIsColumnNameInUpdate] = useState<boolean>()
+    const [form] = Form.useForm()
     const token: string = Cookies.get("jwt-token")!
 
-    const showModal = () => {
-        setIsModalOpen(true)
+    const showCreateUpdateTask = () => {
+        setIsCreateUpdateTaskOpen(true)
     }
 
     const handleCancel = () => {
-        setIsModalOpen(false)
+        setIsCreateUpdateTaskOpen(false)
         setIsTaskModalOpen(false)
     }
 
@@ -73,17 +76,70 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
         setIsTaskModalOpen(false)
     }
 
-    if (!isModalOpen && !isTaskModalOpen) {
+    const updateLaneName = async () => {
+        const laneName = form.getFieldValue("laneName")
+        console.log(laneName)
+        if (laneName) {
+            await updateLane(token, {
+                laneName: laneName,
+                boardId: props.boardId,
+                laneId: props.laneId
+            })
+        }
+        setIsColumnNameInUpdate(!isColumnNameInUpdate)
+        form.resetFields()
+        props.reset()
+    }
+
+    const laneNameHandler = () => {
+        if (isColumnNameInUpdate) {
+            return (
+                <Form
+                    className="form-style"
+                    form={form}
+                    onFinish={updateLaneName}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        name="laneName"
+                        rules={[{ required: true, message: 'Please input the task name!' }]}>
+                        <Input />
+                    </Form.Item>
+                </Form>
+            )
+        } else {
+            return (
+                <h1> {props.laneName} </h1>
+            )
+        }
+    }
+
+    const updateLaneHandler = () => {
+        setIsColumnNameInUpdate(!isColumnNameInUpdate)
+        form.resetFields()
+    }
+
+    if (!isCreateUpdateTaskOpen && !isTaskModalOpen) {
         return (
             <div className="general-task-div">
-                <h1> {props.laneName} </h1>
+                <div className="lane-name-handler-container">
+                    {laneNameHandler()}
+                </div>
                 <div className="button-div">
-                    <CreateTaskButton showModal={showModal} />
+                    <CreateTaskButton
+                        showModal={showCreateUpdateTask}
+                        laneId={props.laneId}
+                        reset={props.reset}
+                        updateLaneHandler={updateLaneHandler}
+                        isColumnNameInUpdate={isColumnNameInUpdate}
+                        updateLaneName={updateLaneName}
+                        isEditor={props.isEditor}
+                    />
                 </div>
                 <CreateTaskModal
                     reset={props.reset}
-                    showModal={showModal}
-                    isModalOpen={isModalOpen}
+                    showModal={showCreateUpdateTask}
+                    isModalOpen={isCreateUpdateTaskOpen}
                     handleCancel={handleCancel}
                     selectedLane={props.laneId}
                 />
@@ -105,11 +161,13 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
     } else {
         return (
             <div className="general-task-div">
-                <h1> {props.laneName} </h1>
+                <div className="lane-name-handler-container">
+                    {laneNameHandler()}
+                </div>
                 <CreateTaskModal
                     reset={props.reset}
-                    showModal={showModal}
-                    isModalOpen={isModalOpen}
+                    showModal={showCreateUpdateTask}
+                    isModalOpen={isCreateUpdateTaskOpen}
                     handleCancel={handleCancel}
                     selectedLane={props.laneId}
                 />

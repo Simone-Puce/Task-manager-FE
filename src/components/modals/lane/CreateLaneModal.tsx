@@ -4,7 +4,7 @@ import { ICreateLaneModal } from "../../../interfaces/components/modal/ICreateLa
 import CreateUpdateLaneForm from "../../forms/createUpdateLaneForm/CreateUpdateLaneForm"
 
 const CreateLaneModal = (props: ICreateLaneModal): ReactElement => {
-    const { isLaneModalOpen, handleCancel, selectedBoardId } = props
+    const { isLaneModalOpen, handleCancel, selectedBoardId, reset } = props
     return (
         <Modal title="LANE NAME"
             open={isLaneModalOpen}
@@ -15,6 +15,7 @@ const CreateLaneModal = (props: ICreateLaneModal): ReactElement => {
             <CreateUpdateLaneForm
                 handleCancel={handleCancel}
                 selectedBoardId={selectedBoardId}
+                reset={reset}
             />
         </Modal>
     )

@@ -18,10 +18,10 @@ import "./HomepageMenu.css"
 const HomepageMenu = ({ setIsSpinning, resetBoard }: IHomepageMenu): ReactElement => {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [confirmOpen, setConfirmOpen] = useState<boolean>();
-
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const [confirmOpen, setConfirmOpen] = useState<boolean>()
     const token = Cookies.get("jwt-token")
+
     const handleLogout = (): void => {
         logoutUser()
         navigate("/")
@@ -71,11 +71,11 @@ const HomepageMenu = ({ setIsSpinning, resetBoard }: IHomepageMenu): ReactElemen
     }
 
     const showPopconfirm = () => {
-        setConfirmOpen(true);
+        setConfirmOpen(true)
     }
 
     const handleOk = () => {
-        handleLogout();
+        handleLogout()
     }
 
     const closeConfirm = () => {

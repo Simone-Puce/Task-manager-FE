@@ -8,8 +8,8 @@ export interface ICreateUPdateBoardModal {
     modifiedBy?: string
     modifiedDate?: Date
     boardName?: string
-    setIsSpinning? :  Dispatch<React.SetStateAction<boolean>>
+    setIsSpinning?: Dispatch<React.SetStateAction<boolean>>
     isCreating?: boolean
     boardId?: number
-    reset?: ()=> void
+    reset?: () => void
 }

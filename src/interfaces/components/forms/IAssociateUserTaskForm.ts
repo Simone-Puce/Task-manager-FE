@@ -1,4 +1,6 @@
-export interface ITaskDetailsModal {
+import { UserInBoard } from "../../model/UserInBoard"
+
+export interface IAssociateUserTaskForm {
     showTaskModal?: any
     isTaskModalOpen?: boolean
     handleCancel?: any
@@ -8,5 +10,6 @@ export interface ITaskDetailsModal {
     laneId: number
     laneName: string
     isEditor: boolean
+    usersTask: UserInBoard[]
     reset: () => void
 }
