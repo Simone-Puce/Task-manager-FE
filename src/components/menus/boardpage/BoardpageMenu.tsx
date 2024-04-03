@@ -23,7 +23,6 @@ import CreateLaneModal from "../../modals/lane/CreateLaneModal";
 import { getBoardById } from "../../../services/BoardService";
 import "./BoardpageMenu.css"
 
-
 const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning, reset }: IBoardPage): ReactElement => {
     const navigate = useNavigate()
     const [board, setBoard] = useState<Board>()
@@ -62,7 +61,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
         localStorage.setItem("my-board-id", boardId.toString())
-        navigate("/spinner")
     }
 
     const boardItem = () => {
@@ -87,13 +85,11 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
 
     const showLaneModal = () => {
         setIsLaneModalOpen(true)
-        setIsBoardSpinning!(true)
     }
 
     const handleCancel = () => {
         setIsModalOpen(false)
         setIsLaneModalOpen(false)
-        setIsBoardSpinning!(false)
     }
 
     const showPopconfirm = () => {
@@ -130,6 +126,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
                         isCreating={true}
+                        reset={reset}
                     />
                 </>
             )
@@ -161,7 +158,16 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
                 </>
             )
         } else {
-            return <></>
+            return (
+                <SubMenu
+                    key="sub4"
+                    title={"Boards"}
+                    icon={<CalendarOutlined />}
+                    className="submenu"
+                >
+                    {boardItem()}
+                </SubMenu>
+            )
         }
     }
 

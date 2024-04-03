@@ -10,21 +10,20 @@ const CreateBoardForm = ({ handleCancel, isCreating, boardId, reset }: ICreateUP
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
 
-    console.log(reset)
     const onSubmitCreate = async () => {
-        handleCancel()
         const boardName: string = form.getFieldValue("boardTitle")
         const response = await createNewBoard(boardName, token!)
-        if(reset !== undefined && response.data !== undefined){
+        if (reset !== undefined && response.data !== undefined) {
             reset()
         }
+        handleCancel()
     }
 
     const onSubmitUpdate = async () => {
         handleCancel()
         const newBoardName = form.getFieldValue("boardTitle")
         const response = await updateBoard(newBoardName, boardId!, token!)
-        if(reset !== undefined && response.data !== undefined){
+        if (reset !== undefined && response.data !== undefined) {
             reset()
         }
     }

@@ -4,8 +4,8 @@ import { Task } from "../../../../../interfaces/model/Task"
 import { deleteAttachment, getFileById } from "../../../../../services/AttachmentService"
 import Cookies from "js-cookie"
 import { saveAs } from "file-saver"
-import "./TaskAttachmentTable.css"
 import { useState } from "react"
+import "./TaskAttachmentTable.css"
 
 const TaskAttachmentTable = (task: Task) => {
     const { attachments } = task

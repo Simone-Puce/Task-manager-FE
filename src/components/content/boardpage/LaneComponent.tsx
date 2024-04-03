@@ -28,6 +28,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
     const handleCancel = () => {
         setIsCreateUpdateTaskOpen(false)
         setIsTaskModalOpen(false)
+        props.reset()
     }
 
     const showTaskModal = async (taskId: number) => {
@@ -36,6 +37,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
         if (userRole === "ROLE_USER") {
             setSelectedTaskId(taskId)
             setIsTaskModalOpen(true)
+            props.reset()
         }
     }
 
@@ -74,11 +76,11 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
         const filteredNewTasks = props.tasks!.filter((task) => task.taskId !== selectedTaskId)
         setTasksNewMapping(filteredNewTasks)
         setIsTaskModalOpen(false)
+        props.reset()
     }
 
     const updateLaneName = async () => {
         const laneName = form.getFieldValue("laneName")
-        console.log(laneName)
         if (laneName) {
             await updateLane(token, {
                 laneName: laneName,
@@ -114,6 +116,12 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
         }
     }
 
+    const createTaskHandler = (newTask: Task) => {
+        const newTaskArray: Task[] = props.tasks!
+        newTaskArray.push(newTask)
+        setTasksNewMapping(newTaskArray)
+    }
+
     const updateLaneHandler = () => {
         setIsColumnNameInUpdate(!isColumnNameInUpdate)
         form.resetFields()
@@ -142,6 +150,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     isModalOpen={isCreateUpdateTaskOpen}
                     handleCancel={handleCancel}
                     selectedLane={props.laneId}
+                    createTaskHandler={createTaskHandler}
                 />
                 <TaskDetailsModal
                     showTaskModal={showTaskModal}
@@ -169,6 +178,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     showModal={showCreateUpdateTask}
                     isModalOpen={isCreateUpdateTaskOpen}
                     handleCancel={handleCancel}
+                    createTaskHandler={createTaskHandler}
                     selectedLane={props.laneId}
                 />
                 <TaskDetailsModal

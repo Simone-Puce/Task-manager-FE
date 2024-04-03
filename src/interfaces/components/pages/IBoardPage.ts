@@ -5,5 +5,6 @@ export interface IBoardPage {
     setSelectedBoardId?: Dispatch<React.SetStateAction<number | undefined>>
     setIsBoardSpinning?: Dispatch<React.SetStateAction<boolean>>
     isSpinning?: boolean
+    seed?: number
     reset?: ()=>void
 }

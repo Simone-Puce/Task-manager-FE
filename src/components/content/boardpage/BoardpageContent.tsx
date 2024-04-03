@@ -15,23 +15,17 @@ import "./BoardpageContent.css"
 import { IBoardPageContent } from "../../../interfaces/components/contents/IBoardpageContent"
 import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 
-const BoardpageContent = ({ board, isBoardSpinning }: IBoardPageContent) => {
+const BoardpageContent = ({ board, isBoardSpinning, reset, seed }: IBoardPageContent) => {
     const token = Cookies.get("jwt-token")
     const { boardId, boardName, lanes, users, modifiedBy, modifiedDate } = board
     const [isEditor, setIsEditor] = useState<boolean>()
     const [newBoard, setNewBoard] = useState<Board>()
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [seed, setSeed] = useState(1)
-
-    const reset = () => {
-        setSeed(Math.random())
-    }
 
     useEffect(() => {
         const fetchNewLanes = async () => {
             if (boardId !== undefined) {
                 const response = await getBoardById(boardId!, token!)
-                console.log(response)
                 setNewBoard(response.data)
             }
         }
@@ -51,7 +45,7 @@ const BoardpageContent = ({ board, isBoardSpinning }: IBoardPageContent) => {
             }
         }
         checkIfUserIsEditor()
-    }, [token, users])
+    }, [token, users, seed])
 
     const mappedLanes = () => {
         return (

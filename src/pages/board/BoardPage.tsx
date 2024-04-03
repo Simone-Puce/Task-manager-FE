@@ -9,7 +9,7 @@ import { getBoardById } from "../../services/BoardService"
 import Cookies from "js-cookie"
 import "./BoardPage.css"
 
-const BoardPage = ({ selectedBoardId, setSelectedBoardId, isSpinning, setIsBoardSpinning }: IBoardPage) => {
+const BoardPage = ({ selectedBoardId, setSelectedBoardId, isSpinning }: IBoardPage) => {
     const [board, setBoard] = useState<Board>()
     const token = Cookies.get("jwt-token")
     const [seed, setSeed] = useState(1)
@@ -28,13 +28,14 @@ const BoardPage = ({ selectedBoardId, setSelectedBoardId, isSpinning, setIsBoard
                 const response = await getBoardById(selectedBoardId!, token!)
                 setBoard(response.data)
             }
-
         }
         fetchBoard()
     }, [token, setSelectedBoardId, selectedBoardId, seed])
 
     const renderBoardPageContent = () => (
         <BoardpageContent
+            reset={reset}
+            seed={seed}
             board={board!}
             isBoardSpinning={isSpinning!}
         />
@@ -48,6 +49,7 @@ const BoardPage = ({ selectedBoardId, setSelectedBoardId, isSpinning, setIsBoard
                     setSelectedBoardId={setSelectedBoardId}
                     selectedBoardId={selectedBoardId}
                     reset={reset}
+                    seed={seed}
                 />
                 {board && renderBoardPageContent()}
             </Layout>

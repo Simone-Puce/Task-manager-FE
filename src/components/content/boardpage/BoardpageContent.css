@@ -76,8 +76,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 1em;
-    max-height: 3em;
+    min-height: 3em;
+    max-height: 4em;
 }
  
 .task-content-style::-webkit-scrollbar {

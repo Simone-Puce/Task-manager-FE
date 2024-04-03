@@ -16,8 +16,8 @@ export const getTaskById = async (token: string, id: number) => {
             headers: { Authorization: `Bearer ${token}` }
         })
         return response.data
-    } catch (error) {
-        console.log(error)
+    } catch (error: any) {
+        return error.response
     }
 }
 

@@ -28,7 +28,12 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
         const fetchTaskDetails = async () => {
             if (props.selectedTaskId) {
                 const taskResponse = await getTaskById(token!, props.selectedTaskId!)
-                setTask(taskResponse.data)
+                if(taskResponse.status !== 400 && taskResponse.status !== 404) {
+                    console.log(taskResponse)
+                    setTask(taskResponse.data)
+                } else {
+                    console.log(taskResponse.status)
+                }
                 const boardResponse = await getBoardById(props.boardId, token!)
                 setBoard(boardResponse.data)
             }
