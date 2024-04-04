@@ -23,7 +23,7 @@ const UploadFileForm = (taskId: any) => {
     <form onSubmit={handleSubmit}>
       <h1>Upload a file</h1>
       <div>
-        <input type="file" onChange={handleChange} style={{ display: "none" }} />
+        <input type="file" onChange={handleChange} />
         <button type="submit">Upload</button>
       </div>
     </form>
