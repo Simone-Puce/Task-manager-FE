@@ -14,8 +14,21 @@ const TaskAttachmentTable = (task: Task) => {
 
     const deleteHandler = async (attachment: Attachment) => {
         await deleteAttachment(attachment.attachmentId!, token)
-        const newAttachmentsFiltered = attachments!.filter((checkAttachment) => checkAttachment.attachmentId !== attachment.attachmentId )
-        setNewAttachments(newAttachmentsFiltered)
+        if (attachmentHandler(attachment.attachmentId!).length === 0) {
+            setNewAttachments([])
+        } else {
+            setNewAttachments(attachmentHandler(attachment.attachmentId!))
+        }
+    }
+
+    const attachmentHandler = (attachmentId: number) => {
+        if(newAttachments === undefined) {
+            const newAttachmentsFiltered = attachments!.filter((checkAttachment) => checkAttachment.attachmentId !== attachmentId)
+            return newAttachmentsFiltered
+        }else {
+            const newAttachmentsFiltered = newAttachments!.filter((checkAttachment) => checkAttachment.attachmentId !== attachmentId)
+            return newAttachmentsFiltered
+        }
     }
 
     const downloadHandler = async (attachment: Attachment) => {
@@ -68,7 +81,7 @@ const TaskAttachmentTable = (task: Task) => {
 
     const populateBoard = (): Attachment[] => {
         const data: Attachment[] = []
-        if (newAttachments === undefined) {
+        if (newAttachments?.length === undefined) {
             attachments?.forEach((attachment: Attachment) => {
                 data.push(attachment)
             })

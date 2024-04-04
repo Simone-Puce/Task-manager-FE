@@ -6,4 +6,5 @@ export interface ICreateTaskButton {
     isColumnNameInUpdate?: boolean
     updateLaneName: () => void
     isEditor?: boolean
+    refresh?: () => void
 }

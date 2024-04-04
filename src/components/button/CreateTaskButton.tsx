@@ -8,7 +8,7 @@ import { deleteLane } from "../../services/LaneServices"
 import { ICreateTaskButton } from "../../interfaces/components/buttons/ICreateTaskButton"
 
 const CreateTaskButton = (props: ICreateTaskButton) => {
-    const { showModal, laneId, reset, updateLaneHandler, isColumnNameInUpdate, updateLaneName, isEditor } = props
+    const { showModal, laneId, reset, updateLaneHandler, isColumnNameInUpdate, updateLaneName, isEditor, refresh } = props
     const token = Cookies.get("jwt-token")
     const [hideCreateTask, setHideCreateTask] = useState<boolean>(false)
 
@@ -27,6 +27,7 @@ const CreateTaskButton = (props: ICreateTaskButton) => {
     const deleteLaneHandler = async () => {
         await deleteLane(token!, laneId!)
         reset()
+        refresh!()
     }
 
     const laneUpdateHandler = () => {

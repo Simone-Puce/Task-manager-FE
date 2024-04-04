@@ -33,6 +33,7 @@ export const getFileById = async (id: number, token: string) => {
 }
 
 export const uploadFile = async (formData: FormData, token: string, taskId: any) => {
+    console.log(formData)
     const newTaskId = taskId.taskId
     try {
         const response = await axios.post(UPLOAD,

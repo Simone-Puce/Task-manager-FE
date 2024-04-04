@@ -142,6 +142,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                         isColumnNameInUpdate={isColumnNameInUpdate}
                         updateLaneName={updateLaneName}
                         isEditor={props.isEditor}
+                        refresh={props.refresh}
                     />
                 </div>
                 <CreateTaskModal

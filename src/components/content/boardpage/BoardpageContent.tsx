@@ -22,6 +22,10 @@ const BoardpageContent = ({ board, isBoardSpinning, reset, seed }: IBoardPageCon
     const [newBoard, setNewBoard] = useState<Board>()
     const [isModalOpen, setIsModalOpen] = useState(false)
 
+    const refresh = () => {
+        window.location.reload()
+    }
+
     useEffect(() => {
         const fetchNewLanes = async () => {
             if (boardId !== undefined) {
@@ -50,7 +54,13 @@ const BoardpageContent = ({ board, isBoardSpinning, reset, seed }: IBoardPageCon
     const mappedLanes = () => {
         return (
             newBoard?.lanes?.map((lane: Lane, index) => (
-                <LaneComponent key={index} {...lane} isEditor={isEditor} boardId={boardId} reset={reset} />
+                <LaneComponent
+                    key={index}
+                    {...lane}
+                    isEditor={isEditor}
+                    boardId={boardId}
+                    reset={reset}
+                    refresh={refresh} />
             )))
     }
 
