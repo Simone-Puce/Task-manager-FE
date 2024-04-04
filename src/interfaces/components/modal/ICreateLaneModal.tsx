@@ -3,5 +3,5 @@ export interface ICreateLaneModal{
     isLaneModalOpen?: boolean
     handleCancel?: any
     selectedBoardId?: number
-    reset?: () => void
+    reset: () => void
 }

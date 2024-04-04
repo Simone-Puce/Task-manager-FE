@@ -1,10 +1,10 @@
 import Sider from "antd/es/layout/Sider"
 import BoardpageMenu from "../../menus/boardpage/BoardpageMenu";
 import { useState } from "react";
-import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
+import { IBoardpageSider } from "../../../interfaces/components/siders/IBoardpageSider";
 import "./BoardpageSider.css"
 
-const BoardpageSider = ({ selectedBoardId, setSelectedBoardId, reset, seed}: IBoardPage) => {
+const BoardpageSider = ({ selectedBoardId, setSelectedBoardId, reset, seed}: IBoardpageSider) => {
     const [collapsed, setCollapsed] = useState<boolean>(false)
 
     return (

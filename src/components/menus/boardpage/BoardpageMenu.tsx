@@ -18,12 +18,12 @@ import CreateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal";
 import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssociation";
 import { getUserBoards } from "../../../services/BoardUserServices";
 import { Board } from "../../../interfaces/model/Board";
-import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
 import CreateLaneModal from "../../modals/lane/CreateLaneModal";
 import { getBoardById } from "../../../services/BoardService";
+import { IBoardpageSider } from "../../../interfaces/components/siders/IBoardpageSider";
 import "./BoardpageMenu.css"
 
-const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning, reset }: IBoardPage): ReactElement => {
+const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning, reset }: IBoardpageSider): ReactElement => {
     const navigate = useNavigate()
     const [board, setBoard] = useState<Board>()
     const [userDetails, setUserDetails] = useState<UserDetails>()
