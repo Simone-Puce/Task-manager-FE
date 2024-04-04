@@ -1,36 +1,33 @@
-import React, { useState } from 'react'
-import { Upload, Button, Layout } from 'antd'
+import { useState } from 'react'
+import { uploadFile } from '../../../services/AttachmentService';
+import Cookies from 'js-cookie';
 
-const UploadButton = () => {
-  const [fileList, setFileList] = useState<any[]>([])
+const UploadFileForm = (taskId: any) => {
+  const [file, setFile] = useState<File>()
+  const token: string = Cookies.get("jwt-token")!
 
-  const onChange = (fileList: any) => {
-    setFileList(fileList)
-    console.log(fileList)
+  const handleChange = (event: any) => {
+    setFile(event.target.files[0])
   }
 
-  const onRemove = (file: File) => {
-    const index = fileList.indexOf(file);
-    if (index > -1) {
-      fileList.splice(index, 1)
-      setFileList(fileList)
+  const handleSubmit = (event: any) => {
+    event.preventDefault()
+    const formData: FormData = new FormData();
+    formData.append('file', file!)
+    if (taskId) {
+      uploadFile(formData, token, taskId)
     }
   }
 
   return (
-    <Layout>
-      <Upload.Dragger
-        name="file"
-        fileList={fileList}
-        onChange={onChange}
-        //onRemove={onRemove}
-        beforeUpload={() => false}
-        maxCount={1}
-      >
-        <Button>Upload File</Button>
-      </Upload.Dragger>
-    </Layout>
-  );
-};
+    <form onSubmit={handleSubmit}>
+      <h1>Upload a file</h1>
+      <div>
+        <input type="file" onChange={handleChange} style={{ display: "none" }} />
+        <button type="submit">Upload</button>
+      </div>
+    </form>
+  )
+}
 
-export default UploadButton;
+export default UploadFileForm;

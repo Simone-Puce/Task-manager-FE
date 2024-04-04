@@ -29,7 +29,6 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
             if (props.selectedTaskId) {
                 const taskResponse = await getTaskById(token!, props.selectedTaskId!)
                 if(taskResponse.status !== 400 && taskResponse.status !== 404) {
-                    console.log(taskResponse)
                     setTask(taskResponse.data)
                 } else {
                     console.log(taskResponse.status)
@@ -129,7 +128,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         {associateFormConditionalRender()}
                         {updateTaskStatusConditionalRender()}
                         <TaskAttachmentTable {...task} />
-                        <UploadFileForm />
+                        <UploadFileForm taskId={task?.taskId!} />
                     </Card>
                 </Content>
             </Modal>
