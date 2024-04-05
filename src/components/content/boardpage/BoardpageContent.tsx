@@ -42,6 +42,8 @@ const BoardpageContent = ({ board, isBoardSpinning, reset, seed }: IBoardPageCon
             users?.forEach((user: UserInBoard) => {
                 if (user.email === response.data.email && user.roleCodeForBoard === "EDITOR") {
                     setIsEditor(true)
+                } else if(user.email === response.data.email && user.roleCodeForBoard === "USER") {
+                    setIsEditor(false)
                 }
             })
             if (response.data.roles[0].name === "ROLE_ADMIN") {
@@ -50,6 +52,7 @@ const BoardpageContent = ({ board, isBoardSpinning, reset, seed }: IBoardPageCon
         }
         checkIfUserIsEditor()
     }, [token, users, seed])
+
 
     const mappedLanes = () => {
         return (

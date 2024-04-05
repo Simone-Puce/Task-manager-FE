@@ -61,6 +61,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
         localStorage.setItem("my-board-id", boardId.toString())
+        
     }
 
     const boardItem = () => {
