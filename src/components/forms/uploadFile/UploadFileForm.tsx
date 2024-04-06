@@ -2,21 +2,23 @@ import { Form, Upload, Button, Typography, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 import { uploadFile } from '../../../services/AttachmentService';
+import { IUploadFileForm } from '../../../interfaces/components/forms/IUploadFileForm';
 
 const { Title } = Typography;
-const MAX_FILE_SIZE = 5 * 1024 * 1024; 
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
-const UploadFileForm = (taskId: any) => {
+const UploadFileForm = ({ taskId, resetTaskDetails }: IUploadFileForm) => {
   const [form] = Form.useForm()
   const token: string = Cookies.get("jwt-token")!
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const formValues = form.getFieldsValue()
     const formData: FormData = new FormData()
     const formDataValue = formValues.file.fileList[0]
     formData.append('file', formDataValue.originFileObj)
     if (taskId) {
-      uploadFile(formData, token, taskId)
+      await uploadFile(formData, token, taskId)
+      resetTaskDetails()
       form.resetFields()
     }
   }

@@ -68,6 +68,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
         return (
             userBoardsAssociation.map((element: Board) => (
                 <Menu.Item
+                    key={element.boardId! + 4}
                     className="menu-item-hover"
                     title={element.boardName}
                     onClick={() => handleNavigation(element.boardId!)}
@@ -135,6 +136,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
             return (
                 <>
                     <Menu.Item
+                        key="4"
                         className="menu-item-hover"
                         icon={<PlusSquareOutlined />}
                         onClick={showLaneModal}

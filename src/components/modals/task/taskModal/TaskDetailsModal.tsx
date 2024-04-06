@@ -20,9 +20,14 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     const token: string = Cookies.get("jwt-token")!
     const [task, setTask] = useState<Task>()
     const [board, setBoard] = useState<Board>()
+    const [seed, setSeed] = useState<number>(1)
     const [selectedValue, setSelectedValue] = useState<number>(props.laneId)
     const [isUserAssociatedWithTask, setIsUserAssociatedWithTask] = useState<boolean>()
     const options: SelectProps['options'] = []
+
+    const resetTaskDetails = () => {
+        setSeed(Math.random())
+    }
 
     useEffect(() => {
         const fetchTaskDetails = async () => {
@@ -39,7 +44,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
         }
 
         fetchTaskDetails()
-    }, [props.boardId, props.laneName, props.selectedTaskId, token])
+    }, [props.boardId, props.laneName, props.selectedTaskId, token, seed])
 
     useEffect(() => {
         const fetchUserDetails = async () => {
@@ -127,8 +132,8 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         <p>Last update from:{task?.modifiedBy}</p>
                         {associateFormConditionalRender()}
                         {updateTaskStatusConditionalRender()}
-                        <TaskAttachmentTable {...task} />
-                        <UploadFileForm taskId={task?.taskId!} />
+                        <TaskAttachmentTable {...task} setTask={setTask} resetTaskDetails={resetTaskDetails}/>
+                        <UploadFileForm taskId={task?.taskId!} resetTaskDetails={resetTaskDetails}/>
                     </Card>
                 </Content>
             </Modal>

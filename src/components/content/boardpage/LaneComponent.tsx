@@ -111,7 +111,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
             )
         } else {
             return (
-                <h1> {props.laneName} </h1>
+                <h1> {props.laneName?.toUpperCase()} </h1>
             )
         }
     }

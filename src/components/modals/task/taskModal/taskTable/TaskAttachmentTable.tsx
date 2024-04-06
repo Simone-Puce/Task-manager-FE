@@ -1,14 +1,14 @@
 import { Button, Space, Table, TableProps } from "antd"
 import { Attachment } from "../../../../../interfaces/model/Attachment"
-import { Task } from "../../../../../interfaces/model/Task"
 import { deleteAttachment, getFileById } from "../../../../../services/AttachmentService"
 import Cookies from "js-cookie"
 import { saveAs } from "file-saver"
 import { useState } from "react"
+import { ITaskAttachmentTable } from "../../../../../interfaces/components/tables/ITaskAttachmentTable"
 import "./TaskAttachmentTable.css"
 
-const TaskAttachmentTable = (task: Task) => {
-    const { attachments } = task
+const TaskAttachmentTable = (props: ITaskAttachmentTable) => {
+    const { attachments, resetTaskDetails } = props
     const [newAttachments, setNewAttachments] = useState<Attachment[]>()
     const token: string = Cookies.get("jwt-token")!
 
@@ -19,13 +19,14 @@ const TaskAttachmentTable = (task: Task) => {
         } else {
             setNewAttachments(attachmentHandler(attachment.attachmentId!))
         }
+        resetTaskDetails()
     }
 
     const attachmentHandler = (attachmentId: number) => {
-        if(newAttachments === undefined) {
+        if (newAttachments === undefined) {
             const newAttachmentsFiltered = attachments!.filter((checkAttachment) => checkAttachment.attachmentId !== attachmentId)
             return newAttachmentsFiltered
-        }else {
+        } else {
             const newAttachmentsFiltered = newAttachments!.filter((checkAttachment) => checkAttachment.attachmentId !== attachmentId)
             return newAttachmentsFiltered
         }
