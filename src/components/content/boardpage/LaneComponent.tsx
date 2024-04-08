@@ -9,8 +9,8 @@ import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
 import { deleteTask } from "../../../services/TaskService"
-import "./BoardpageContent.css"
 import { updateLane } from "../../../services/LaneServices"
+import "./BoardpageContent.css"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isCreateUpdateTaskOpen, setIsCreateUpdateTaskOpen] = useState<boolean>(false)
@@ -51,7 +51,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                         hoverable
                         onClick={() => showTaskModal(task.taskId!)}
                         className="card-style">
-                        Task card
+                        <p>Click to see details</p>
                     </Card>
                 ))
             )
@@ -64,7 +64,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                         hoverable
                         onClick={() => showTaskModal(task.taskId!)}
                         className="card-style">
-                        Task card
+                        <p>Click to see details</p>
                     </Card>
                 ))
             )

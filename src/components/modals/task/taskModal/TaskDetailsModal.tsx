@@ -15,6 +15,8 @@ import AssociateUserTaskForm from "../../../forms/associateUserTaskForm/Associat
 import { getUserDetails } from "../../../../services/UserService";
 import { UserInBoard } from "../../../../interfaces/model/UserInBoard";
 import "./TaskDetailsModal.css"
+import UpdateTaskDescriptionForm from "../../../forms/updateTaskDescriptionForm/UpdateTaskDescriptionForm";
+import TextArea from "antd/es/input/TextArea";
 
 const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     const token: string = Cookies.get("jwt-token")!
@@ -33,7 +35,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
         const fetchTaskDetails = async () => {
             if (props.selectedTaskId) {
                 const taskResponse = await getTaskById(token!, props.selectedTaskId!)
-                if(taskResponse.status !== 400 && taskResponse.status !== 404) {
+                if (taskResponse.status !== 400 && taskResponse.status !== 404) {
                     setTask(taskResponse.data)
                 } else {
                     console.log(taskResponse.status)
@@ -42,7 +44,6 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                 setBoard(boardResponse.data)
             }
         }
-
         fetchTaskDetails()
     }, [props.boardId, props.laneName, props.selectedTaskId, token, seed])
 
@@ -99,6 +100,18 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
         }
     }
 
+    const updateDescriptionConditionalRender = () => {
+        if (props.isEditor || isUserAssociatedWithTask) {
+            return (
+                <div className="user-task-form-container">
+                    <UpdateTaskDescriptionForm {...task} />
+                </div>
+            )
+        } else {
+            return <></>
+        }
+    }
+
     const updateTaskStatusConditionalRender = () => {
         if (props.isEditor || isUserAssociatedWithTask) {
             return (
@@ -115,6 +128,18 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
         }
     }
 
+    const taskDescriptionHandler = (): ReactElement => {
+        if (task?.description === undefined) {
+            return <div></div>
+        } else {
+            return (
+                <div>
+                    <label> Description </label>
+                    <TextArea disabled value={task.description} />
+                </div>)
+        }
+    }
+
     return (
         <>
             <Modal
@@ -126,14 +151,15 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
             >
                 <Content>
                     <Card className="modal-card">
-                        <p>Task description: {task?.description}</p>
-                        <p>Creator: {task?.createdBy}</p>
-                        <p>Task creation date:{task?.createdDate?.toString()}</p>
-                        <p>Last update from:{task?.modifiedBy}</p>
+                        <p>{"Creator: " + task?.createdBy}</p>
+                        <p>{"Task creation date: " + task?.createdDate?.toString()}</p>
+                        <p>{"Last update from: " + task?.modifiedBy}</p>
+                        {taskDescriptionHandler()}
+                        {updateDescriptionConditionalRender()}
                         {associateFormConditionalRender()}
                         {updateTaskStatusConditionalRender()}
-                        <TaskAttachmentTable {...task} setTask={setTask} resetTaskDetails={resetTaskDetails}/>
-                        <UploadFileForm taskId={task?.taskId!} resetTaskDetails={resetTaskDetails}/>
+                        <TaskAttachmentTable {...task} setTask={setTask} resetTaskDetails={resetTaskDetails} />
+                        <UploadFileForm taskId={task?.taskId!} resetTaskDetails={resetTaskDetails} />
                     </Card>
                 </Content>
             </Modal>

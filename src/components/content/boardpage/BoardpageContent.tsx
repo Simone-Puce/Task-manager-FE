@@ -11,9 +11,9 @@ import { UserInBoard } from "../../../interfaces/model/UserInBoard"
 import BoardInfoModal from "../../modals/boardInfo/BoardInfoModal"
 import { Content } from "antd/es/layout/layout"
 import { getBoardById } from "../../../services/BoardService"
-import "./BoardpageContent.css"
 import { IBoardPageContent } from "../../../interfaces/components/contents/IBoardpageContent"
 import SpinnerPage from "../../../pages/spinner/SpinnerPage"
+import "./BoardpageContent.css"
 
 const BoardpageContent = ({ board, isBoardSpinning, reset, seed }: IBoardPageContent) => {
     const token = Cookies.get("jwt-token")

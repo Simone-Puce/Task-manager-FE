@@ -76,7 +76,7 @@ const TaskAttachmentTable = (props: ITaskAttachmentTable) => {
                     <Button onClick={() => downloadHandler(record)} className="color-button">download</Button>
                     <Button className="secondary-color-button" onClick={() => deleteHandler(record)}>delete</Button>
                 </Space>
-            ),
+            )
         },
     ]
 
