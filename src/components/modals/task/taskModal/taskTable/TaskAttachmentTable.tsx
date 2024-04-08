@@ -1,4 +1,4 @@
-import { Button, Space, Table, TableProps } from "antd"
+import { Button, Space, Table, TableProps, notification } from "antd"
 import { Attachment } from "../../../../../interfaces/model/Attachment"
 import { deleteAttachment, getFileById } from "../../../../../services/AttachmentService"
 import Cookies from "js-cookie"
@@ -12,14 +12,25 @@ const TaskAttachmentTable = (props: ITaskAttachmentTable) => {
     const [newAttachments, setNewAttachments] = useState<Attachment[]>()
     const token: string = Cookies.get("jwt-token")!
 
+    const openNotification = () => {
+        notification.open({
+            message: "Can't delete the file",
+            duration: 1.5
+        });
+    };
+
     const deleteHandler = async (attachment: Attachment) => {
-        await deleteAttachment(attachment.attachmentId!, token)
-        if (attachmentHandler(attachment.attachmentId!).length === 0) {
-            setNewAttachments([])
+        if (props.isEditor || props.isUserAssociatedWithTask) {
+            await deleteAttachment(attachment.attachmentId!, token)
+            if (attachmentHandler(attachment.attachmentId!).length === 0) {
+                setNewAttachments([])
+            } else {
+                setNewAttachments(attachmentHandler(attachment.attachmentId!))
+            }
+            resetTaskDetails()
         } else {
-            setNewAttachments(attachmentHandler(attachment.attachmentId!))
+            openNotification()
         }
-        resetTaskDetails()
     }
 
     const attachmentHandler = (attachmentId: number) => {

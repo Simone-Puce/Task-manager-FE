@@ -1,11 +1,10 @@
-import { Menu, Popconfirm } from "antd"
+import { Menu } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import {
     UserOutlined,
-    MailOutlined,
     HomeOutlined,
     CloseOutlined,
-    FileAddOutlined
+    FileAddOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
@@ -19,7 +18,6 @@ const HomepageMenu = ({ setIsSpinning, resetBoard }: IHomepageMenu): ReactElemen
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-    const [confirmOpen, setConfirmOpen] = useState<boolean>()
     const token = Cookies.get("jwt-token")
 
     const handleLogout = (): void => {
@@ -70,18 +68,6 @@ const HomepageMenu = ({ setIsSpinning, resetBoard }: IHomepageMenu): ReactElemen
         navigate("/homepage")
     }
 
-    const showPopconfirm = () => {
-        setConfirmOpen(true)
-    }
-
-    const handleOk = () => {
-        handleLogout()
-    }
-
-    const closeConfirm = () => {
-        setConfirmOpen(false)
-    }
-
     return (
         <div>
             <Menu className="homepage-sider-menu"
@@ -92,20 +78,10 @@ const HomepageMenu = ({ setIsSpinning, resetBoard }: IHomepageMenu): ReactElemen
                 <Menu.Item className="menu-item-hover" key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
                     Profile
                 </Menu.Item>
-                <Menu.Item className="menu-item-hover" key="3" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
-                    Notifications
-                </Menu.Item>
                 {roleHandler()}
-                <Menu.Item className="menu-item-hover" key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
-                    <Popconfirm
-                        title="Do you want to logout?"
-                        placement="bottom"
-                        open={confirmOpen}
-                        onConfirm={handleOk}
-                        onCancel={closeConfirm}
-                    >
-                        Logout
-                    </Popconfirm>
+                <Menu.Item className="menu-item-hover" key="3" icon={<CloseOutlined />} onClickCapture={handleLogout}>
+                 Logout
+                
                 </Menu.Item>
             </Menu>
         </div>

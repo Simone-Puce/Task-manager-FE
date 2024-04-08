@@ -44,11 +44,11 @@ const BoardPage = ({ selectedBoardId, setSelectedBoardId, isSpinning }: IBoardPa
     return (
         <Layout>
             <BoardpageHeader {...board} />
-            <BoardpageHeader {...board} />
             <Layout>
                 <BoardpageSider
                     setSelectedBoardId={setSelectedBoardId}
                     selectedBoardId={selectedBoardId}
+                    isSpinning={isSpinning}
                     reset={reset}
                     seed={seed}
                 />

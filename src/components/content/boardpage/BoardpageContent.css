@@ -3,32 +3,32 @@
     padding: 10px;
     border-radius: 25px;
 }
- 
+
 .task-card-style:hover {
     margin: 10px;
     padding: 10px;
     box-shadow: 5px 10px;
- 
+
 }
- 
-.serch-field{
+
+.serch-field {
     display: flex;
     justify-content: center;
     background-color: #F1F1E6;
-    padding:10px;
+    padding: 10px;
 }
- 
-.audit-userlist-container{
+
+.audit-userlist-container {
     display: flex;
     justify-content: space-evenly;
     background-color: #F1F1E6;
-    padding:10px;
+    padding: 10px;
 }
- 
+
 .select-style {
     width: 250px;
 }
- 
+
 .task-content-container {
     display: flex;
     flex-direction: column;
@@ -37,7 +37,7 @@
     overflow-x: auto;
     right: 0;
 }
- 
+
 .search-field {
     display: flex;
     justify-content: center;
@@ -45,21 +45,18 @@
     padding: 10px;
 }
 
-.button-div{
-    width: 100%;
+.button-div {
+    margin-top: 0.8em;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
 }
- 
+
 .task-content-style {
     display: flex;
     align-items: center;
     width: 100%;
     overflow-y: scroll;
     background-color: #F1F1E6;
-    --sb-track-color: #F1F1E6;
-    --sb-thumb-color: #B10135;
-    --sb-size: 15px;
     flex: 1;
 }
 
@@ -72,30 +69,36 @@
     flex-direction: column;
 }
 
+.lane-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .lane-name-handler-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 3em;
-    max-height: 4em;
+    height: 3em;
 }
- 
- 
+
+
 .task-content-style::-webkit-scrollbar {
     width: var(--sb-size)
 }
- 
- 
+
+
 .task-content-style::-webkit-scrollbar-track {
     background: var(--sb-track-color);
 }
- 
- 
+
+
 .task-content-style::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
 
 }
- 
+
 @supports not selector(::-webkit-scrollbar) {
     .task-content-style {
         scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);

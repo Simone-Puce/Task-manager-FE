@@ -7,14 +7,15 @@ const BoardInfoModal = (props:  ISuccessRegistrationModal): ReactElement => {
     const { handleCancel, isModalOpen, modifiedBy, modifiedDate, boardName} = props
     return (
         <>
-            <Modal title={boardName}
+            <Modal title={boardName?.toUpperCase()}
                 open={isModalOpen}
                 onCancel={handleCancel}
                 className='infoBoardModalStyle'
                 footer={<></>}
             >
                 <div>
-                    Last update of the board from {modifiedBy} in date {modifiedDate?.toString()}
+                    <h4>Last update of the board from</h4> {modifiedBy}
+                    <h4>in date</h4> {modifiedDate?.toString()}
                 </div>
             </Modal>
         </>

@@ -16,4 +16,6 @@ export interface ITaskAttachmentTable {
     attachments?: Attachment[]
     setTask: Dispatch<React.SetStateAction<Task | undefined>>
     resetTaskDetails : () => void
+    isEditor: boolean
+    isUserAssociatedWithTask?: boolean
 }
