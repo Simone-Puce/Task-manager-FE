@@ -2,13 +2,11 @@ import { Menu } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import {
     UserOutlined,
-    MailOutlined,
     HomeOutlined,
     CloseOutlined,
     CalendarOutlined,
     FileAddOutlined,
-    PlusSquareOutlined,
-    QuestionCircleOutlined
+    PlusSquareOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
