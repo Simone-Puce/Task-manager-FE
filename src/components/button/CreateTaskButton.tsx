@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { getUserDetails } from "../../services/UserService"
 import Cookies from "js-cookie"
-import { FileAddOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { FileAddOutlined, DeleteOutlined, EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import { Button } from "antd"
 import "./CreateTaskButton.css"
 import { deleteLane } from "../../services/LaneServices"
@@ -35,19 +35,15 @@ const CreateTaskButton = (props: ICreateTaskButton) => {
             if (!isColumnNameInUpdate) {
                 return (
                     <>
-                        <Button icon={<EditOutlined />} onClick={updateLaneHandler}/>
-                        <Button icon={<DeleteOutlined />} onClick={deleteLaneHandler}/>         
+                        <Button icon={<EditOutlined />} onClick={updateLaneHandler} />
+                        <Button icon={<DeleteOutlined />} onClick={deleteLaneHandler} />
                     </>
                 )
             } else {
                 return (
                     <>
-                        <Button htmlType="submit" icon={<EditOutlined />} onClick={updateLaneName}>
-                            Confirm update
-                        </Button>
-                        <Button icon={<EditOutlined />} onClick={updateLaneHandler}>
-                            Cancel update
-                        </Button>
+                        <Button htmlType="submit" icon={<CheckOutlined />} onClick={updateLaneName} />
+                        <Button icon={<CloseOutlined />} onClick={updateLaneHandler} />
                     </>
                 )
             }
@@ -58,7 +54,7 @@ const CreateTaskButton = (props: ICreateTaskButton) => {
         return (
             <div className="columns-button">
                 <Button icon={<FileAddOutlined />} onClick={showModal}>
-               
+
                 </Button>
                 {laneUpdateHandler()}
             </div>
