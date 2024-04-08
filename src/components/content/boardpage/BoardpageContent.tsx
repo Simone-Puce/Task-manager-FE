@@ -4,15 +4,15 @@ import { Lane } from "../../../interfaces/model/Lane"
 import AssociateUserBoardForm from "../../forms/associateUserBoardForm/AssociateUserBoardForm"
 import { ConfigProvider, FloatButton } from "antd"
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { getBoardById } from "../../../services/BoardService"
+import { IBoardPageContent } from "../../../interfaces/components/contents/IBoardpageContent"
+import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 import { useEffect, useState } from "react"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
 import { UserInBoard } from "../../../interfaces/model/UserInBoard"
 import BoardInfoModal from "../../modals/boardInfo/BoardInfoModal"
 import { Content } from "antd/es/layout/layout"
-import { getBoardById } from "../../../services/BoardService"
-import { IBoardPageContent } from "../../../interfaces/components/contents/IBoardpageContent"
-import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 import "./BoardpageContent.css"
 
 const BoardpageContent = ({ board, isBoardSpinning, reset, seed }: IBoardPageContent) => {
@@ -42,7 +42,7 @@ const BoardpageContent = ({ board, isBoardSpinning, reset, seed }: IBoardPageCon
             users?.forEach((user: UserInBoard) => {
                 if (user.email === response.data.email && user.roleCodeForBoard === "EDITOR") {
                     setIsEditor(true)
-                } else if(user.email === response.data.email && user.roleCodeForBoard === "USER") {
+                } else if (user.email === response.data.email && user.roleCodeForBoard === "USER") {
                     setIsEditor(false)
                 }
             })
