@@ -1,4 +1,4 @@
-import { Menu, Popconfirm } from "antd"
+import { Menu } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import {
     UserOutlined,
@@ -31,7 +31,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isLaneModalOpen, setIsLaneModalOpen] = useState(false)
-    const [confirmOpen, setConfirmOpen] = useState<boolean>();
     const token = Cookies.get("jwt-token")
 
     const handleLogout = (): void => {
@@ -95,17 +94,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
         setIsLaneModalOpen(false)
     }
 
-    const showPopconfirm = () => {
-        setConfirmOpen(true)
-    }
-
-    const handleOk = () => {
-        handleLogout()
-    }
-
-    const closeConfirm = () => {
-        setConfirmOpen(false)
-    }
 
     const checkIfUserIsEditor = (): boolean => {
         let userIsEditor = false
@@ -186,34 +174,9 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
                 <Menu.Item className="menu-item-hover" key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
                     Profile
                 </Menu.Item>
-                <Menu.Item className="menu-item-hover" key="3" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
-                    Notifications
-                </Menu.Item>
                 {roleHandler()}
-                <Menu.Item className="menu-item-hover" key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
-                    <Popconfirm
-                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                        title="Do you want to logout?"
-                        placement="bottom"
-                        open={confirmOpen}
-                        okText="Logout"
-                        okButtonProps={{
-                            style: {
-                              backgroundColor: '#B10135',
-                              color: 'white',
-                            },
-                          }}
-                          cancelButtonProps={{
-                            style: {
-                              backgroundColor: '#ddd',
-                              color: '#5D5D5F',
-                            },
-                          }}
-                        onConfirm={handleOk}
-                        onCancel={closeConfirm}
-                    >
+                <Menu.Item className="menu-item-hover" key="3" icon={<CloseOutlined />} onClick={handleLogout}>
                         Logout
-                    </Popconfirm>
                 </Menu.Item>
             </Menu>
         </div>
