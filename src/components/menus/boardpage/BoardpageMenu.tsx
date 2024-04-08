@@ -61,7 +61,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
         localStorage.setItem("my-board-id", boardId.toString())
-        
+
     }
 
     const boardItem = () => {
@@ -82,7 +82,9 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
 
     const showModal = () => {
         setIsModalOpen(true)
-        setIsBoardSpinning!(true)
+        if (setIsBoardSpinning) {
+            setIsBoardSpinning!(true)
+        }
     }
 
     const showLaneModal = () => {

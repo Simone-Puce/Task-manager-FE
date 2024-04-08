@@ -1,4 +1,4 @@
-import { Form, Upload, Button, Typography, message } from 'antd';
+import { Form, Upload, Button, Typography, message, notification } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 import { uploadFile } from '../../../services/AttachmentService';
@@ -7,9 +7,16 @@ import { IUploadFileForm } from '../../../interfaces/components/forms/IUploadFil
 const { Title } = Typography;
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
-const UploadFileForm = ({ taskId, resetTaskDetails }: IUploadFileForm) => {
+const UploadFileForm = ({ taskId, resetTaskDetails, isEditor, isUserAssociatedWithTask }: IUploadFileForm) => {
   const [form] = Form.useForm()
   const token: string = Cookies.get("jwt-token")!
+
+  const refusedUploadNotification = () => {
+    notification.open({
+      message: "Can't upload because you are not connected to this task",
+      duration: 1.5
+    })
+  }
 
   const handleSubmit = async () => {
     const formValues = form.getFieldsValue()
@@ -17,9 +24,15 @@ const UploadFileForm = ({ taskId, resetTaskDetails }: IUploadFileForm) => {
     const formDataValue = formValues.file.fileList[0]
     formData.append('file', formDataValue.originFileObj)
     if (taskId) {
-      await uploadFile(formData, token, taskId)
-      resetTaskDetails()
-      form.resetFields()
+      if (isEditor || isUserAssociatedWithTask) {
+        await uploadFile(formData, token, taskId)
+        resetTaskDetails()
+        form.resetFields()
+      } else {
+        refusedUploadNotification()
+        resetTaskDetails()
+        form.resetFields()
+      }
     }
   }
 

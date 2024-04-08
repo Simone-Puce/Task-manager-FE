@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IBoardpageSider } from "../../../interfaces/components/siders/IBoardpageSider";
 import "./BoardpageSider.css"
 
-const BoardpageSider = ({ selectedBoardId, setSelectedBoardId, reset, seed}: IBoardpageSider) => {
+const BoardpageSider = ({ selectedBoardId, setSelectedBoardId, reset, seed, setIsBoardSpinning}: IBoardpageSider) => {
     const [collapsed, setCollapsed] = useState<boolean>(false)
 
     return (
@@ -14,6 +14,7 @@ const BoardpageSider = ({ selectedBoardId, setSelectedBoardId, reset, seed}: IBo
                 selectedBoardId={selectedBoardId}
                 reset={reset}
                 seed={seed}
+                setIsBoardSpinning={setIsBoardSpinning}
             />
         </Sider>
     )
