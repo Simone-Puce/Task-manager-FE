@@ -5,7 +5,8 @@ import {
     MailOutlined,
     HomeOutlined,
     CloseOutlined,
-    FileAddOutlined
+    FileAddOutlined,
+    QuestionCircleOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
@@ -97,10 +98,24 @@ const HomepageMenu = ({ setIsSpinning, resetBoard }: IHomepageMenu): ReactElemen
                 </Menu.Item>
                 {roleHandler()}
                 <Menu.Item className="menu-item-hover" key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
-                    <Popconfirm
+                <Popconfirm
+                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                         title="Do you want to logout?"
                         placement="bottom"
                         open={confirmOpen}
+                        okText="Logout"
+                        okButtonProps={{
+                            style: {
+                              backgroundColor: '#B10135',
+                              color: 'white',
+                            },
+                          }}
+                          cancelButtonProps={{
+                            style: {
+                              backgroundColor: '#ddd',
+                              color: '#5D5D5F',
+                            },
+                          }}
                         onConfirm={handleOk}
                         onCancel={closeConfirm}
                     >

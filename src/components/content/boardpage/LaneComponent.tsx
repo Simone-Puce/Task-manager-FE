@@ -1,6 +1,6 @@
 import { ReactElement, useState } from "react"
 import { Task } from "../../../interfaces/model/Task"
-import { Card } from "antd"
+import { Button, Card } from "antd"
 import CreateTaskModal from "../../modals/task/createTask/CreateTaskModal"
 import { ILaneComponent } from "../../../interfaces/components/contents/ILaneComponent"
 import TaskDetailsModal from "../../modals/task/taskModal/TaskDetailsModal"
@@ -9,7 +9,6 @@ import SpinnerPage from "../../../pages/spinner/SpinnerPage"
 import { getUserDetails } from "../../../services/UserService"
 import Cookies from "js-cookie"
 import "./BoardpageContent.css"
-import { UserDetails } from "../../../interfaces/model/UserDetails"
 
 const LaneComponent = (props: ILaneComponent): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -53,7 +52,10 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
     if (!isModalOpen && !isTaskModalOpen) {
         return (
             <div className="general-task-div">
-                <h1> {props.laneName} </h1>
+                <div className="lane-button">
+                    <h1> {props.laneName} </h1>
+                    <Button>Carlo</Button>
+                </div>
                 <div className="button-div">
                     <CreateTaskButton showModal={showModal} />
                 </div>

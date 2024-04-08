@@ -7,7 +7,8 @@ import {
     CloseOutlined,
     CalendarOutlined,
     FileAddOutlined,
-    PlusSquareOutlined
+    PlusSquareOutlined,
+    QuestionCircleOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
@@ -152,10 +153,10 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         title={"Boards"}
                         icon={<CalendarOutlined />}
                         className="submenu"
-                        >
+                    >
 
-                            {boardItem()}
-                   
+                        {boardItem()}
+
                     </SubMenu>
                 </>
             )
@@ -181,9 +182,23 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                 {roleHandler()}
                 <Menu.Item className="menu-item-hover" key="5" icon={<CloseOutlined />} onClickCapture={showPopconfirm}>
                     <Popconfirm
+                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                         title="Do you want to logout?"
                         placement="bottom"
                         open={confirmOpen}
+                        okText="Logout"
+                        okButtonProps={{
+                            style: {
+                              backgroundColor: '#B10135',
+                              color: 'white',
+                            },
+                          }}
+                          cancelButtonProps={{
+                            style: {
+                              backgroundColor: '#ddd',
+                              color: '#5D5D5F',
+                            },
+                          }}
                         onConfirm={handleOk}
                         onCancel={closeConfirm}
                     >
