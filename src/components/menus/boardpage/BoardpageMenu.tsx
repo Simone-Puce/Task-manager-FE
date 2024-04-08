@@ -19,13 +19,12 @@ import CreateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal";
 import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssociation";
 import { getUserBoards } from "../../../services/BoardUserServices";
 import { Board } from "../../../interfaces/model/Board";
-import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
 import CreateLaneModal from "../../modals/lane/CreateLaneModal";
 import { getBoardById } from "../../../services/BoardService";
+import { IBoardpageSider } from "../../../interfaces/components/siders/IBoardpageSider";
 import "./BoardpageMenu.css"
 
-
-const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): ReactElement => {
+const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning, reset }: IBoardpageSider): ReactElement => {
     const navigate = useNavigate()
     const [board, setBoard] = useState<Board>()
     const [userDetails, setUserDetails] = useState<UserDetails>()
@@ -63,13 +62,14 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
         localStorage.setItem("my-board-id", boardId.toString())
-        navigate("/spinner")
+        
     }
 
     const boardItem = () => {
         return (
             userBoardsAssociation.map((element: Board) => (
                 <Menu.Item
+                    key={element.boardId! + 4}
                     className="menu-item-hover"
                     title={element.boardName}
                     onClick={() => handleNavigation(element.boardId!)}
@@ -83,6 +83,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
 
     const showModal = () => {
         setIsModalOpen(true)
+        setIsBoardSpinning!(true)
     }
 
     const showLaneModal = () => {
@@ -94,13 +95,12 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
         setIsLaneModalOpen(false)
     }
 
-
     const showPopconfirm = () => {
-        setConfirmOpen(true);
+        setConfirmOpen(true)
     }
 
     const handleOk = () => {
-        handleLogout();
+        handleLogout()
     }
 
     const closeConfirm = () => {
@@ -109,7 +109,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
 
     const checkIfUserIsEditor = (): boolean => {
         let userIsEditor = false
-        board?.users?.map(user => {
+        board?.users?.forEach(user => {
             if (user.email === userDetails?.email && user.roleCodeForBoard === "EDITOR") {
                 userIsEditor = true
             }
@@ -129,6 +129,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
                         isCreating={true}
+                        reset={reset}
                     />
                 </>
             )
@@ -136,6 +137,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
             return (
                 <>
                     <Menu.Item
+                        key="4"
                         className="menu-item-hover"
                         icon={<PlusSquareOutlined />}
                         onClick={showLaneModal}
@@ -147,6 +149,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         isLaneModalOpen={isLaneModalOpen}
                         handleCancel={handleCancel}
                         selectedBoardId={selectedBoardId}
+                        reset={reset}
                     />
                     <SubMenu
                         key="sub4"
@@ -154,14 +157,21 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
                         icon={<CalendarOutlined />}
                         className="submenu"
                     >
-
                         {boardItem()}
-
                     </SubMenu>
                 </>
             )
         } else {
-            return <></>
+            return (
+                <SubMenu
+                    key="sub4"
+                    title={"Boards"}
+                    icon={<CalendarOutlined />}
+                    className="submenu"
+                >
+                    {boardItem()}
+                </SubMenu>
+            )
         }
     }
 

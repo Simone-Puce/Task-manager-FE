@@ -32,23 +32,34 @@ export const getFileById = async (id: number, token: string) => {
     }
 }
 
-export const uploadFile = async (file: File, token: string, taskId: number) => {
-    console.log(file)
+export const uploadFile = async (formData: FormData, token: string, taskId: number) => {
+    const newTaskId = taskId
     try {
-        const formData = new FormData()
-        formData.append('file', file)
         const response = await axios.post(UPLOAD,
-            {
-                formData
-            },
+            formData,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "multipart/form-data"
+                    'content-type': 'multipart/form-data'
                 },
-                params: { taskId: taskId }
+                params: {
+                    taskId: newTaskId
+                }
             })
         return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteAttachment = async (attachmentId: number, token: string) => {
+    try {
+        const response = axios.delete(DELETE_BY_ID,
+            {
+                params: { attachmentId: attachmentId },
+                headers: { Authorization: `Bearer ${token}` }
+            })
+        console.log(response)
     } catch (error) {
         console.log(error)
     }

@@ -1,36 +1,68 @@
-import React, { useState } from 'react';
-import { Upload, Button, Layout } from 'antd';
+import { Form, Upload, Button, Typography, message } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import Cookies from 'js-cookie';
+import { uploadFile } from '../../../services/AttachmentService';
+import { IUploadFileForm } from '../../../interfaces/components/forms/IUploadFileForm';
 
-const UploadButton = () => {
-  const [fileList, setFileList] = useState<any[]>([]);
+const { Title } = Typography;
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
-  const onChange = (fileList: any) => {
-    setFileList(fileList);
-    console.log(fileList)
-  }
+const UploadFileForm = ({ taskId, resetTaskDetails }: IUploadFileForm) => {
+  const [form] = Form.useForm()
+  const token: string = Cookies.get("jwt-token")!
 
-  const onRemove = (file: File) => {
-    const index = fileList.indexOf(file);
-    if (index > -1) {
-      fileList.splice(index, 1)
-      setFileList(fileList)
+  const handleSubmit = async () => {
+    const formValues = form.getFieldsValue()
+    const formData: FormData = new FormData()
+    const formDataValue = formValues.file.fileList[0]
+    formData.append('file', formDataValue.originFileObj)
+    if (taskId) {
+      await uploadFile(formData, token, taskId)
+      resetTaskDetails()
+      form.resetFields()
     }
   }
 
-  return (
-    <Layout>
-      <Upload.Dragger
-        name="file"
-        fileList={fileList}
-        onChange={onChange}
-        //onRemove={onRemove}
-        beforeUpload={() => false}
-        maxCount={1}
-      >
-        <Button>Upload File</Button>
-      </Upload.Dragger>
-    </Layout>
-  );
-};
+  const beforeUpload = (file: File) => {
+    if (file.size > MAX_FILE_SIZE) {
+      message.error(`File size should not exceed ${MAX_FILE_SIZE / 1024 / 1024}MB.`)
+      return false
+    }
+    return true
+  }
 
-export default UploadButton;
+  return (
+    <Form
+      name="upload-form"
+      layout="vertical"
+      onFinish={handleSubmit}
+      form={form}
+    >
+      <Title level={3}>Upload a file</Title>
+      <Form.Item
+        name="file"
+        rules={[
+          {
+            required: true,
+            message: 'Please select a file to upload!',
+          },
+        ]}
+      >
+        <Upload
+          name="file"
+          maxCount={1}
+          beforeUpload={beforeUpload}
+        >
+          <Button icon={<UploadOutlined />}>Select File</Button>
+        </Upload>
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Upload
+        </Button>
+      </Form.Item>
+    </Form>
+  )
+}
+
+export default UploadFileForm;

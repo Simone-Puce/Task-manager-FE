@@ -1,7 +1,7 @@
 import { Button, Form, Input, notification } from "antd"
 import { Rule } from "antd/es/form"
 import { ReactElement } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import "./LoginForm.css"
 import { loginUser } from "../../../services/UserService"
 import { NotificationPlacement } from "antd/es/notification/interface"

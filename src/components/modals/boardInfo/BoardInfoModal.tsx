@@ -4,7 +4,7 @@ import { Modal } from "antd";
 import "./BoardInfoModal.css"
 
 const BoardInfoModal = (props:  ISuccessRegistrationModal): ReactElement => {
-    const { handleOk, handleCancel, isModalOpen, modifiedBy, modifiedDate, boardName} = props
+    const { handleCancel, isModalOpen, modifiedBy, modifiedDate, boardName} = props
     return (
         <>
             <Modal title={boardName}

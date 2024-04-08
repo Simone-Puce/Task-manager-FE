@@ -1,17 +1,35 @@
 import { Button, Space, Table, TableProps } from "antd"
 import { Attachment } from "../../../../../interfaces/model/Attachment"
-import { Task } from "../../../../../interfaces/model/Task"
-import "./TaskAttachmentTable.css"
-import { getFileById } from "../../../../../services/AttachmentService"
+import { deleteAttachment, getFileById } from "../../../../../services/AttachmentService"
 import Cookies from "js-cookie"
 import { saveAs } from "file-saver"
+import { useState } from "react"
+import { ITaskAttachmentTable } from "../../../../../interfaces/components/tables/ITaskAttachmentTable"
+import "./TaskAttachmentTable.css"
 
-const TaskAttachmentTable = (task: Task) => {
-    const { attachments } = task
-    const token = Cookies.get("jwt-token")
+const TaskAttachmentTable = (props: ITaskAttachmentTable) => {
+    const { attachments, resetTaskDetails } = props
+    const [newAttachments, setNewAttachments] = useState<Attachment[]>()
+    const token: string = Cookies.get("jwt-token")!
 
     const deleteHandler = async (attachment: Attachment) => {
+        await deleteAttachment(attachment.attachmentId!, token)
+        if (attachmentHandler(attachment.attachmentId!).length === 0) {
+            setNewAttachments([])
+        } else {
+            setNewAttachments(attachmentHandler(attachment.attachmentId!))
+        }
+        resetTaskDetails()
+    }
 
+    const attachmentHandler = (attachmentId: number) => {
+        if (newAttachments === undefined) {
+            const newAttachmentsFiltered = attachments!.filter((checkAttachment) => checkAttachment.attachmentId !== attachmentId)
+            return newAttachmentsFiltered
+        } else {
+            const newAttachmentsFiltered = newAttachments!.filter((checkAttachment) => checkAttachment.attachmentId !== attachmentId)
+            return newAttachmentsFiltered
+        }
     }
 
     const downloadHandler = async (attachment: Attachment) => {
@@ -32,10 +50,10 @@ const TaskAttachmentTable = (task: Task) => {
             const decodedTxt = atob(file64)
             const byteArray = new Uint8Array(decodedTxt.length)
             for (let i = 0; i < decodedTxt.length; i++) {
-                byteArray[i] = decodedTxt.charCodeAt(i);
+                byteArray[i] = decodedTxt.charCodeAt(i)
             }
-            const blob = new Blob([byteArray.buffer], { type: 'text/plain' });
-            saveAs(blob, attachment.attachmentName+".txt")
+            const blob = new Blob([byteArray.buffer], { type: 'text/plain' })
+            saveAs(blob, attachment.attachmentName + ".txt")
         }
     }
 
@@ -58,15 +76,21 @@ const TaskAttachmentTable = (task: Task) => {
                     <Button onClick={() => downloadHandler(record)} className="color-button">download</Button>
                     <Button className="secondary-color-button" onClick={() => deleteHandler(record)}>delete</Button>
                 </Space>
-            ),
+            )
         },
     ]
 
     const populateBoard = (): Attachment[] => {
         const data: Attachment[] = []
-        attachments?.forEach((attachment: Attachment) => {
-            data.push(attachment)
-        })
+        if (newAttachments?.length === undefined) {
+            attachments?.forEach((attachment: Attachment) => {
+                data.push(attachment)
+            })
+        } else {
+            newAttachments?.forEach((attachment: Attachment) => {
+                data.push(attachment)
+            })
+        }
         return data
     }
 

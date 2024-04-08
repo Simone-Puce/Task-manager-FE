@@ -2,20 +2,22 @@ import { Input, Button, Form } from "antd";
 import { ReactElement } from "react";
 import Cookies from "js-cookie";
 import { createTask } from "../../../services/TaskService";
-import "./CreateTaskForm.css"
 import { ICreateUpdateTaskModal } from "../../../interfaces/components/modal/ICreateUpdateTaskModal";
+import "./CreateTaskForm.css"
 
-
-const CreateTaskForm = ({ handleCancel, selectedLane, reset }: ICreateUpdateTaskModal): ReactElement => {
+const CreateTaskForm = ({ handleCancel, selectedLane, reset, createTaskHandler }: ICreateUpdateTaskModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
 
     const onSubmit = async () => {
         const formValues = form.getFieldsValue()
-        await createTask(token!, {
+        const taskResponse = await createTask(token!, {
             taskName: formValues.taskName,
             laneId: selectedLane
         })
+        if (taskResponse !== undefined) {
+            createTaskHandler!(taskResponse.data)
+        }
         handleCancel()
         reset()
     }
@@ -42,7 +44,7 @@ const CreateTaskForm = ({ handleCancel, selectedLane, reset }: ICreateUpdateTask
                 </Button>
             </div>
         </Form>
-    );
-};
+    )
+}
 
 export default CreateTaskForm
