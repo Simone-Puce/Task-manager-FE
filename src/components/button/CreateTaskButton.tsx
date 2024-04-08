@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { getUserDetails } from "../../services/UserService"
 import Cookies from "js-cookie"
 import { FileAddOutlined, DeleteOutlined, EditOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
-import { Button } from "antd"
+import { Button, Popover } from "antd"
 import "./CreateTaskButton.css"
 import { deleteLane } from "../../services/LaneServices"
 import { ICreateTaskButton } from "../../interfaces/components/buttons/ICreateTaskButton"
@@ -35,15 +35,23 @@ const CreateTaskButton = (props: ICreateTaskButton) => {
             if (!isColumnNameInUpdate) {
                 return (
                     <>
-                        <Button icon={<EditOutlined />} onClick={updateLaneHandler} />
-                        <Button icon={<DeleteOutlined />} onClick={deleteLaneHandler} />
+                        <Popover placement="bottom" title="Update Lane">
+                            <Button icon={<EditOutlined />} onClick={updateLaneHandler} />
+                        </Popover>
+                        <Popover placement="bottomRight" title="Delete Lane">
+                            <Button icon={<DeleteOutlined />} onClick={deleteLaneHandler} />
+                        </Popover>
                     </>
                 )
             } else {
                 return (
                     <>
-                        <Button htmlType="submit" icon={<CheckOutlined />} onClick={updateLaneName} />
-                        <Button icon={<CloseOutlined />} onClick={updateLaneHandler} />
+                        <Popover placement="bottom" title="Update Lane Name" >
+                            <Button htmlType="submit" icon={<CheckOutlined />} onClick={updateLaneName} />
+                        </Popover>
+                        <Popover placement="bottomRight" title="Cancel" >
+                            <Button icon={<CloseOutlined />} onClick={updateLaneHandler} />
+                        </Popover>
                     </>
                 )
             }
@@ -53,10 +61,11 @@ const CreateTaskButton = (props: ICreateTaskButton) => {
     if (!hideCreateTask) {
         return (
             <div className="columns-button">
-                <Button icon={<FileAddOutlined />} onClick={showModal}>
-
-                </Button>
+                <Popover placement="bottomLeft" title="New Task">
+                    <Button icon={<FileAddOutlined />} onClick={showModal} />
+                </Popover>
                 {laneUpdateHandler()}
+
             </div>
         )
     } else {
