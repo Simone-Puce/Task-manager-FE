@@ -1,4 +1,4 @@
-.taskDetailsModalStyle{
+.taskDetailsModalStyle {
     text-align: center;
 }
 
@@ -41,4 +41,19 @@
 
 .textarea-container {
     margin: 5px;
+}
+
+.update-task-name {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-handler {
+    width: 200px;
+    height: 3em;
+}
+
+.button-style {
+    width: 50%;
+    height: 3em;
 }
