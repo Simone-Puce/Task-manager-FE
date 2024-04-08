@@ -15,7 +15,6 @@ import AssociateUserTaskForm from "../../../forms/associateUserTaskForm/Associat
 import { getUserDetails } from "../../../../services/UserService";
 import { UserInBoard } from "../../../../interfaces/model/UserInBoard";
 import "./TaskDetailsModal.css"
-import UpdateTaskDescriptionForm from "../../../forms/updateTaskDescriptionForm/UpdateTaskDescriptionForm";
 import TextArea from "antd/es/input/TextArea";
 
 const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
@@ -25,6 +24,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     const [seed, setSeed] = useState<number>(1)
     const [selectedValue, setSelectedValue] = useState<number>(props.laneId)
     const [isUserAssociatedWithTask, setIsUserAssociatedWithTask] = useState<boolean>()
+    const [taskDescription, setTaskDescription] = useState<string>("")
     const options: SelectProps['options'] = []
 
     const resetTaskDetails = () => {
@@ -37,6 +37,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                 const taskResponse = await getTaskById(token!, props.selectedTaskId!)
                 if (taskResponse.status !== 400 && taskResponse.status !== 404) {
                     setTask(taskResponse.data)
+                    setTaskDescription(taskResponse.data.description)
                 } else {
                     console.log(taskResponse.status)
                 }
@@ -100,18 +101,6 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
         }
     }
 
-    const updateDescriptionConditionalRender = () => {
-        if (props.isEditor || isUserAssociatedWithTask) {
-            return (
-                <div className="user-task-form-container">
-                    <UpdateTaskDescriptionForm {...task} />
-                </div>
-            )
-        } else {
-            return <></>
-        }
-    }
-
     const updateTaskStatusConditionalRender = () => {
         if (props.isEditor || isUserAssociatedWithTask) {
             return (
@@ -128,16 +117,34 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
         }
     }
 
+    const updateDescription = async (event: any) => {
+        setTaskDescription(event.target.value)
+        await updateTask(token, {
+            taskName: task?.taskName,
+            description: event.target.value,
+            laneId: task?.laneId,
+            taskId: task?.taskId
+        })
+    }
+
     const taskDescriptionHandler = (): ReactElement => {
-        if (task?.description === undefined) {
-            return <div></div>
+
+        if (props.isEditor || isUserAssociatedWithTask) {
+                return (
+                    <div>
+                        <label> Description </label>
+                        <TextArea maxLength={5000} value={taskDescription} onChange={updateDescription} />
+                    </div>
+            )
         } else {
             return (
                 <div>
                     <label> Description </label>
-                    <TextArea disabled value={task.description} />
-                </div>)
+                    <TextArea disabled maxLength={5000} value={taskDescription}/>
+                </div>
+            )
         }
+       
     }
 
     return (
@@ -155,7 +162,6 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                         <p>{"Task creation date: " + task?.createdDate?.toString()}</p>
                         <p>{"Last update from: " + task?.modifiedBy}</p>
                         {taskDescriptionHandler()}
-                        {updateDescriptionConditionalRender()}
                         {associateFormConditionalRender()}
                         {updateTaskStatusConditionalRender()}
                         <TaskAttachmentTable {...task} setTask={setTask} resetTaskDetails={resetTaskDetails} />
