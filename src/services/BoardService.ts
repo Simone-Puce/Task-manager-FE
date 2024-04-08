@@ -1,5 +1,4 @@
 import axios from "axios"
-import Cookies from "js-cookie"
 
 const APP_CONTEXT_URI = "http://localhost:8080/task-manager"
 const VERSION_URI = APP_CONTEXT_URI + "/v1"
@@ -24,12 +23,12 @@ export const getAllBoards = async (token: string) => {
 export const getBoardById = async (id: number, token: string) => {
     try {
         const response = await axios.get(FIND_BY_CODE, {
-            params: { id: id },
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
+            params: {id: id}
         })
         return response.data
-    } catch (error) {
-        console.log(error)
+    } catch (error: any) {
+        return error
     }
 }
 
@@ -51,8 +50,7 @@ export const createNewBoard = async (newBoard: string, token: string) => {
     }
 }
 
-export const updateBoard = async (newBoardName: string, id: number) => {
-    const token = Cookies.get("jwt-token")
+export const updateBoard = async (newBoardName: string, id: number, token: string) => {
     try {
         const response = await axios.put(PUT_BY_CODE,
             {
@@ -72,10 +70,9 @@ export const updateBoard = async (newBoardName: string, id: number) => {
     }
 }
 
-export const deleteBoard = async (id: number) => {
-    const token = Cookies.get("jwt-token")
+export const deleteBoard = async (id: number, token: string) => {
     try {
-        const response = await axios.put(DELETE_BY_CODE,
+        const response = await axios.put(DELETE_BY_CODE,{},
             {
                 params: {
                     boardId: id

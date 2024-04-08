@@ -4,7 +4,7 @@ import { useState } from "react";
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage";
 import "./HomepageSider.css"
 
-const HomepageSider = ({setIsSpinning} : IHomePage) => {
+const HomepageSider = ({setIsSpinning, resetBoard} : IHomePage) => {
     const [collapsed, setCollapsed] = useState(false);
 
     return (

@@ -30,9 +30,6 @@
     position: relative;
     overflow-y: scroll;
     background-color: #F1F1E6;
-    --sb-track-color: #001529;
-    --sb-thumb-color: #1677ff;
-    --sb-size: 15px;
 }
 
 .homepage-card-container {

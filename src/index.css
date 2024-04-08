@@ -5,10 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/0/00/IMG_2124_Everest.jpg");
+  background-image: url("https://media.licdn.com/dms/image/C511BAQFSInvv4Ai2zA/company-background_1536_768/0/1584099340353?e=2147483647&v=beta&t=IoQKOXpbLoRTGvOQh3-ZaYcwneDLZkPkKAo6xpW8eBM");
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
+  overflow: hidden;
 }
 
 code {

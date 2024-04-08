@@ -30,9 +30,6 @@
     position: relative;
     overflow-y: scroll;
     background-color: #F1F1E6;
-    --sb-track-color: #001529;
-    --sb-thumb-color: #1677ff;
-    --sb-size: 15px;
 }
 
 .homepage-card-container {
@@ -62,13 +59,24 @@
 
 .homepage-style::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
-   
+}
+
+.filter-board-div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.input-filter {
+    display: flex;
+    width: 25%;
+    justify-content: center;
 }
 
 .card-button{
     width: 100%;
-    display: inline-flex;
-    justify-content: space-evenly;
+    display: flex;
+    justify-content: space-around;
     text-align: center;
     align-items: center;
 }

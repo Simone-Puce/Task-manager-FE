@@ -22,6 +22,7 @@ export const getLaneById = async (token: string, id: number) => {
 }
 
 export const createLane = async (token: string, newLane: Lane) => {
+    console.log(newLane)
     try {
         const response = await axios.post(CREATE_LANE,
             {
@@ -41,9 +42,11 @@ export const createLane = async (token: string, newLane: Lane) => {
 export const updateLane = async (token: string, newLane: Lane) => {
     try {
         const response = await axios.put(UPDATE_LANE, {
+            laneName: newLane.laneName,
+            boardId: newLane.boardId
+        }, {
             params: {
-                laneName: newLane.laneName,
-                boardId: newLane.boardId
+                laneId: newLane.laneId
             },
             headers: {
                 Authorization: `Bearer ${token}`
@@ -57,7 +60,7 @@ export const updateLane = async (token: string, newLane: Lane) => {
 
 export const deleteLane = async (token: string, id: number) => {
     try {
-        const response = await axios.put(DELETE_LANE, {
+        const response = await axios.put(DELETE_LANE, {}, {
             params: {
                 laneId: id
             },
