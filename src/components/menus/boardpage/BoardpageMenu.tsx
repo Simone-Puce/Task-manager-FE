@@ -2,30 +2,33 @@ import { Menu } from "antd"
 import { ReactElement, useEffect, useState } from "react";
 import {
     UserOutlined,
-    MailOutlined,
     HomeOutlined,
     CloseOutlined,
     CalendarOutlined,
-    FileAddOutlined
+    FileAddOutlined,
+    PlusSquareOutlined
 } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import { getUserDetails, logoutUser } from "../../../services/UserService";
 import SubMenu from "antd/es/menu/SubMenu";
 import Cookies from "js-cookie";
 import { UserDetails } from "../../../interfaces/model/UserDetails";
-import CreateBoardModal from "../../modals/createBoard/CreateBoardModal";
-import CreateTaskModal from "../../modals/createTask/CreateTaskModal";
+import CreateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal";
 import { UserBoardAssociation } from "../../../interfaces/model/UserBoardAssociation";
 import { getUserBoards } from "../../../services/BoardUserServices";
 import { Board } from "../../../interfaces/model/Board";
-import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
+import CreateLaneModal from "../../modals/lane/CreateLaneModal";
+import { getBoardById } from "../../../services/BoardService";
+import { IBoardpageSider } from "../../../interfaces/components/siders/IBoardpageSider";
 import "./BoardpageMenu.css"
 
-const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): ReactElement => {
+const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning, reset }: IBoardpageSider): ReactElement => {
     const navigate = useNavigate()
+    const [board, setBoard] = useState<Board>()
     const [userDetails, setUserDetails] = useState<UserDetails>()
     const [userBoardsAssociation, setUserBoardsAssociation] = useState<UserBoardAssociation[]>([])
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isLaneModalOpen, setIsLaneModalOpen] = useState(false)
     const token = Cookies.get("jwt-token")
 
     const handleLogout = (): void => {
@@ -34,12 +37,14 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
     }
 
     useEffect(() => {
-        const fetchUserDetails = async () => {
-            const response = await getUserDetails(token!)
-            setUserDetails(response.data)
+        const fetchUserDetailsAndBoard = async () => {
+            const userDetailsResponse = await getUserDetails(token!)
+            setUserDetails(userDetailsResponse.data)
+            const getBoardResponse = await getBoardById(selectedBoardId!, token!)
+            setBoard(getBoardResponse.data)
         }
-        fetchUserDetails()
-    }, [token])
+        fetchUserDetailsAndBoard()
+    }, [selectedBoardId, token])
 
     useEffect(() => {
         const fetchUserBoards = async () => {
@@ -54,13 +59,15 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
         localStorage.setItem("my-board-id", boardId.toString())
-        navigate("/spinner")
+
     }
-    
+
     const boardItem = () => {
         return (
             userBoardsAssociation.map((element: Board) => (
                 <Menu.Item
+                    key={element.boardId! + 4}
+                    className="menu-item-hover ant-menu-item-selected"
                     title={element.boardName}
                     onClick={() => handleNavigation(element.boardId!)}
                 >
@@ -72,69 +79,104 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId }: IBoardPage): Rea
     }
 
     const showModal = () => {
-        setIsModalOpen(true);
-    };
+        setIsModalOpen(true)
+        if (setIsBoardSpinning) {
+            setIsBoardSpinning!(true)
+        }
+    }
+
+    const showLaneModal = () => {
+        setIsLaneModalOpen(true)
+    }
 
     const handleCancel = () => {
-        setIsModalOpen(false);
-    };
+        setIsModalOpen(false)
+        setIsLaneModalOpen(false)
+    }
+
+
+    const checkIfUserIsEditor = (): boolean => {
+        let userIsEditor = false
+        board?.users?.forEach(user => {
+            if (user.email === userDetails?.email && user.roleCodeForBoard === "EDITOR") {
+                userIsEditor = true
+            }
+        })
+        return userIsEditor
+    }
 
     const roleHandler = () => {
         if (userDetails?.roles[0].name === "ROLE_ADMIN") {
             return (
                 <>
-                    <Menu.Item key="4" icon={<FileAddOutlined />} onClick={showModal}>
+                    <Menu.Item className="menu-item-hover" key="4" icon={<FileAddOutlined />} onClick={showModal}>
                         Create Board
                     </Menu.Item>
                     <CreateBoardModal
                         showModal={showModal}
                         isModalOpen={isModalOpen}
                         handleCancel={handleCancel}
+                        isCreating={true}
+                        reset={reset}
                     />
                 </>
             )
-        } else {
+        } else if (checkIfUserIsEditor()) {
             return (
                 <>
-                    <Menu.Item key="10" icon={<FileAddOutlined />} onClick={showModal}>
-                        New Task
+                    <Menu.Item
+                        key="4"
+                        className="menu-item-hover"
+                        icon={<PlusSquareOutlined />}
+                        onClick={showLaneModal}
+                        color="green">
+                        New Lane
                     </Menu.Item>
-                    <CreateTaskModal
-                        showModal={showModal}
-                        isModalOpen={isModalOpen}
+                    <CreateLaneModal
+                        showLaneModal={showLaneModal}
+                        isLaneModalOpen={isLaneModalOpen}
                         handleCancel={handleCancel}
                         selectedBoardId={selectedBoardId}
-                        setSelectedBoardId={setSelectedBoardId}
+                        reset={reset}
                     />
-
                     <SubMenu
                         key="sub4"
                         title={"Boards"}
                         icon={<CalendarOutlined />}
-                        className="submenu">
+                        className="submenu"
+                    >
                         {boardItem()}
                     </SubMenu>
                 </>
+            )
+        } else {
+            return (
+                <SubMenu
+                    key="sub4"
+                    title={"Boards"}
+                    icon={<CalendarOutlined />}
+                    className="submenu"
+                >
+                    {boardItem()}
+                </SubMenu>
             )
         }
     }
 
     return (
         <div>
-            <Menu theme="dark"
-                mode="inline">
-                <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => navigate("/homepage")}>
+            <Menu
+                mode="inline"
+                className="sider-menu-board">
+                <Menu.Item className="menu-item-hover" key="1" icon={<HomeOutlined />} onClick={() => navigate("/homepage")}>
                     Homepage
                 </Menu.Item>
-                <Menu.Item key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
+                <Menu.Item className="menu-item-hover" key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
                     Profile
                 </Menu.Item>
-                <Menu.Item key="3" icon={<MailOutlined />} onClick={() => navigate("/notifications")}>
-                    Notifications
-                </Menu.Item>
                 {roleHandler()}
-                <Menu.Item key="5" icon={<CloseOutlined />} onClick={handleLogout}>
-                    Logout
+                <Menu.Item className="menu-item-hover" key="3" icon={<CloseOutlined />} onClick={handleLogout}>
+                        Logout
                 </Menu.Item>
             </Menu>
         </div>

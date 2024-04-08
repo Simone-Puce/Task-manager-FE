@@ -1,6 +1,13 @@
 import { Task } from "../../model/Task"
 
 export interface ILaneComponent {
-    laneStatus?: string
+    boardId?: number
+    laneId?: number
+    laneName?: string
+    boardName?: string
     tasks?: Task[]
+    active?: boolean
+    isEditor?: boolean
+    reset: () => void
+    refresh: () => void
 }

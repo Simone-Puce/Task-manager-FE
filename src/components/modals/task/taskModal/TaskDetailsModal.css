@@ -1,0 +1,59 @@
+.taskDetailsModalStyle {
+    text-align: center;
+}
+
+.footer-div {
+    display: flex;
+    justify-content: center;
+}
+
+.create-Button {
+    margin: 5px;
+}
+
+.cancel-button {
+    margin: 5px;
+}
+
+.task-select-modal-style {
+    min-width: 200px;
+}
+
+.element-margin {
+    margin: 5px;
+    width: 50%;
+}
+
+.modal-card {
+    position: relative;
+}
+
+.update-delete-task {
+    display: flex;
+    margin-top: auto;
+}
+
+.user-task-form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.textarea-container {
+    margin: 5px;
+}
+
+.update-task-name {
+    display: flex;
+    justify-content: space-between;
+}
+
+.input-handler {
+    width: 200px;
+    height: 3em;
+}
+
+.button-style {
+    width: 50%;
+    height: 3em;
+}

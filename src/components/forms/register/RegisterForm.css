@@ -8,8 +8,8 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(255, 255, 255, 0.33);
-    box-shadow: 0px 8px 32px 0 rgb(0, 0, 255, 0.33);
-    backdrop-filter: blur(3px);
+    box-shadow: 8px 8px 16px #B10135;
+    backdrop-filter: blur(50px);
 }
 
 .register-form-style {
@@ -19,6 +19,16 @@
 .submit-login {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     text-align: center;
+}
+
+.register-button-style{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-top: 50px;
+    color: white;
+    padding: 20px;
 }

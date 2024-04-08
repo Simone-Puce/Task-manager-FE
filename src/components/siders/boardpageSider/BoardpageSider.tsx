@@ -1,15 +1,21 @@
 import Sider from "antd/es/layout/Sider"
 import BoardpageMenu from "../../menus/boardpage/BoardpageMenu";
 import { useState } from "react";
+import { IBoardpageSider } from "../../../interfaces/components/siders/IBoardpageSider";
 import "./BoardpageSider.css"
-import { IBoardPage } from "../../../interfaces/components/pages/IBoardPage";
 
-const BoardpageSider = ({selectedBoardId, setSelectedBoardId}: IBoardPage) => {
-    const [collapsed, setCollapsed] = useState(false);
+const BoardpageSider = ({ selectedBoardId, setSelectedBoardId, reset, seed, setIsBoardSpinning}: IBoardpageSider) => {
+    const [collapsed, setCollapsed] = useState<boolean>(false)
 
     return (
-        <Sider className='sider-style' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-            <BoardpageMenu setSelectedBoardId={setSelectedBoardId} selectedBoardId={selectedBoardId}/>
+        <Sider collapsible={true} collapsed={collapsed} onCollapse={(value: any) => setCollapsed(value)} className="sider-style">
+            <BoardpageMenu
+                setSelectedBoardId={setSelectedBoardId}
+                selectedBoardId={selectedBoardId}
+                reset={reset}
+                seed={seed}
+                setIsBoardSpinning={setIsBoardSpinning}
+            />
         </Sider>
     )
 }

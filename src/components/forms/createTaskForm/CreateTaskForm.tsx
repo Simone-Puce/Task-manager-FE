@@ -1,47 +1,25 @@
-import { Input, Button, Form, Select, SelectProps } from "antd";
+import { Input, Button, Form } from "antd";
 import { ReactElement } from "react";
-import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal";
 import Cookies from "js-cookie";
 import { createTask } from "../../../services/TaskService";
-import { useNavigate } from "react-router-dom";
+import { ICreateUpdateTaskModal } from "../../../interfaces/components/modal/ICreateUpdateTaskModal";
 import "./CreateTaskForm.css"
 
-
-const CreateTaskForm = ({ handleCancel, selectedBoardId, setSelectedBoardId }: ISuccessRegistrationModal): ReactElement => {
+const CreateTaskForm = ({ handleCancel, selectedLane, reset, createTaskHandler }: ICreateUpdateTaskModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
-    const navigate = useNavigate()
-
-    const selectOptions: SelectProps['options'] =
-        [
-            {
-                label: "To do",
-                value: "To do"
-            },
-            {
-                label: "Work in progress",
-                value: "Work in progress"
-            },
-            {
-                label: "Review",
-                value: "Review"
-            },
-            {
-                label: "Done",
-                value: "Done"
-            }
-        ]
 
     const onSubmit = async () => {
         const formValues = form.getFieldsValue()
-        await createTask(token!, {
+        const taskResponse = await createTask(token!, {
             taskName: formValues.taskName,
-            status: formValues.status,
-            boardId: selectedBoardId
+            laneId: selectedLane
         })
+        if (taskResponse !== undefined) {
+            createTaskHandler!(taskResponse.data)
+        }
         handleCancel()
-        setSelectedBoardId!(parseInt(localStorage.getItem("my-board-id")!))
-        navigate("/spinner")
+        reset()
     }
 
     return (
@@ -57,26 +35,16 @@ const CreateTaskForm = ({ handleCancel, selectedBoardId, setSelectedBoardId }: I
             >
                 <Input />
             </Form.Item>
-            <Form.Item
-                name="status"
-                label="Status"
-                rules={[{ required: true }]}>
-                <Select
-                    allowClear
-                    placeholder="Please select"
-                    options={selectOptions}
-                />
-            </Form.Item>
             <div className="buttons">
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" className="color-button">
                     Add
                 </Button>
-                <Button onClick={handleCancel}>
+                <Button onClick={handleCancel} className="secondary-color-button">
                     Cancel
                 </Button>
             </div>
         </Form>
-    );
-};
+    )
+}
 
 export default CreateTaskForm
