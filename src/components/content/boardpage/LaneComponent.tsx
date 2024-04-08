@@ -105,7 +105,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     <Form.Item
                         name="laneName"
                         rules={[{ required: true, message: 'Please input the task name!' }]}>
-                        <Input />
+                        <Input maxLength={10} />
                     </Form.Item>
                 </Form>
             )
