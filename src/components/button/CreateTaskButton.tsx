@@ -35,12 +35,8 @@ const CreateTaskButton = (props: ICreateTaskButton) => {
             if (!isColumnNameInUpdate) {
                 return (
                     <>
-                        <Button icon={<EditOutlined />} onClick={updateLaneHandler}>
-                            Edit
-                        </Button>
-                        <Button icon={<DeleteOutlined />} onClick={deleteLaneHandler}>
-                            Delete
-                        </Button>
+                        <Button icon={<EditOutlined />} onClick={updateLaneHandler}/>
+                        <Button icon={<DeleteOutlined />} onClick={deleteLaneHandler}/>         
                     </>
                 )
             } else {
@@ -62,7 +58,7 @@ const CreateTaskButton = (props: ICreateTaskButton) => {
         return (
             <div className="columns-button">
                 <Button icon={<FileAddOutlined />} onClick={showModal}>
-                    New Task
+               
                 </Button>
                 {laneUpdateHandler()}
             </div>

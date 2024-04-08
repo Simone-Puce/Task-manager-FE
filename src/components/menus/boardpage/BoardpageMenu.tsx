@@ -69,7 +69,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
             userBoardsAssociation.map((element: Board) => (
                 <Menu.Item
                     key={element.boardId! + 4}
-                    className="menu-item-hover"
+                    className="menu-item-hover ant-menu-item-selected"
                     title={element.boardName}
                     onClick={() => handleNavigation(element.boardId!)}
                 >
