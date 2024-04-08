@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom"
 import { IHomePage } from "../../../interfaces/components/pages/IHomePage"
 import { ArrowRightOutlined } from "@ant-design/icons"
 import CreateUpdateBoardModal from "../../modals/createBoard/CreateUpdateBoardModal"
-import "./HomepageContentAdmin.css"
 import SpinnerPage from "../../../pages/spinner/SpinnerPage"
+import "./HomepageContentAdmin.css"
 
 const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning }: IHomePage): ReactElement => {
     const [inputValue, setInputValue] = useState('')
@@ -62,16 +62,20 @@ const HomepageContentAdmin = ({ setSelectedBoardId, isSpinning }: IHomePage): Re
 
     const boardmap = () => {
         return (
-            displayedBoards.map((element, index) => (
-                <Card title={element.boardName}
+            displayedBoards.map((board, index) => (
+                <Card title={board.boardName}
                     key={index}
                     bordered={true}
                     hoverable
                     className="card-style">
                     <div className="card-button">
-                        <Button type="primary" onClick={() => updateBoardHandler(element.boardId!)}>Update</Button>
-                        <Button onClick={() => deleteBoardHandler(element.boardId!)}>Delete</Button>
-                        <Button type="text" onClick={() => handleCardClick(element.boardId!)}><ArrowRightOutlined /></Button>
+                        <Button type="primary" onClick={() => updateBoardHandler(board.boardId!)} className="color-button">Update</Button>
+                        <Button onClick={() => deleteBoardHandler(board.boardId!)} className="secondary-color-button">Delete</Button>
+                        <Button type="text" onClick={() => handleCardClick(board.boardId!)}><ArrowRightOutlined /></Button>
+                    </div>
+                    <div className="board-specifics"> 
+                        <p> {"Last update "+ board.modifiedDate} </p>
+                        <p> {"Updated by "+ board.modifiedBy} </p>
                     </div>
                 </Card>
             ))

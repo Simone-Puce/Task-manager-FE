@@ -1,6 +1,5 @@
-import { Button, Card, Modal, Select, Upload, UploadProps, message } from "antd";
+import { Button, Card, Modal, Select } from "antd";
 import { ReactElement, useEffect, useState } from "react";
-import { UploadOutlined } from '@ant-design/icons'
 import { ITaskDetailsModal } from "../../../../interfaces/components/modal/ITaskDetailsModal";
 import { getTaskById, updateTask } from "../../../../services/TaskService";
 import Cookies from "js-cookie";
@@ -10,46 +9,58 @@ import { Board } from "../../../../interfaces/model/Board";
 import { getBoardById } from "../../../../services/BoardService";
 import { SelectProps } from "antd/es/select";
 import { Lane } from "../../../../interfaces/model/Lane";
+import TaskAttachmentTable from "./taskTable/TaskAttachmentTable";
+import UploadFileForm from "../../../forms/uploadFile/UploadFileForm";
+import AssociateUserTaskForm from "../../../forms/associateUserTaskForm/AssociateUserTaskForm";
+import { getUserDetails } from "../../../../services/UserService";
+import { UserInBoard } from "../../../../interfaces/model/UserInBoard";
 import "./TaskDetailsModal.css"
-
-
-const property: UploadProps = {
-    name: 'file',
-    action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-    headers: {
-        authorization: 'authorization-text',
-    },
-    onChange(info) {
-        if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
-    }
-}
+import UpdateTaskDescriptionForm from "../../../forms/updateTaskDescriptionForm/UpdateTaskDescriptionForm";
+import TextArea from "antd/es/input/TextArea";
 
 const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
-    const token = Cookies.get("jwt-token")
+    const token: string = Cookies.get("jwt-token")!
     const [task, setTask] = useState<Task>()
     const [board, setBoard] = useState<Board>()
+    const [seed, setSeed] = useState<number>(1)
     const [selectedValue, setSelectedValue] = useState<number>(props.laneId)
+    const [isUserAssociatedWithTask, setIsUserAssociatedWithTask] = useState<boolean>()
     const options: SelectProps['options'] = []
+
+    const resetTaskDetails = () => {
+        setSeed(Math.random())
+    }
 
     useEffect(() => {
         const fetchTaskDetails = async () => {
-            if(props.selectedTaskId){
+            if (props.selectedTaskId) {
                 const taskResponse = await getTaskById(token!, props.selectedTaskId!)
-            setTask(taskResponse.data)
-            const boardResponse = await getBoardById(props.boardId, token!)
-            setBoard(boardResponse.data)
+                if (taskResponse.status !== 400 && taskResponse.status !== 404) {
+                    setTask(taskResponse.data)
+                } else {
+                    console.log(taskResponse.status)
+                }
+                const boardResponse = await getBoardById(props.boardId, token!)
+                setBoard(boardResponse.data)
             }
         }
-
         fetchTaskDetails()
-    }, [props.boardId, props.laneName, props.selectedTaskId, token])
+    }, [props.boardId, props.laneName, props.selectedTaskId, token, seed])
+
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            const userDetailsResponse = await getUserDetails(token)
+            const loggedUserEmail = userDetailsResponse.data.email
+            if (task && loggedUserEmail) {
+                task.users?.forEach((user: UserInBoard) => {
+                    if (user.email === loggedUserEmail) {
+                        setIsUserAssociatedWithTask(true)
+                    }
+                })
+            }
+        }
+        fetchUserDetails()
+    }, [task, token])
 
     board?.lanes?.forEach((lane: Lane) => {
         options.push({
@@ -69,6 +80,66 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
         props.reset()
     }
 
+    const deleteButtonConditionalRender = () => {
+        if (props.isEditor || isUserAssociatedWithTask) {
+            return <Button className="color-button element-margin" onClick={props.deleteTask}> Delete task </Button>
+        } else {
+            return <></>
+        }
+    }
+
+    const associateFormConditionalRender = () => {
+        if (props.isEditor || isUserAssociatedWithTask) {
+            return (
+                <div className="user-task-form-container">
+                    <AssociateUserTaskForm {...props} usersTask={task?.users!} />
+                </div>
+            )
+        } else {
+            return <></>
+        }
+    }
+
+    const updateDescriptionConditionalRender = () => {
+        if (props.isEditor || isUserAssociatedWithTask) {
+            return (
+                <div className="user-task-form-container">
+                    <UpdateTaskDescriptionForm {...task} />
+                </div>
+            )
+        } else {
+            return <></>
+        }
+    }
+
+    const updateTaskStatusConditionalRender = () => {
+        if (props.isEditor || isUserAssociatedWithTask) {
+            return (
+                <div className="update-delete-task">
+                    <Select
+                        className="task-select-modal-style element-margin"
+                        onChange={handleSelectLaneChange}
+                        options={options}
+                        value={selectedValue}
+                    />
+                    {deleteButtonConditionalRender()}
+                </div>
+            )
+        }
+    }
+
+    const taskDescriptionHandler = (): ReactElement => {
+        if (task?.description === undefined) {
+            return <div></div>
+        } else {
+            return (
+                <div>
+                    <label> Description </label>
+                    <TextArea disabled value={task.description} />
+                </div>)
+        }
+    }
+
     return (
         <>
             <Modal
@@ -79,25 +150,16 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                 footer={<></>}
             >
                 <Content>
-                    <Card className="modal-Card">
-                        <p>{task?.description}</p>
-                        <p>{task?.createdBy}</p>
-                        <p>{task?.createdDate?.toString()}</p>
-                        <p>{task?.modifiedBy}</p>
-                        <p>Column</p>
-                        <p>
-                            <Select
-                                className="task-select-modal-style"
-                                onChange={handleSelectLaneChange}
-                                options={options}
-                                value={selectedValue}
-                            />
-                        </p>
-                        <div>
-                            <Upload {...property}>
-                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
-                            </Upload>
-                        </div>
+                    <Card className="modal-card">
+                        <p>{"Creator: " + task?.createdBy}</p>
+                        <p>{"Task creation date: " + task?.createdDate?.toString()}</p>
+                        <p>{"Last update from: " + task?.modifiedBy}</p>
+                        {taskDescriptionHandler()}
+                        {updateDescriptionConditionalRender()}
+                        {associateFormConditionalRender()}
+                        {updateTaskStatusConditionalRender()}
+                        <TaskAttachmentTable {...task} setTask={setTask} resetTaskDetails={resetTaskDetails} />
+                        <UploadFileForm taskId={task?.taskId!} resetTaskDetails={resetTaskDetails} />
                     </Card>
                 </Content>
             </Modal>
@@ -106,4 +168,4 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
 }
 
 
-export default TaskDetailsModal;
+export default TaskDetailsModal

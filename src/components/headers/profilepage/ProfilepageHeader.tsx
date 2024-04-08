@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react"
+import { ReactElement } from "react"
 import { Header } from "antd/es/layout/layout";
 import "./ProfilepageHeader.css"
 

@@ -1,3 +1,6 @@
+import { Attachment } from "./Attachment"
+import { UserInBoard } from "./UserInBoard"
+
 export interface Task {
     taskId?: number
     taskName?: string
@@ -7,4 +10,6 @@ export interface Task {
     createdDate?: Date
     modifiedDate?: Date
     description?: string
+    users?: UserInBoard[]
+    attachments?: Attachment[]
 }

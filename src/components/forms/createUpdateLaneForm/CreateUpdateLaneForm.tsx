@@ -1,12 +1,11 @@
 import { Button, Form, Input } from "antd"
 import { createLane } from "../../../services/LaneServices"
-import { ISuccessRegistrationModal } from "../../../interfaces/components/modal/ISuccessRegistrationModal"
 import { ReactElement } from "react"
 import Cookies from "js-cookie"
 import { ICreateLaneModal } from "../../../interfaces/components/modal/ICreateLaneModal"
 
 
-const CreateUpdateLaneForm = ({ handleCancel, selectedBoardId }: ICreateLaneModal): ReactElement => {
+const CreateUpdateLaneForm = ({ handleCancel, selectedBoardId, reset }: ICreateLaneModal): ReactElement => {
     const [form] = Form.useForm()
     const token = Cookies.get("jwt-token")
 
@@ -17,6 +16,8 @@ const CreateUpdateLaneForm = ({ handleCancel, selectedBoardId }: ICreateLaneModa
             laneName: laneName,
             boardId: selectedBoardId
         })
+        form.resetFields()
+        reset()
     }
 
     return (
@@ -37,10 +38,10 @@ const CreateUpdateLaneForm = ({ handleCancel, selectedBoardId }: ICreateLaneModa
             </Form.Item>
             <Form.Item>
                 <div className="buttons">
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" className="color-button">
                         Create
                     </Button>
-                    <Button onClick={handleCancel}>
+                    <Button onClick={handleCancel} className="secondary-color-button">
                         Cancel
                     </Button>
                 </div>

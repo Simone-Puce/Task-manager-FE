@@ -9,7 +9,7 @@ const HomepageSider = ({setIsSpinning, resetBoard} : IHomePage) => {
 
     return (
         <Sider className='sider-style' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-            <HomepageMenu setIsSpinning={setIsSpinning} resetBoard={resetBoard}/>
+            <HomepageMenu setIsSpinning={setIsSpinning}/>
         </Sider>
     )
 }

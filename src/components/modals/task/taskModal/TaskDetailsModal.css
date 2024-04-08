@@ -16,5 +16,25 @@
 }
 
 .task-select-modal-style {
-    min-width: 200px
+    min-width: 200px;
+}
+
+.element-margin {
+    margin: 5px;
+    width: 50%;
+}
+
+.modal-card {
+    position: relative;
+}
+
+.update-delete-task {
+    display: flex;
+    margin-top: auto;
+}
+
+.user-task-form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
