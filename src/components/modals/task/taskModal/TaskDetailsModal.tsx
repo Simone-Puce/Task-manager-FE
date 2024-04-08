@@ -1,4 +1,4 @@
-import { Button, Card, Modal, Select } from "antd";
+import { Button, Card, Input, Modal, Select } from "antd";
 import { ReactElement, useEffect, useState } from "react";
 import { ITaskDetailsModal } from "../../../../interfaces/components/modal/ITaskDetailsModal";
 import { getTaskById, updateTask } from "../../../../services/TaskService";
@@ -25,6 +25,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     const [selectedValue, setSelectedValue] = useState<number>(props.laneId)
     const [isUserAssociatedWithTask, setIsUserAssociatedWithTask] = useState<boolean>()
     const [taskDescription, setTaskDescription] = useState<string>("")
+    const [taskName, setTaskName] = useState<string>("")
     const options: SelectProps['options'] = []
 
     const resetTaskDetails = () => {
@@ -38,6 +39,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                 if (taskResponse.status !== 400 && taskResponse.status !== 404) {
                     setTask(taskResponse.data)
                     setTaskDescription(taskResponse.data.description)
+                    setTaskName(taskResponse.data.taskName)
                 } else {
                     console.log(taskResponse.status)
                 }
@@ -61,7 +63,7 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
             }
         }
         fetchUserDetails()
-    }, [task, token])
+    }, [task, token, seed])
 
     board?.lanes?.forEach((lane: Lane) => {
         options.push({
@@ -125,6 +127,40 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
             laneId: task?.laneId,
             taskId: task?.taskId
         })
+        resetTaskDetails()
+    }
+
+    const updateTaskName = async () => {
+        await updateTask(token, {
+            taskName: taskName,
+            description: taskDescription,
+            laneId: task?.laneId,
+            taskId: task?.taskId
+        })
+        resetTaskDetails()
+    }
+
+    const updateTaskNameHandler = (): ReactElement => {
+        if (props.isEditor || isUserAssociatedWithTask) {
+            return (
+                <div className="update-task-name">
+                    <Input
+                        minLength={1}
+                        showCount
+                        maxLength={255}
+                        size="small"
+                        value={taskName}
+                        onChange={async (event) => setTaskName(event?.target.value!)}
+                        className="input-handler"
+                    />
+                    <Button className="color-button button-style" onClick={updateTaskName}> Update task name </Button>
+                </div>
+            )
+        } else {
+            return (
+                <></>
+            )
+        }
     }
 
     const taskDescriptionHandler = (): ReactElement => {
@@ -143,13 +179,12 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
                 </div>
             )
         }
-
     }
 
     return (
         <>
             <Modal
-                title={task?.taskName}
+                title={task?.taskName?.toUpperCase()}
                 open={props.isTaskModalOpen}
                 onCancel={props.handleCancel}
                 className='modal-Card'
@@ -157,9 +192,11 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
             >
                 <Content>
                     <Card className="modal-card">
+                        {updateTaskNameHandler()}
                         <h4>{"Creator: " + task?.createdBy}</h4>
                         <h4>{"Task creation date: " + task?.createdDate?.toString()}</h4>
                         <h4>{"Last update from: " + task?.modifiedBy}</h4>
+                        <h4>{"Last update date: " + task?.modifiedDate}</h4>
                         {taskDescriptionHandler()}
                         {associateFormConditionalRender()}
                         {updateTaskStatusConditionalRender()}
