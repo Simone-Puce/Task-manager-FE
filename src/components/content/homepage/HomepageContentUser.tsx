@@ -32,6 +32,8 @@ const HomepageContentUser = ({ setSelectedBoardId }: IHomePage): ReactElement =>
     const handleCardClick = (elementId: number) => {
         setSelectedBoardId!(elementId)
         localStorage.setItem("my-board-id", elementId.toString())
+        setSelectedBoardId!(elementId)
+        localStorage.setItem("my-board-id", elementId.toString())
         navigate("/board")
     }
 

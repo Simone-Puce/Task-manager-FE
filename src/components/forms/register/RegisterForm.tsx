@@ -90,7 +90,7 @@ const RegisterForm = (): ReactElement => {
             <Form
                 className="register-form-style"
                 form={form}
-                layout="vertical"
+                layout="vertical"   
                 name="login"
                 initialValues={{ remember: true }}
                 onFinish={onSubmit}
