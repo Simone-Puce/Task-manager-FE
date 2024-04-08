@@ -128,23 +128,22 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
     }
 
     const taskDescriptionHandler = (): ReactElement => {
-
         if (props.isEditor || isUserAssociatedWithTask) {
-                return (
-                    <div>
-                        <label> Description </label>
-                        <TextArea maxLength={5000} value={taskDescription} onChange={updateDescription} />
-                    </div>
+            return (
+                <div className="textarea-container">
+                    <label> Description </label>
+                    <TextArea maxLength={5000} value={taskDescription} onChange={updateDescription} />
+                </div>
             )
         } else {
             return (
-                <div>
+                <div className="textarea-container">
                     <label> Description </label>
-                    <TextArea disabled maxLength={5000} value={taskDescription}/>
+                    <TextArea disabled maxLength={5000} value={taskDescription} />
                 </div>
             )
         }
-       
+
     }
 
     return (
@@ -158,14 +157,25 @@ const TaskDetailsModal = (props: ITaskDetailsModal): ReactElement => {
             >
                 <Content>
                     <Card className="modal-card">
-                        <p>{"Creator: " + task?.createdBy}</p>
-                        <p>{"Task creation date: " + task?.createdDate?.toString()}</p>
-                        <p>{"Last update from: " + task?.modifiedBy}</p>
+                        <h4>{"Creator: " + task?.createdBy}</h4>
+                        <h4>{"Task creation date: " + task?.createdDate?.toString()}</h4>
+                        <h4>{"Last update from: " + task?.modifiedBy}</h4>
                         {taskDescriptionHandler()}
                         {associateFormConditionalRender()}
                         {updateTaskStatusConditionalRender()}
-                        <TaskAttachmentTable {...task} setTask={setTask} resetTaskDetails={resetTaskDetails} />
-                        <UploadFileForm taskId={task?.taskId!} resetTaskDetails={resetTaskDetails} />
+                        <TaskAttachmentTable
+                            {...task}
+                            setTask={setTask}
+                            resetTaskDetails={resetTaskDetails}
+                            isEditor={props.isEditor}
+                            isUserAssociatedWithTask={isUserAssociatedWithTask}
+                        />
+                        <UploadFileForm
+                            taskId={task?.taskId!}
+                            resetTaskDetails={resetTaskDetails}
+                            isEditor={props.isEditor}
+                            isUserAssociatedWithTask={isUserAssociatedWithTask}
+                        />
                     </Card>
                 </Content>
             </Modal>
