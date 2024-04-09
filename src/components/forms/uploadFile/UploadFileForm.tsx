@@ -11,7 +11,7 @@ const UploadFileForm = ({ taskId, resetTaskDetails, isEditor, isUserAssociatedWi
   const [form] = Form.useForm()
   const token: string = Cookies.get("jwt-token")!
 
-  const refusedUploadNotification = () => {
+ const refusedUploadNotification = () => {
     notification.open({
       type: "warning",
       message: "Can't upload because you are either not associated to this task or the file extention is not supported",

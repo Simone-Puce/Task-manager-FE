@@ -49,6 +49,7 @@ export const uploadFile = async (formData: FormData, token: string, taskId: numb
         return response
     } catch (error: any) {
         return error.response
+
     }
 }
 
