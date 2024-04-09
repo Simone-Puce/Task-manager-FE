@@ -88,16 +88,19 @@
     width: var(--sb-size)
 }
 
-
 .task-content-style::-webkit-scrollbar-track {
     background: var(--sb-track-color);
 }
 
-
 .task-content-style::-webkit-scrollbar-thumb {
     background: var(--sb-thumb-color);
-
 }
+
+body {
+    --sb-track-color: #F1F1E6;
+    --sb-thumb-color: #B10135;
+    --sb-size: 0px;
+  }
 
 @supports not selector(::-webkit-scrollbar) {
     .task-content-style {

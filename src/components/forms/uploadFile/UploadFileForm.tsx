@@ -1,4 +1,4 @@
-import { Form, Upload, Button, Typography, message, notification } from 'antd';
+import { Form, Upload, Button, Typography, notification } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 import { uploadFile } from '../../../services/AttachmentService';
