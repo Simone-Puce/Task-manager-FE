@@ -37,7 +37,6 @@ export const associateUserBoard = async (newUserBoardAssociation: UserBoardAssoc
             }, {
             headers: { Authorization: `Bearer ${token}` }
         })
-        console.log(response)
         return response.data
     } catch (error) {
         console.log(error)

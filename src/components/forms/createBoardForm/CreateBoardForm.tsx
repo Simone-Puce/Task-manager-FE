@@ -15,8 +15,8 @@ const CreateBoardForm = ({ handleCancel, isCreating, boardId, reset }: ICreateUP
         const response = await createNewBoard(boardName, token!)
         if (reset !== undefined && response.data !== undefined) {
             reset()
-            form.resetFields()
         }
+        form.resetFields()
         handleCancel()
     }
 
@@ -26,8 +26,8 @@ const CreateBoardForm = ({ handleCancel, isCreating, boardId, reset }: ICreateUP
         const response = await updateBoard(newBoardName, boardId!, token!)
         if (reset !== undefined && response.data !== undefined) {
             reset()
-            form.resetFields()
         }
+        form.resetFields()
     }
 
     if (isCreating) {
@@ -44,6 +44,7 @@ const CreateBoardForm = ({ handleCancel, isCreating, boardId, reset }: ICreateUP
                     rules={[{ required: true, message: 'Please input the title of the board' }]}
                 >
                     <Input
+                        defaultValue={""}
                         allowClear
                     />
                 </Form.Item>
@@ -73,6 +74,7 @@ const CreateBoardForm = ({ handleCancel, isCreating, boardId, reset }: ICreateUP
                     rules={[{ required: true, message: 'Please input the title of the board' }]}
                 >
                     <Input
+                        defaultValue={""}
                         allowClear
                     />
                 </Form.Item>
