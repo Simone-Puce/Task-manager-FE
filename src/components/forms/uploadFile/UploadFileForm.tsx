@@ -13,7 +13,24 @@ const UploadFileForm = ({ taskId, resetTaskDetails, isEditor, isUserAssociatedWi
 
   const refusedUploadNotification = () => {
     notification.open({
-      message: "Can't upload because you are not connected to this task",
+      type: "warning",
+      message: "Can't upload because you are either not associated to this task or the file extention is not supported",
+      duration: 1.5
+    })
+  }
+
+  const uploadSuccessfull = () => {
+    notification.open({
+      type: "success",
+      message: "File uploaded successfully",
+      duration: 1.5
+    })
+  }
+
+  const maxSizeErrorNotification = () => {
+    notification.open({
+      type: "error",
+      message: `File size should not exceed ${MAX_FILE_SIZE / 1024 / 1024}MB.`,
       duration: 1.5
     })
   }
@@ -25,9 +42,16 @@ const UploadFileForm = ({ taskId, resetTaskDetails, isEditor, isUserAssociatedWi
     formData.append('file', formDataValue.originFileObj)
     if (taskId) {
       if (isEditor || isUserAssociatedWithTask) {
-        await uploadFile(formData, token, taskId)
-        resetTaskDetails()
-        form.resetFields()
+        const uploadResponse = await uploadFile(formData, token, taskId)
+        console.log(uploadResponse.data)
+        if (uploadResponse.data.success === true) {
+          uploadSuccessfull()
+          resetTaskDetails()
+          form.resetFields()
+        } else {
+          refusedUploadNotification()
+          form.resetFields()
+        }
       } else {
         refusedUploadNotification()
         resetTaskDetails()
@@ -38,7 +62,8 @@ const UploadFileForm = ({ taskId, resetTaskDetails, isEditor, isUserAssociatedWi
 
   const beforeUpload = (file: File) => {
     if (file.size > MAX_FILE_SIZE) {
-      message.error(`File size should not exceed ${MAX_FILE_SIZE / 1024 / 1024}MB.`)
+      maxSizeErrorNotification()
+      form.resetFields()
       return false
     }
     return true
