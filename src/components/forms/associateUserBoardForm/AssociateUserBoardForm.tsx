@@ -66,15 +66,17 @@ const AssociateUserBoardForm = (props: IAssociateUserBoardForm) => {
                         defaultValue="choose a user"
                         style={{ width: "200px" }}
                         options={optionsHandler()}
+                        allowClear
                     />
                 </Form.Item>
                 <Form.Item
                     name="userRole"
-                    rules={[{ required: true, message: "A user needs to have a role when assigned to a board" }]}
+                    rules={[{ required: true, message: "Field is required" }]}
                 >
                     <Select
                         defaultValue="choose the role"
                         style={{ width: "200px" }}
+                        allowClear
                         options={[
                             {
                                 label: "EDITOR",
