@@ -95,7 +95,7 @@ const UploadFileForm = ({ taskId, resetTaskDetails, isEditor, isUserAssociatedWi
         </Upload>
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className='color-button'>
           Upload
         </Button>
       </Form.Item>
