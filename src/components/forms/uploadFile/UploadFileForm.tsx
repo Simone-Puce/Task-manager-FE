@@ -15,7 +15,7 @@ const UploadFileForm = ({ taskId, resetTaskDetails, isEditor, isUserAssociatedWi
     notification.open({
       type: "warning",
       message: "Can't upload because you are either not associated to this task or the file extention is not supported",
-      duration: 1.5
+      duration: 3
     })
   }
 
@@ -23,7 +23,7 @@ const UploadFileForm = ({ taskId, resetTaskDetails, isEditor, isUserAssociatedWi
     notification.open({
       type: "success",
       message: "File uploaded successfully",
-      duration: 1.5
+      duration: 3
     })
   }
 
@@ -31,7 +31,7 @@ const UploadFileForm = ({ taskId, resetTaskDetails, isEditor, isUserAssociatedWi
     notification.open({
       type: "error",
       message: `File size should not exceed ${MAX_FILE_SIZE / 1024 / 1024}MB.`,
-      duration: 1.5
+      duration: 3
     })
   }
 
