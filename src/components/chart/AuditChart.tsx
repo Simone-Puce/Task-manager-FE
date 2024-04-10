@@ -3,23 +3,27 @@ import React, { useState, useEffect } from 'react';
 import { getAudit } from '../../services/BoardService';
 
 const AuditChart: React.FC = () => {
+  const [tasks, setTasks] = useState<number>()
+  const [boards, setBoards] = useState<number>()
 
   useEffect(() => {
     const getData = async () => {
       const auditResp = await getAudit()
       console.log(auditResp.data)
+      setTasks(auditResp.data.tasks)
+      setBoards(auditResp.data.boards)
     }
     getData()
   }, [])
 
   const data = [
     {
-      type: 'TASK',
-      value: 1,
+      type: 'TASKS',
+      value: tasks,
     },
     {
-      type: 'board',
-      value: 5,
+      type: 'BOARDS',
+      value: boards,
     },
   ];
   const config = {
