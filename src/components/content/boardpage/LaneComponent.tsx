@@ -105,7 +105,7 @@ const LaneComponent = (props: ILaneComponent): ReactElement => {
                     <Form.Item
                         name="laneName"
                         rules={[{ required: true }]}>
-                        <Input maxLength={12} defaultValue={props.laneName} />
+                        <Input maxLength={12} showCount defaultValue={props.laneName} />
                     </Form.Item>
                 </Form>
             )
