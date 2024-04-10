@@ -15,7 +15,7 @@ export const registerNewUser = async (newUser: RegisterUser) => {
         const response = await axios.post(REGISTER_USER_URI, newUser)
         return response.data;
     } catch (error) {
-        console.log(error)
+       return error
     }
 }
 

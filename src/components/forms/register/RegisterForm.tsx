@@ -48,7 +48,11 @@ const RegisterForm = (): ReactElement => {
     const sendData = async () => {
         const { email, firstName, lastName, password } = form.getFieldsValue(["email", "firstName", "lastName", "password"])
         const response = await registerNewUser({ email, firstName, lastName, password })
-        response.success === true ? showModal() : message.error("This user already exists ")
+        if (response.success) {
+            response.success === true ? showModal() : message.error("This user already exists ")
+        } else {
+            message.error("Something went wrong please try again")
+        }
     }
 
     const titleFunction = (): string => {
