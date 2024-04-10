@@ -170,6 +170,9 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
                 <Menu.Item className="menu-item-hover" key="1" icon={<HomeOutlined />} onClick={() => navigate("/homepage")}>
                     Homepage
                 </Menu.Item>
+                <Menu.Item onClick={() => navigate("/audit")}>
+                    Chart
+                </Menu.Item>
                 <Menu.Item className="menu-item-hover" key="2" icon={<UserOutlined />} onClick={() => navigate("/profile")}>
                     Profile
                 </Menu.Item>

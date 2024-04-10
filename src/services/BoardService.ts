@@ -70,6 +70,12 @@ export const updateBoard = async (newBoardName: string, id: number, token: strin
     }
 }
 
+export const getAudit = async () => {
+    const awaitResponse = await axios.get(VERSION_URI + "/audit/get-all")
+    console.log(awaitResponse)
+    return awaitResponse.data
+}
+
 export const deleteBoard = async (id: number, token: string) => {
     try {
         const response = await axios.put(DELETE_BY_CODE,{},
