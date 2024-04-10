@@ -59,7 +59,6 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
     const handleNavigation = (boardId: number) => {
         setSelectedBoardId!(boardId)
         localStorage.setItem("my-board-id", boardId.toString())
-
     }
 
     const boardItem = () => {
@@ -67,7 +66,7 @@ const BoardpageMenu = ({ setSelectedBoardId, selectedBoardId, setIsBoardSpinning
             userBoardsAssociation.map((element: Board) => (
                 <Menu.Item
                     key={element.boardId! + 4}
-                    className="menu-item-hover ant-menu-item-selected"
+                    className="menu-item-hover"
                     title={element.boardName}
                     onClick={() => handleNavigation(element.boardId!)}
                 >
