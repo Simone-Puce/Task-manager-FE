@@ -24,7 +24,7 @@ export const loginUser = async (loginUserData: LoginUser) => {
         const response = await axios.post(LOGIN_USER_URI, loginUserData)
         return response.data;
     } catch (error: any) {
-        return error.response.data
+        console.log("carlo")
     }
 }
 
